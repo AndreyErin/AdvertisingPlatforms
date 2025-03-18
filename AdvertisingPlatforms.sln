@@ -1,9 +1,14 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35828.75 d17.13
+VisualStudioVersion = 17.13.35828.75
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdvertisingPlatforms", "AdvertisingPlatforms\AdvertisingPlatforms.csproj", "{2D93E442-7985-45D1-A116-DA3744BF8BA4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdvertisingPlatforms.Tests", "AdvertisingPlatforms.Tests\AdvertisingPlatforms.Tests.csproj", "{C4F00730-6B11-45BD-A319-E9B1A35343F7}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2D93E442-7985-45D1-A116-DA3744BF8BA4} = {2D93E442-7985-45D1-A116-DA3744BF8BA4}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +20,10 @@ Global
 		{2D93E442-7985-45D1-A116-DA3744BF8BA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2D93E442-7985-45D1-A116-DA3744BF8BA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2D93E442-7985-45D1-A116-DA3744BF8BA4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4F00730-6B11-45BD-A319-E9B1A35343F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4F00730-6B11-45BD-A319-E9B1A35343F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4F00730-6B11-45BD-A319-E9B1A35343F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4F00730-6B11-45BD-A319-E9B1A35343F7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

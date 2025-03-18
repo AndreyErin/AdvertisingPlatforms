@@ -6,7 +6,6 @@ namespace AdvertisingPlatforms.Models
     {
         public async Task<Dictionary<string, string>?> GetValidDataAsync(IFormFile file)
         {
-
             using StreamReader streamReader = new(file.OpenReadStream());
 
             try
@@ -52,7 +51,6 @@ namespace AdvertisingPlatforms.Models
             {
                 return result;
             }
-
 
             return null;
         }
