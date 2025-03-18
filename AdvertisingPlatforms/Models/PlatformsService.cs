@@ -57,9 +57,11 @@ namespace AdvertisingPlatforms.Models
             return result;
         }
  
-        public async Task SetPlatformsFromFile(FileStream dataFile)
+        public int SetDbPlatforms(Dictionary<string, string> db)
         {
-            throw new NotImplementedException();
+            //устанавливаем новую базу
+            _db = db;
+            return _db.Count();
         }
     }
 }

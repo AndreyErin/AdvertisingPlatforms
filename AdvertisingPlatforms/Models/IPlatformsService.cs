@@ -3,6 +3,6 @@
     public interface IPlatformsService
     {
         public List<string> GetPlatforms(string region);
-        public Task SetPlatformsFromFile(FileStream dataFile);
+        public int SetDbPlatforms(Dictionary<string, string> db);
     }
 }
