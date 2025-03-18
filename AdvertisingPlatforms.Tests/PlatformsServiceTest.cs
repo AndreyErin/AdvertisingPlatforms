@@ -29,7 +29,7 @@ namespace AdvertisingPlatforms.Tests
 
             Assert.NotNull(result3);
             Assert.IsType<List<string>>(result3);
-            Assert.Equal(0, result3?.Count);
+            Assert.Empty(result3);
         }
 
         [Fact]

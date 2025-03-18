@@ -9,8 +9,9 @@ namespace AdvertisingPlatforms
             var builder = WebApplication.CreateBuilder(args);
             builder.Services.AddControllers();
 
-            //регистрируем наш сервис
+            //регистрируем наши сервисы
             builder.Services.AddSingleton<IPlatformsService, PlatformsService>();
+            builder.Services.AddScoped<IReader, Reader>();
 
             var app = builder.Build();
 

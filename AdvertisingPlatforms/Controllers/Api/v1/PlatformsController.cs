@@ -8,10 +8,12 @@ namespace AdvertisingPlatforms.Controllers.Api.v1
     public class PlatformsController : Controller
     {
         private IPlatformsService _pfService;
+        private IReader _reader;
 
-        public PlatformsController(IPlatformsService platformsService)
+        public PlatformsController(IPlatformsService platformsService, IReader reader)
         {
             _pfService = platformsService;
+            _reader = reader;
         }
 
         [HttpGet("{*region}")]
@@ -31,12 +33,15 @@ namespace AdvertisingPlatforms.Controllers.Api.v1
         public async Task<IActionResult> LoadDataAsync([FromForm] IFormFile file)
         {
             //пытаемся получить короректные данные из файла
-            Reader reader = new();
-            var data = await reader.GetValidDataAsync(file);
+            var data = await _reader.GetValidDataAsync(file);
 
-            if (data == null || data.Count() == 0)
+            if (data == null)
             {
-                return UnprocessableEntity("В файле нет корректных данных.");
+                return new StatusCodeResult(500);
+            }
+            else if (data.Count() == 0) 
+            {
+                return UnprocessableEntity("Файл прочитан. В файле нет корректных данных.");
             }
 
             //обновляем базу

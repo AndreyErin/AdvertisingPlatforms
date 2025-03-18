@@ -33,7 +33,9 @@ namespace AdvertisingPlatforms.Tests
             Assert.IsType<Dictionary<string, string>?>(result2);
             Assert.Equal(2, result2.Count);
 
-            Assert.Null(result3);
+            Assert.NotNull(result3);
+            Assert.IsType<Dictionary<string, string>?>(result3);
+            Assert.Empty(result3);
         }
     }
 }

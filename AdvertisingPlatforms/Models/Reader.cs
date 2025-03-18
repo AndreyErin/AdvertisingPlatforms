@@ -14,7 +14,7 @@ namespace AdvertisingPlatforms.Models
                 var fileData = await streamReader.ReadToEndAsync();
 
                 //парсим строку
-                Dictionary<string, string>? resul = GetParseData(fileData);
+                Dictionary<string, string> resul = GetParseData(fileData);
 
                 return resul;
             }
@@ -25,7 +25,7 @@ namespace AdvertisingPlatforms.Models
             }
         }
 
-        private Dictionary<string, string>? GetParseData(string fileData)
+        private Dictionary<string, string> GetParseData(string fileData)
         {
             Dictionary<string, string>? result = new();
 
@@ -47,12 +47,7 @@ namespace AdvertisingPlatforms.Models
                 }
             }
 
-            if (result.Count > 0) 
-            {
-                return result;
-            }
-
-            return null;
+            return result;
         }
     }
 }
