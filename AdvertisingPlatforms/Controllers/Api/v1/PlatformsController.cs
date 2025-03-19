@@ -21,7 +21,7 @@ namespace AdvertisingPlatforms.Controllers.Api.v1
         {
             var result = _pfService.GetPlatforms(region);
 
-            if (result.Count() == 0) 
+            if (result.Count() == 0)
             {
                 return NotFound();
             }
@@ -30,7 +30,7 @@ namespace AdvertisingPlatforms.Controllers.Api.v1
         }
 
         [HttpPost]
-        public async Task<IActionResult> LoadDataAsync([FromForm] IFormFile file)
+        public async Task<IActionResult> UpdateAsync([FromForm] IFormFile file)
         {
             //пытаемся получить короректные данные из файла
             var data = await _reader.GetValidDataAsync(file);
@@ -39,7 +39,7 @@ namespace AdvertisingPlatforms.Controllers.Api.v1
             {
                 return new StatusCodeResult(500);
             }
-            else if (data.Count() == 0) 
+            else if (data.Count() == 0)
             {
                 return UnprocessableEntity("Файл прочитан. В файле нет корректных данных.");
             }
@@ -48,7 +48,7 @@ namespace AdvertisingPlatforms.Controllers.Api.v1
             int count = _pfService.SetDbPlatforms(data);
 
             return Ok($"База успешно обновлена. Количество локаций: {count}");
-         
+
         }
     }
 }

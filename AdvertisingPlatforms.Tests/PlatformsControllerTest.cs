@@ -38,7 +38,7 @@ namespace AdvertisingPlatforms.Tests
         }
 
         [Fact]
-        public async Task LoadDataAsync()
+        public async Task UpdateAsync()
         {
             //Arrange
             var mockPfService = new Mock<IPlatformsService>();
@@ -60,9 +60,9 @@ namespace AdvertisingPlatforms.Tests
             PlatformsController platformsController3 = new PlatformsController(mockPfService.Object, mockReader3.Object);
 
             //Act
-            var resultUnprocessableEntity = await platformsController1.LoadDataAsync(It.IsAny<IFormFile>());
-            var resultStatusCode500 = await platformsController2.LoadDataAsync(It.IsAny<IFormFile>());
-            var resultOk = await platformsController3.LoadDataAsync(It.IsAny<IFormFile>());
+            var resultUnprocessableEntity = await platformsController1.UpdateAsync(It.IsAny<IFormFile>());
+            var resultStatusCode500 = await platformsController2.UpdateAsync(It.IsAny<IFormFile>());
+            var resultOk = await platformsController3.UpdateAsync(It.IsAny<IFormFile>());
 
             //Assert
             Assert.NotNull(resultUnprocessableEntity);

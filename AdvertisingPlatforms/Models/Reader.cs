@@ -18,10 +18,26 @@ namespace AdvertisingPlatforms.Models
 
                 return resul;
             }
-            catch (Exception)
+            catch (ArgumentOutOfRangeException)
             {
-                //если в процессе произошла любоя ошибка
+                //Залогировали
                 return null;
+            }
+            catch (ObjectDisposedException)
+            {
+                //Залогировали
+                return null;
+            }
+            catch (InvalidOperationException)
+            {
+                //Залогировали
+                return null;
+            }
+            catch (Exception) 
+            {
+                //Залогировали, ужаснулись
+                //отправили дальше
+                throw;
             }
         }
 
