@@ -1,5 +1,4 @@
 ﻿
-
 namespace AdvertisingPlatforms.Models
 {
     public class Reader: IReader

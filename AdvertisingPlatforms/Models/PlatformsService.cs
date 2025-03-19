@@ -1,13 +1,11 @@
 ﻿
-using Microsoft.AspNetCore.DataProtection.KeyManagement;
-using System;
-
 namespace AdvertisingPlatforms.Models
 {
     public class PlatformsService : IPlatformsService
     {
         private Dictionary<string, string> _db = new() 
         {
+            //данные по умолчанию
             { "/ru", "Яндекс.Директ" },
             { "/ru/svrd/revda", "Ревдинский рабочий" },
             { "/ru/svrd/pervik", "Ревдинский рабочий" },

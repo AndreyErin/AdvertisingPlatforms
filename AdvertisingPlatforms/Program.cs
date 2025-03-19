@@ -1,5 +1,4 @@
 using AdvertisingPlatforms.Models;
-using Microsoft.AspNetCore.Html;
 
 namespace AdvertisingPlatforms
 {
@@ -19,7 +18,6 @@ namespace AdvertisingPlatforms
             app.UseRouting();
             app.MapControllers();
 
-
             app.MapGet("/", () =>  Results.Content(
                 @"<html><body>" +
                     @"<a href='/api/v1/platforms/ru'>/ru</a></br></br>" +
@@ -31,6 +29,7 @@ namespace AdvertisingPlatforms
                         @"<input type='submit' value='Send file'/>" + 
                     @"</form>" +
                 @"</body></html>", "text/html"));
+
             app.Run();
         }
     }
