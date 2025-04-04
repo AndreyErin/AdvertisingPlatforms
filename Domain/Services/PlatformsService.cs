@@ -1,5 +1,6 @@
-﻿
-namespace AdvertisingPlatforms.Models
+﻿using Domain.Interfaces;
+
+namespace Domain.Services
 {
     public class PlatformsService : IPlatformsService
     {

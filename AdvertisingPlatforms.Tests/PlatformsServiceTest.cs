@@ -1,4 +1,5 @@
-﻿using AdvertisingPlatforms.Models;
+﻿using Domain.Services;
+
 
 namespace AdvertisingPlatforms.Tests
 {

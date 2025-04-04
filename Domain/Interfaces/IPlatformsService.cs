@@ -1,4 +1,4 @@
-﻿namespace AdvertisingPlatforms.Models
+﻿namespace Domain.Interfaces
 {
     public interface IPlatformsService
     {
