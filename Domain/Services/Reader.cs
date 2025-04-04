@@ -1,9 +1,11 @@
-﻿
-namespace AdvertisingPlatforms.Models
+﻿using Domain.Interfaces;
+//using Microsoft.AspNetCore.Http;
+
+namespace Domain.Services
 {
     public class Reader: IReader
     {
-        public async Task<Dictionary<string, string>?> GetValidDataAsync(IFormFile file)
+        public async Task<Dictionary<string, string>?> GetValidDataAsync(Microsoft.AspNetCore.Http.IFormFile file)
         {
             using StreamReader streamReader = new(file.OpenReadStream());
 

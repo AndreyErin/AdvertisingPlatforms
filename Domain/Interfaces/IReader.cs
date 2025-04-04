@@ -1,4 +1,6 @@
-﻿namespace AdvertisingPlatforms.Models
+﻿using Microsoft.AspNetCore.Http;
+
+namespace Domain.Interfaces
 {
     public interface IReader
     {

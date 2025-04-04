@@ -1,4 +1,5 @@
-using AdvertisingPlatforms.Models;
+using Domain.Interfaces;
+using Domain.Services;
 
 namespace AdvertisingPlatforms
 {
