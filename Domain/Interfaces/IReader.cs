@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Domain.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace Domain.Interfaces
 {
     public interface IReader
     {
-        public Task<Dictionary<string, string>?> GetValidDataAsync(IFormFile file);
+        public Task<Dictionary<Location, List<Advertising>>?> GetValidDataAsync(IFormFile file);
     }
 }

@@ -1,66 +1,34 @@
 ﻿using Domain.Interfaces;
+using Domain.Models;
 
 namespace Domain.Services
 {
     public class PlatformsService : IPlatformsService
     {
-        private Dictionary<string, string> _db = new() 
-        {
-            //данные по умолчанию
-            { "/ru", "Яндекс.Директ" },
-            { "/ru/svrd/revda", "Ревдинский рабочий" },
-            { "/ru/svrd/pervik", "Ревдинский рабочий" },
-            { "/ru/msk", "Газета уральских москвичей" },
-            { "/ru/permobl", "Газета уральских москвичей" },
-            { "/ru/chelobl", "Газета уральских москвичей" },
-            { "/ru/svrd", "Крутая реклама" }
+        private Dictionary<Location, List<Advertising>> _db = new();
 
-        };
-
-        public List<string> GetPlatforms(string region)
-        {
-            //получаем список всех возможных локаций
-            List<string> locations = GetLocations(region);
-
-            List<string> result = new();
-            foreach (string location in locations) 
-            {
-                var sub = _db.Where(x => x.Key == location).Select(x => x.Value).ToList();
-
-                if (sub != null && sub.Count() > 0)
-                {
-                    result.AddRange(sub);
-                }
-            }
-
-            //исключаем возможное дублирование
-            result = result.Distinct().ToList();
-
-            return result;
-        }
-
-        private List<string> GetLocations(string region)
-        {
-            string[] fragmentns = region.Split("/");
-
-            List<string> result = new();
-            string location = "";
-
-            for (int i = 0; i < fragmentns.Length; i++)
-            {
-                location += @"/" + fragmentns[i];
-
-                result.Add(location);
-            }
-
-            return result;
-        }
- 
-        public int SetDbPlatforms(Dictionary<string, string> db)
+        public int SetDbPlatforms(Dictionary<Location, List<Advertising>> db)
         {
             //устанавливаем новую базу
             _db = db;
             return _db.Count();
         }
+
+        List<Advertising> IPlatformsService.GetPlatforms(string location)
+        {
+            List<Advertising> result = new();
+
+            Location loc = new Location() { Name = @"/" + location };
+
+            bool successFind = _db.TryGetValue(loc, out List<Advertising>? outResult);
+
+            if (successFind && outResult?.Count > 0) 
+            {
+                result = outResult;
+            }
+
+            return result;
+        }
+
     }
 }

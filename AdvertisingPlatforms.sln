@@ -22,6 +22,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{EAB8D5CF-A221-40D2-B20B-B6E942BF2E48}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{757E5101-2198-4D0E-9FD0-B6C7C57ABBB4}"
+	ProjectSection(ProjectDependencies) = postProject
+		{EAB8D5CF-A221-40D2-B20B-B6E942BF2E48} = {EAB8D5CF-A221-40D2-B20B-B6E942BF2E48}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
