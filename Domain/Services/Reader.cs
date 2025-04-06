@@ -1,11 +1,11 @@
 ﻿using Domain.Interfaces;
-using Domain.Models;
+//using Microsoft.AspNetCore.Http;
 
 namespace Domain.Services
 {
     public class Reader: IReader
     {
-        public async Task<Dictionary<Location, List<Advertising>>?> GetValidDataAsync(Microsoft.AspNetCore.Http.IFormFile file)
+        public async Task<Dictionary<string, string>?> GetValidDataAsync(Microsoft.AspNetCore.Http.IFormFile file)
         {
             using StreamReader streamReader = new(file.OpenReadStream());
 
@@ -15,11 +15,9 @@ namespace Domain.Services
                 var fileData = await streamReader.ReadToEndAsync();
 
                 //парсим строку
-                Dictionary<string, string> oldFormatData = GetParseData(fileData);
+                Dictionary<string, string> resul = GetParseData(fileData);
 
-                Dictionary<Location, List<Advertising>> result = GetNewFormatData(oldFormatData);
-
-                return result;
+                return resul;
             }
             catch (ArgumentOutOfRangeException)
             {
@@ -64,31 +62,6 @@ namespace Domain.Services
                         result.Add(key.Trim(), value);
                     }
                 }
-            }
-
-            return result;
-        }
-
-        private Dictionary<Location, List<Advertising>> GetNewFormatData(Dictionary<string, string> oldFormatData)
-        {
-            Dictionary<Location, List<Advertising>> result = new();
-
-            foreach (var item in oldFormatData)
-            {
-                Location location = new Location() { Name = item.Key };
-                List<Advertising> advertisingList = new List<Advertising>();
-                advertisingList.Add(new() { Name = item.Value});
-
-                var advertisings = oldFormatData.Where(x => item.Key.Contains(x.Key) && item.Key != x.Key ).Select(x=>x.Value).ToList();
-
-                if (advertisings.Count > 0)
-                {
-                    foreach (var advertising in advertisings)
-                    {
-                        advertisingList.Add(new() { Name = advertising});
-                    }
-                }
-                result.Add(location, advertisingList);
             }
 
             return result;

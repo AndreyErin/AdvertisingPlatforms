@@ -1,10 +1,8 @@
-﻿using Domain.Models;
-
-namespace Domain.Interfaces
+﻿namespace Domain.Interfaces
 {
     public interface IPlatformsService
     {
-        public List<Advertising> GetPlatforms(string location);
-        public int SetDbPlatforms(Dictionary<Location, List<Advertising>> newDb);
+        public List<string> GetPlatforms(string region);
+        public int SetDbPlatforms(Dictionary<string, string> db);
     }
 }
