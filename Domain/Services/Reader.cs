@@ -1,23 +1,22 @@
 ﻿using Domain.Interfaces;
-//using Microsoft.AspNetCore.Http;
 
 namespace Domain.Services
 {
     public class Reader: IReader
     {
-        public async Task<Dictionary<string, string>?> GetValidDataAsync(Microsoft.AspNetCore.Http.IFormFile file)
+        public async Task<Dictionary<string, List<string>>?> GetValidDataAsync(Microsoft.AspNetCore.Http.IFormFile file)
         {
             using StreamReader streamReader = new(file.OpenReadStream());
 
             try
             {
-                //читаем весь файл в строку
                 var fileData = await streamReader.ReadToEndAsync();
 
-                //парсим строку
-                Dictionary<string, string> resul = GetParseData(fileData);
+                Dictionary<string, string> parseData = GetParseData(fileData);
 
-                return resul;
+                Dictionary<string, List<string>> result = GetFomatData(parseData);
+
+                return result;
             }
             catch (ArgumentOutOfRangeException)
             {
@@ -62,6 +61,32 @@ namespace Domain.Services
                         result.Add(key.Trim(), value);
                     }
                 }
+            }
+
+            return result;
+        }
+
+        private Dictionary<string, List<string>> GetFomatData(Dictionary<string, string> data)
+        {
+            Dictionary<string, List<string>> result = new();
+
+            foreach (var item in data) 
+            {
+                string key = item.Key;
+
+                List<string> values = new() { item.Value };
+
+                var execpValues = data.Where(x=> item.Key.Contains(x.Key) && x.Key != item.Key)
+                                      .Select(x=>x.Value)
+                                      .Distinct()
+                                      .ToList();
+
+                if(execpValues != null)
+                {
+                    values.AddRange(execpValues);
+                }
+
+                result.Add(key, values);
             }
 
             return result;

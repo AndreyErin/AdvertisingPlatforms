@@ -26,15 +26,15 @@ namespace AdvertisingPlatforms.Tests
 
             //Assert
             Assert.NotNull(result1);
-            Assert.IsType<Dictionary<string, string>?>(result1);
+            Assert.IsType<Dictionary<string, List<string>>?>(result1);
             Assert.Equal(7, result1.Count);
 
             Assert.NotNull(result2);
-            Assert.IsType<Dictionary<string, string>?>(result2);
-            Assert.Equal(2, result2.Count);
-
-            Assert.NotNull(result3);
-            Assert.IsType<Dictionary<string, string>?>(result3);
+            Assert.IsType<Dictionary<string, List<string>>?>(result2);
+            Assert.Equal(2, result2.Count);  
+                                             
+            Assert.NotNull(result3);         
+            Assert.IsType<Dictionary<string, List<string>>?>(result3);
             Assert.Empty(result3);
         }
     }

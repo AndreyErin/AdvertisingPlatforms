@@ -37,24 +37,24 @@ namespace AdvertisingPlatforms.Tests
         public void SetDbPlatforms()
         {
             //Arrange
-            Dictionary<string, string> newData1 = new() 
+            Dictionary<string, List<string>> newData1 = new() 
             {
-                { "/ru", "Яндекс.Директ" },
-                { "/ru/svrd/revda", "Ревдинский рабочий" },
-                { "/ru/svrd/pervik", "Ревдинский рабочий" },
-                { "/ru/msk", "Газета уральских москвичей" },
-                { "/ru/permobl", "Газета уральских москвичей" },
-                { "/ru/chelobl", "Газета уральских москвичей" },
-                { "/ru/svrd", "Крутая реклама" }
+                { "/ru", new List<string>{ "Яндекс.Директ" } },
+                { "/ru/svrd/revda", new List < string > { "Ревдинский рабочий", "Крутая реклама", "Яндекс.Директ" } },
+                { "/ru/svrd/pervik", new List < string > { "Ревдинский рабочий", "Крутая реклама", "Яндекс.Директ" } },
+                { "/ru/msk", new List < string > { "Газета уральских москвичей", "Яндекс.Директ" } },
+                { "/ru/permobl", new List < string > { "Газета уральских москвичей", "Яндекс.Директ" } },
+                { "/ru/chelobl", new List < string > { "Газета уральских москвичей", "Яндекс.Директ" } },
+                { "/ru/svrd", new List < string > { "Крутая реклама", "Яндекс.Директ" } }
             };
 
-            Dictionary<string, string> newData2 = new()
+            Dictionary<string, List<string>> newData2 = new()
             {
-                { "/ru", "Яндекс.Директ" },
-                { "/ru/svrd", "Крутая реклама" }
+                { "/ru", new() { "Яндекс.Директ" } },
+                { "/ru/svrd", new() { "Крутая реклама" } }
             };
 
-            Dictionary<string, string> newData3 = new();
+            Dictionary<string, List<string>> newData3 = new();
 
             PlatformsService pfService = new();
 

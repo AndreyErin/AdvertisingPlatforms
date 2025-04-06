@@ -42,11 +42,11 @@ namespace AdvertisingPlatforms.Tests
         {
             //Arrange
             var mockPfService = new Mock<IPlatformsService>();
-            mockPfService.Setup(x=>x.SetDbPlatforms(It.IsAny<Dictionary<string, string>>())).Returns(5);
+            mockPfService.Setup(x=>x.SetDbPlatforms(It.IsAny<Dictionary<string, List<string>>>())).Returns(5);
 
-            Dictionary<string, string>? db1 = new();
-            Dictionary<string, string>? db2 = null;
-            Dictionary<string, string>? db3 = new() { { "Ключ1", "Значение" }, { "Ключ2", "Значение" } };
+            Dictionary<string, List<string>>? db1 = new();
+            Dictionary<string, List<string>>? db2 = null;
+            Dictionary<string, List<string>>? db3 = new() { { "Ключ1",new() { "Значение" } }, { "Ключ2", new() { "Значение" } } };
             var mockReader1 = new Mock<IReader>();
             mockReader1.Setup(x=> x.GetValidDataAsync(It.IsAny<IFormFile>())).ReturnsAsync(db1);
             PlatformsController platformsController1 = new PlatformsController(mockPfService.Object, mockReader1.Object);

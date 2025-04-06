@@ -4,6 +4,6 @@ namespace Domain.Interfaces
 {
     public interface IReader
     {
-        public Task<Dictionary<string, string>?> GetValidDataAsync(IFormFile file);
+        public Task<Dictionary<string, List<string>>?> GetValidDataAsync(IFormFile file);
     }
 }

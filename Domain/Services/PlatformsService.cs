@@ -4,59 +4,33 @@ namespace Domain.Services
 {
     public class PlatformsService : IPlatformsService
     {
-        private Dictionary<string, string> _db = new() 
+        private Dictionary<string, List<string>> _db = new() 
         {
             //данные по умолчанию
-            { "/ru", "Яндекс.Директ" },
-            { "/ru/svrd/revda", "Ревдинский рабочий" },
-            { "/ru/svrd/pervik", "Ревдинский рабочий" },
-            { "/ru/msk", "Газета уральских москвичей" },
-            { "/ru/permobl", "Газета уральских москвичей" },
-            { "/ru/chelobl", "Газета уральских москвичей" },
-            { "/ru/svrd", "Крутая реклама" }
-
+            { "/ru", new List<string>{ "Яндекс.Директ" } },
+            { "/ru/svrd/revda", new List < string > { "Ревдинский рабочий", "Крутая реклама", "Яндекс.Директ" } },
+            { "/ru/svrd/pervik", new List < string > { "Ревдинский рабочий", "Крутая реклама", "Яндекс.Директ" } },
+            { "/ru/msk", new List < string > { "Газета уральских москвичей", "Яндекс.Директ" } },
+            { "/ru/permobl", new List < string > { "Газета уральских москвичей", "Яндекс.Директ" } },
+            { "/ru/chelobl", new List < string > { "Газета уральских москвичей", "Яндекс.Директ" } },
+            { "/ru/svrd", new List < string > { "Крутая реклама", "Яндекс.Директ" } }
         };
 
-        public List<string> GetPlatforms(string region)
+        public List<string> GetPlatforms(string location)
         {
-            //получаем список всех возможных локаций
-            List<string> locations = GetLocations(region);
-
             List<string> result = new();
-            foreach (string location in locations) 
+
+            bool findLocations = _db.TryGetValue(@"/" + location, out List<string>? value);
+
+            if (findLocations && value?.Count > 0) 
             {
-                var sub = _db.Where(x => x.Key == location).Select(x => x.Value).ToList();
-
-                if (sub != null && sub.Count() > 0)
-                {
-                    result.AddRange(sub);
-                }
-            }
-
-            //исключаем возможное дублирование
-            result = result.Distinct().ToList();
-
-            return result;
-        }
-
-        private List<string> GetLocations(string region)
-        {
-            string[] fragmentns = region.Split("/");
-
-            List<string> result = new();
-            string location = "";
-
-            for (int i = 0; i < fragmentns.Length; i++)
-            {
-                location += @"/" + fragmentns[i];
-
-                result.Add(location);
+                result = value;
             }
 
             return result;
         }
- 
-        public int SetDbPlatforms(Dictionary<string, string> db)
+
+        public int SetDbPlatforms(Dictionary<string, List<string>> db)
         {
             //устанавливаем новую базу
             _db = db;

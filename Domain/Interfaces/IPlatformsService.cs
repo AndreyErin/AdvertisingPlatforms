@@ -2,7 +2,7 @@
 {
     public interface IPlatformsService
     {
-        public List<string> GetPlatforms(string region);
-        public int SetDbPlatforms(Dictionary<string, string> db);
+        public List<string> GetPlatforms(string location);
+        public int SetDbPlatforms(Dictionary<string, List<string>> db);
     }
 }
