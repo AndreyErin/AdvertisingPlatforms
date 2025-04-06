@@ -1,3 +1,4 @@
+using DAL.Repositories;
 using Domain.Interfaces;
 using Domain.Services;
 
@@ -13,6 +14,8 @@ namespace AdvertisingPlatforms
             //регистрируем наши сервисы
             builder.Services.AddSingleton<IPlatformsService, PlatformsService>();
             builder.Services.AddScoped<IReader, Reader>();
+
+            builder.Services.AddTransient<IPlatformsRepository, PlatformsJsonRepository>();
 
             var app = builder.Build();
 

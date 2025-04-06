@@ -1,4 +1,7 @@
-﻿using Domain.Services;
+﻿using DAL.Repositories;
+using Domain.Interfaces;
+using Domain.Services;
+using Moq;
 
 
 namespace AdvertisingPlatforms.Tests
@@ -9,10 +12,25 @@ namespace AdvertisingPlatforms.Tests
         public void GetPlatformsResult()
         {
             //Arrange
+            Dictionary<string, List<string>> data = new()
+            {
+                { "/ru", new List<string>{ "Яндекс.Директ" } },
+                { "/ru/svrd/revda", new List < string > { "Ревдинский рабочий", "Крутая реклама", "Яндекс.Директ" } },
+                { "/ru/svrd/pervik", new List < string > { "Ревдинский рабочий", "Крутая реклама", "Яндекс.Директ" } },
+                { "/ru/msk", new List < string > { "Газета уральских москвичей", "Яндекс.Директ" } },
+                { "/ru/permobl", new List < string > { "Газета уральских москвичей", "Яндекс.Директ" } },
+                { "/ru/chelobl", new List < string > { "Газета уральских москвичей", "Яндекс.Директ" } },
+                { "/ru/svrd", new List < string > { "Крутая реклама", "Яндекс.Директ" } }
+            };
+
             string region1 = "ru/msk";
             string region2 = "ru/svrd/revda";
             string region3 = "Привейт";
-            PlatformsService pfService = new();
+
+            var mockPlatformsRepository = new Mock<IPlatformsRepository>();
+            mockPlatformsRepository.Setup(x => x.GetDb()).Returns(data);
+
+            PlatformsService pfService = new(mockPlatformsRepository.Object);
 
             //Act
             var result1 = pfService.GetPlatforms(region1);
@@ -56,7 +74,10 @@ namespace AdvertisingPlatforms.Tests
 
             Dictionary<string, List<string>> newData3 = new();
 
-            PlatformsService pfService = new();
+            var mockPlatformsRepository = new Mock<IPlatformsRepository>();
+            mockPlatformsRepository.Setup(x=>x.SetDb(It.IsAny<Dictionary<string,List<string>>>())).Returns(1);
+
+            PlatformsService pfService = new(mockPlatformsRepository.Object);
 
 
             //Act

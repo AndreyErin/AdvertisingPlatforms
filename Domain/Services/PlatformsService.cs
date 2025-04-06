@@ -4,17 +4,25 @@ namespace Domain.Services
 {
     public class PlatformsService : IPlatformsService
     {
-        private Dictionary<string, List<string>> _db = new() 
+        private Dictionary<string, List<string>> _db;
+
+        private IPlatformsRepository _platformsRepo;
+
+        public PlatformsService(IPlatformsRepository platformsRepository)
         {
-            //данные по умолчанию
-            { "/ru", new List<string>{ "Яндекс.Директ" } },
-            { "/ru/svrd/revda", new List < string > { "Ревдинский рабочий", "Крутая реклама", "Яндекс.Директ" } },
-            { "/ru/svrd/pervik", new List < string > { "Ревдинский рабочий", "Крутая реклама", "Яндекс.Директ" } },
-            { "/ru/msk", new List < string > { "Газета уральских москвичей", "Яндекс.Директ" } },
-            { "/ru/permobl", new List < string > { "Газета уральских москвичей", "Яндекс.Директ" } },
-            { "/ru/chelobl", new List < string > { "Газета уральских москвичей", "Яндекс.Директ" } },
-            { "/ru/svrd", new List < string > { "Крутая реклама", "Яндекс.Директ" } }
-        };
+            _platformsRepo = platformsRepository;
+
+            var db = _platformsRepo.GetDb();
+
+            if (db != null) 
+            {
+                _db = db;
+            }
+            else
+            {
+                _db = new();
+            }
+        }
 
         public List<string> GetPlatforms(string location)
         {
@@ -30,11 +38,20 @@ namespace Domain.Services
             return result;
         }
 
-        public int SetDbPlatforms(Dictionary<string, List<string>> db)
+        public int SetDbPlatforms(Dictionary<string, List<string>> newDb)
         {
             //устанавливаем новую базу
-            _db = db;
-            return _db.Count();
+            int setDbResult = _platformsRepo.SetDb(newDb);
+
+            if (setDbResult == -1)
+            {
+                return 0;
+            }
+            else 
+            {
+                _db = newDb;
+                return _db.Count();
+            }       
         }
     }
 }
