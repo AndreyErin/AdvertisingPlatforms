@@ -1,6 +1,5 @@
-﻿using DAL.Repositories;
-using Domain.Interfaces;
-using Domain.Services;
+﻿using AdvertisingPlatforms.Domain.Interfaces;
+using AdvertisingPlatforms.Domain.Services;
 using Moq;
 
 

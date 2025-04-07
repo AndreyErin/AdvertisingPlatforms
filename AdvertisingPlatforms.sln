@@ -5,13 +5,13 @@ VisualStudioVersion = 17.13.35828.75
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdvertisingPlatforms", "AdvertisingPlatforms\AdvertisingPlatforms.csproj", "{2D93E442-7985-45D1-A116-DA3744BF8BA4}"
 	ProjectSection(ProjectDependencies) = postProject
-		{757E5101-2198-4D0E-9FD0-B6C7C57ABBB4} = {757E5101-2198-4D0E-9FD0-B6C7C57ABBB4}
-		{EAB8D5CF-A221-40D2-B20B-B6E942BF2E48} = {EAB8D5CF-A221-40D2-B20B-B6E942BF2E48}
+		{8ECAD98E-96DA-D532-CFDF-200731811F44} = {8ECAD98E-96DA-D532-CFDF-200731811F44}
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdvertisingPlatforms.Tests", "AdvertisingPlatforms.Tests\AdvertisingPlatforms.Tests.csproj", "{C4F00730-6B11-45BD-A319-E9B1A35343F7}"
 	ProjectSection(ProjectDependencies) = postProject
 		{2D93E442-7985-45D1-A116-DA3744BF8BA4} = {2D93E442-7985-45D1-A116-DA3744BF8BA4}
+		{8ECAD98E-96DA-D532-CFDF-200731811F44} = {8ECAD98E-96DA-D532-CFDF-200731811F44}
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Элементы решения", "Элементы решения", "{754FC069-D67B-A9D7-50A1-8D1CA196D8F1}"
@@ -19,9 +19,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Элементы решен
 		ReadMe.txt = ReadMe.txt
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{EAB8D5CF-A221-40D2-B20B-B6E942BF2E48}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdvertisingPlatforms.Domain", "AdvertisingPlatforms.Domain\AdvertisingPlatforms.Domain.csproj", "{2285FDCF-4C97-7B45-BCA4-1AF65EBDDA1A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{757E5101-2198-4D0E-9FD0-B6C7C57ABBB4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdvertisingPlatforms.DAL", "AdvertisingPlatforms.DAL\AdvertisingPlatforms.DAL.csproj", "{8ECAD98E-96DA-D532-CFDF-200731811F44}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,14 +37,14 @@ Global
 		{C4F00730-6B11-45BD-A319-E9B1A35343F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C4F00730-6B11-45BD-A319-E9B1A35343F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C4F00730-6B11-45BD-A319-E9B1A35343F7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EAB8D5CF-A221-40D2-B20B-B6E942BF2E48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EAB8D5CF-A221-40D2-B20B-B6E942BF2E48}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EAB8D5CF-A221-40D2-B20B-B6E942BF2E48}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EAB8D5CF-A221-40D2-B20B-B6E942BF2E48}.Release|Any CPU.Build.0 = Release|Any CPU
-		{757E5101-2198-4D0E-9FD0-B6C7C57ABBB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{757E5101-2198-4D0E-9FD0-B6C7C57ABBB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{757E5101-2198-4D0E-9FD0-B6C7C57ABBB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{757E5101-2198-4D0E-9FD0-B6C7C57ABBB4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2285FDCF-4C97-7B45-BCA4-1AF65EBDDA1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2285FDCF-4C97-7B45-BCA4-1AF65EBDDA1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2285FDCF-4C97-7B45-BCA4-1AF65EBDDA1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2285FDCF-4C97-7B45-BCA4-1AF65EBDDA1A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8ECAD98E-96DA-D532-CFDF-200731811F44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8ECAD98E-96DA-D532-CFDF-200731811F44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8ECAD98E-96DA-D532-CFDF-200731811F44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8ECAD98E-96DA-D532-CFDF-200731811F44}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

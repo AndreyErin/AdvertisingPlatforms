@@ -1,6 +1,6 @@
-﻿using Domain.Interfaces;
+﻿using AdvertisingPlatforms.Domain.Interfaces;
 
-namespace Domain.Services
+namespace AdvertisingPlatforms.Domain.Services
 {
     public class Reader: IReader
     {

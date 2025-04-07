@@ -1,7 +1,7 @@
-﻿using Domain.Interfaces;
+﻿using AdvertisingPlatforms.Domain.Interfaces;
 using System.Text.Json;
 
-namespace DAL.Repositories
+namespace AdvertisingPlatforms.DAL.Repositories
 {
     public class PlatformsJsonRepository : IPlatformsRepository
     {
@@ -9,7 +9,7 @@ namespace DAL.Repositories
 
         public PlatformsJsonRepository()
         {
-            filePath = Directory.GetParent(Directory.GetCurrentDirectory()) + @"\DAL\JsonDBs\PlatformsDb.json";
+            filePath = Directory.GetParent(Directory.GetCurrentDirectory()) + @"\AdvertisingPlatforms.DAL\JsonDBs\PlatformsDb.json";
         }
 
         public Dictionary<string, List<string>>? GetDb()

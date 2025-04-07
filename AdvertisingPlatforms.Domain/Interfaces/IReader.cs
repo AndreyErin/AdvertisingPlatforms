@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace Domain.Interfaces
+namespace AdvertisingPlatforms.Domain.Interfaces
 {
     public interface IReader
     {

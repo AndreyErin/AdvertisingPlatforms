@@ -1,4 +1,4 @@
-﻿using Domain.Interfaces;
+﻿using AdvertisingPlatforms.Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AdvertisingPlatforms.Controllers.Api.v1

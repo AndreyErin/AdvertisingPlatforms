@@ -1,4 +1,4 @@
-﻿using Domain.Services;
+﻿using AdvertisingPlatforms.Domain.Services;
 using Microsoft.AspNetCore.Http;
 
 namespace AdvertisingPlatforms.Tests

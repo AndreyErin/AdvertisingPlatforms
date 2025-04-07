@@ -1,5 +1,5 @@
 ﻿using AdvertisingPlatforms.Controllers.Api.v1;
-using Domain.Interfaces;
+using AdvertisingPlatforms.Domain.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
