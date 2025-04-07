@@ -1,4 +1,5 @@
 ﻿using AdvertisingPlatforms.Domain.Interfaces;
+using AdvertisingPlatforms.Domain.Interfaces.Repositories;
 
 namespace AdvertisingPlatforms.Domain.Services
 {

@@ -1,4 +1,4 @@
-﻿namespace AdvertisingPlatforms.Domain.Interfaces
+﻿namespace AdvertisingPlatforms.Domain.Interfaces.Repositories
 {
     public interface IPlatformsRepository
     {

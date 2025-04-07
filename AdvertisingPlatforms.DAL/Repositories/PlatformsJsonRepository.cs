@@ -1,4 +1,4 @@
-﻿using AdvertisingPlatforms.Domain.Interfaces;
+﻿using AdvertisingPlatforms.Domain.Interfaces.Repositories;
 using System.Text.Json;
 
 namespace AdvertisingPlatforms.DAL.Repositories

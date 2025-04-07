@@ -1,4 +1,4 @@
-﻿using AdvertisingPlatforms.Domain.Interfaces;
+﻿using AdvertisingPlatforms.Domain.Interfaces.Repositories;
 using AdvertisingPlatforms.Domain.Services;
 using Moq;
 

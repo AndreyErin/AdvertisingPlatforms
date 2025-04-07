@@ -1,5 +1,6 @@
 using AdvertisingPlatforms.DAL.Repositories;
 using AdvertisingPlatforms.Domain.Interfaces;
+using AdvertisingPlatforms.Domain.Interfaces.Repositories;
 using AdvertisingPlatforms.Domain.Services;
 
 namespace AdvertisingPlatforms
