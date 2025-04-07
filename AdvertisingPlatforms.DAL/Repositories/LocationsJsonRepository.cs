@@ -3,19 +3,22 @@ using AdvertisingPlatforms.Domain.Models;
 
 namespace AdvertisingPlatforms.DAL.Repositories
 {
+    /// <summary>
+    /// Repository of locations for working with a json file.
+    /// </summary>
     public class LocationsJsonRepository : ILocationsRepository
     {
-        public int Add(Location entry)
+        public int Add(Location entity)
         {
             throw new NotImplementedException();
         }
 
-        public int Delete(Location entry)
+        public int Delete(Location entity)
         {
             throw new NotImplementedException();
         }
 
-        public Location Get(int id)
+        public Location? Get(int id)
         {
             throw new NotImplementedException();
         }
@@ -25,7 +28,7 @@ namespace AdvertisingPlatforms.DAL.Repositories
             throw new NotImplementedException();
         }
 
-        public Location Update(Location entry)
+        public Location? Update(Location entity)
         {
             throw new NotImplementedException();
         }

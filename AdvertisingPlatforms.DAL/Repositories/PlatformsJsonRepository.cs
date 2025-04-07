@@ -3,6 +3,9 @@ using System.Text.Json;
 
 namespace AdvertisingPlatforms.DAL.Repositories
 {
+    /// <summary>
+    /// Repository of advertising platforms for working with a json file.
+    /// </summary>
     public class PlatformsJsonRepository : IPlatformsRepository
     {
         private string filePath;

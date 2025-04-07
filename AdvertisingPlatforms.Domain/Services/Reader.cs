@@ -2,6 +2,10 @@
 
 namespace AdvertisingPlatforms.Domain.Services
 {
+
+    /// <summary>
+    /// Reader for files containing information about advertising platforms.
+    /// </summary>
     public class Reader: IReader
     {
         public async Task<Dictionary<string, List<string>>?> GetValidDataAsync(Microsoft.AspNetCore.Http.IFormFile file)

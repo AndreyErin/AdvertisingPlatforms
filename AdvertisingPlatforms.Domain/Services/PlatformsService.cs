@@ -3,6 +3,10 @@ using AdvertisingPlatforms.Domain.Interfaces.Repositories;
 
 namespace AdvertisingPlatforms.Domain.Services
 {
+
+    /// <summary>
+    /// Service for searching advertising platforms for a specific location.
+    /// </summary>
     public class PlatformsService : IPlatformsService
     {
         private Dictionary<string, List<string>> _db;
