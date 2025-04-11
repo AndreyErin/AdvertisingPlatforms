@@ -1,9 +1,11 @@
-﻿namespace AdvertisingPlatforms.Domain.Models
+﻿using AdvertisingPlatforms.Domain.Models.BaseModels;
+
+namespace AdvertisingPlatforms.Domain.Models
 {
     /// <summary>
     /// Location for advertising.
     /// </summary>
-    public class Location
+    public class Location: Resource
     {
     }
 }

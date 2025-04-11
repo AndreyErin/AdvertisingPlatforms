@@ -1,10 +1,12 @@
-﻿namespace AdvertisingPlatforms.Domain.Interfaces.Repositories
+﻿using AdvertisingPlatforms.Domain.Models.BaseModels;
+
+namespace AdvertisingPlatforms.Domain.Interfaces.Repositories
 {
     /// <summary>
     /// Standart interface for repository.
     /// </summary>
-    /// <typeparam name="T">Type of entities.</typeparam>
-    public interface IRepository<T> where T : class
+    /// <typeparam name="T">Type of resource.</typeparam>
+    public interface IRepository<T> where T :notnull , Resource
     {
         /// <summary>
         /// Get all entitis of repository.
