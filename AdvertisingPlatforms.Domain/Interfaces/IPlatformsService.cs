@@ -11,7 +11,7 @@
         /// </summary>
         /// <param name="location">Location for Advertising.</param>
         /// <returns>Return count advertising platforms for location.</returns>
-        public List<string> GetPlatforms(string location);
+        public List<string> GetPlatforms(string locationName);
 
         /// <summary>
         /// Set new database for PlatformsService.

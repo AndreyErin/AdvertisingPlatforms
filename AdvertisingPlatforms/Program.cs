@@ -1,6 +1,6 @@
 using AdvertisingPlatforms.DAL.Repositories;
 using AdvertisingPlatforms.Domain.Interfaces;
-using AdvertisingPlatforms.Domain.Interfaces.Repositories;
+using AdvertisingPlatforms.Domain.Models;
 using AdvertisingPlatforms.Domain.Services;
 
 namespace AdvertisingPlatforms
@@ -13,10 +13,11 @@ namespace AdvertisingPlatforms
             builder.Services.AddControllers();
 
             //регистрируем наши сервисы
-            builder.Services.AddSingleton<IPlatformsService, PlatformsService>();
+            builder.Services.AddScoped<IPlatformsService, PlatformsService>();
             builder.Services.AddScoped<IReader, Reader>();
+            builder.Services.AddScoped<Repository<Location>, LocationsJsonRepository>();
+            builder.Services.AddScoped<Repository<Advertising>, AdvertisingsJsonRepository>();
 
-            builder.Services.AddTransient<IPlatformsRepository, PlatformsJsonRepository>();
 
             var app = builder.Build();
 

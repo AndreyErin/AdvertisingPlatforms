@@ -1,5 +1,5 @@
 ﻿using AdvertisingPlatforms.Domain.Interfaces;
-using AdvertisingPlatforms.Domain.Interfaces.Repositories;
+using AdvertisingPlatforms.Domain.Models;
 
 namespace AdvertisingPlatforms.Domain.Services
 {
@@ -9,35 +9,33 @@ namespace AdvertisingPlatforms.Domain.Services
     /// </summary>
     public class PlatformsService : IPlatformsService
     {
-        private Dictionary<string, List<string>> _db;
+        private Repository<Location> _locationsRepository;
+        private Repository<Advertising> _advertisingsRepository;
 
-        private IPlatformsRepository _platformsRepo;
-
-        public PlatformsService(IPlatformsRepository platformsRepository)
+        public PlatformsService(Repository<Location> locationsRepository, Repository<Advertising> advertisingsRepository)
         {
-            _platformsRepo = platformsRepository;
-
-            var db = _platformsRepo.GetDb();
-
-            if (db != null) 
-            {
-                _db = db;
-            }
-            else
-            {
-                _db = new();
-            }
+            _locationsRepository = locationsRepository;
+            _advertisingsRepository = advertisingsRepository;
         }
 
-        public List<string> GetPlatforms(string location)
+        public List<string> GetPlatforms(string locationName)
         {
             List<string> result = new();
 
-            bool findLocations = _db.TryGetValue(@"/" + location, out List<string>? value);
+            var location = _locationsRepository.Get(locationName);
 
-            if (findLocations && value?.Count > 0) 
+            if (location != null && location.AdvertisingIds != null)
             {
-                result = value;
+                //TODO разнести вложенность по методам
+                foreach (var advId in location.AdvertisingIds)
+                {
+                    var advertising = _advertisingsRepository.Get(advId);
+
+                    if (advertising != null)
+                    {
+                        result.Add(advertising.Name);
+                    }
+                }
             }
 
             return result;
@@ -45,18 +43,24 @@ namespace AdvertisingPlatforms.Domain.Services
 
         public int SetDbPlatforms(Dictionary<string, List<string>> newDb)
         {
-            //устанавливаем новую базу
-            int setDbResult = _platformsRepo.SetDb(newDb);
+            var advertisings = newDb.SelectMany(x=>x.Value)
+                                        .Distinct()
+                                        .Select(x=> new Advertising() { Name = x})
+                                        .ToList();
+            _advertisingsRepository.OwerWriteRepository(advertisings);
 
-            if (setDbResult == -1)
+            var locations = new List<Location>();
+            foreach (var item in newDb)
             {
-                return 0;
+                var advertisingIds = _advertisingsRepository.GetAll()
+                                                            .Join(item.Value, a=>a.Name, l=>l, (a,l)=> a.Id).ToList();
+
+                locations.Add(new Location() { Name = item.Key, AdvertisingIds = advertisingIds});
             }
-            else 
-            {
-                _db = newDb;
-                return _db.Count();
-            }       
+
+            _locationsRepository.OwerWriteRepository(locations);
+
+            return _locationsRepository.GetAll().Count();    
         }
     }
 }

@@ -9,6 +9,7 @@ namespace AdvertisingPlatforms.Controllers.Api.v1
     {
         private IPlatformsService _pfService;
         private IReader _reader;
+        private const string prefLocationName = @"/";
 
         public PlatformsController(IPlatformsService platformsService, IReader reader)
         {
@@ -16,10 +17,11 @@ namespace AdvertisingPlatforms.Controllers.Api.v1
             _reader = reader;
         }
 
-        [HttpGet("{*region}")]
-        public IActionResult Get(string region)
+        [HttpGet("{*location}")]
+        public IActionResult Get(string location)
         {
-            var result = _pfService.GetPlatforms(region);
+            string locationName = prefLocationName + location;
+            var result = _pfService.GetPlatforms(locationName);
 
             if (result.Count() == 0)
             {
