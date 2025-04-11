@@ -1,5 +1,6 @@
 ﻿using AdvertisingPlatforms.Domain.Interfaces.Repositories;
 using AdvertisingPlatforms.Domain.Models;
+using System.Text.Json;
 
 namespace AdvertisingPlatforms.DAL.Repositories
 {
@@ -8,29 +9,86 @@ namespace AdvertisingPlatforms.DAL.Repositories
     /// </summary>
     public class LocationsJsonRepository : ILocationsRepository
     {
-        public int Add(Location entity)
+        private string filePath;
+
+        public LocationsJsonRepository()
         {
-            throw new NotImplementedException();
+            filePath = Directory.GetParent(Directory.GetCurrentDirectory()) + @"\AdvertisingPlatforms.DAL\JsonDBs\LocationsDb.json";
         }
 
-        public int Delete(Location entity)
+        public void Add(Location entity)
         {
-            throw new NotImplementedException();
+            var db = ReadDb();
+            db.Add(entity);
+            WriteDb(db);
+        }
+
+        public void Delete(int id)
+        {
+            var db = ReadDb();
+            var location = db.Find(x=>x.Id == id);
+            if (location != null) 
+            {
+                db.Remove(location);
+                WriteDb(db);
+            }
         }
 
         public Location? Get(int id)
         {
-            throw new NotImplementedException();
+            return ReadDb().Find(x=>x.Id == id);
         }
 
         public List<Location> GetAll()
         {
-            throw new NotImplementedException();
+            return ReadDb();
         }
 
-        public Location? Update(Location entity)
+        public void Update(Location entity)
         {
-            throw new NotImplementedException();
+            var db = ReadDb();
+
+            Location? location = db.Find(x => x.Id == entity.Id);
+
+            if (location != null)
+            {
+                location = entity;
+                WriteDb(db);
+            }
+            else
+            {
+                //исключение
+            }
+        }
+
+        private List<Location> ReadDb()
+        {
+            using StreamReader sr = new StreamReader(filePath);
+            var jsonDb = sr.ReadToEnd();
+
+            var result = JsonSerializer.Deserialize<List<Location>>(jsonDb);
+
+            if (result == null)
+            {
+                //исключение
+            }
+
+            return result;
+        }
+        private void WriteDb(List<Location> newDb)
+        {
+            var newDbJson = JsonSerializer.Serialize(newDb);
+
+            if (newDbJson != null)
+            {
+                using StreamWriter sw = new StreamWriter(filePath, false);
+
+                sw.Write(newDbJson);
+            }
+            else
+            {
+                //исключение
+            }
         }
     }
 }

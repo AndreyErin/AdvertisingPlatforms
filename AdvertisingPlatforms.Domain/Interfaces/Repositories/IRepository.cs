@@ -26,20 +26,20 @@ namespace AdvertisingPlatforms.Domain.Interfaces.Repositories
         /// </summary>
         /// <param name="entity">New entity.</param>
         /// <returns>Return 1 for success, -1 for fail.</returns>
-        int Add(T entity);
+        void Add(T entity);
 
         /// <summary>
         /// Update entity.
         /// </summary>
         /// <param name="entity">Entity for update.</param>
         /// <returns>Return updated entity for success, null for fail.</returns>
-        T? Update(T entity);
+        void Update(T entity);
 
         /// <summary>
         /// Delete entity.
         /// </summary>
         /// <param name="entity">Entity for delete.</param>
         /// <returns>Return 1 for success, -1 for fail</returns>
-        int Delete(T entity);
+        void Delete(int id);
     }
 }
