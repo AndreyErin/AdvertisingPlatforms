@@ -1,4 +1,6 @@
-﻿namespace AdvertisingPlatforms.Domain.Interfaces
+﻿using AdvertisingPlatforms.Domain.Models;
+
+namespace AdvertisingPlatforms.Domain.Interfaces
 {
 
     /// <summary>
@@ -18,6 +20,6 @@
         /// </summary>
         /// <param name="newDb">New database for update.</param>
         /// <returns>Return count elements of database for success, -1 for fail.</returns>
-        public int SetDbAdvertisingPlatforms(Dictionary<string, List<string>> newDb);
+        public int SetDbAdvertisingPlatforms(DataFromFile newDb);
     }
 }

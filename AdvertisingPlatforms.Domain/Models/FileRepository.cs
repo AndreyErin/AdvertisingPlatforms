@@ -40,14 +40,6 @@ namespace AdvertisingPlatforms.Domain.Models
 
         public void OwerWriteDbOfRepository(List<T> entinies)
         {
-            int counter = 1;
-
-            foreach (var entity in entinies)
-            {
-                entity.Id = counter;
-                counter++;
-            }
-
             this.SaveChangesToFile(_dbFilePath, entinies);
         }
 

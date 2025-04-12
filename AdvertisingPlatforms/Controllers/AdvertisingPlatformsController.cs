@@ -40,7 +40,7 @@ namespace AdvertisingPlatforms.Controllers
             {
                 return new StatusCodeResult(500);
             }
-            else if (data.Count() == 0)
+            else if (data.AdvertisingPlatforms.Count() == 0)
             {
                 return UnprocessableEntity("Файл прочитан. В файле нет корректных данных.");
             }

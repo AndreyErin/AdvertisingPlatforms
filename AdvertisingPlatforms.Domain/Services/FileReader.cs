@@ -1,4 +1,6 @@
 ﻿using AdvertisingPlatforms.Domain.Interfaces;
+using AdvertisingPlatforms.Domain.Models;
+using AdvertisingPlatforms.Domain.Models.BaseModels;
 
 namespace AdvertisingPlatforms.Domain.Services
 {
@@ -8,7 +10,7 @@ namespace AdvertisingPlatforms.Domain.Services
     /// </summary>
     public class FileReader: IReader
     {
-        public async Task<Dictionary<string, List<string>>?> GetDataFromFileAsync(Microsoft.AspNetCore.Http.IFormFile file)
+        public async Task<DataFromFile?> GetDataFromFileAsync(Microsoft.AspNetCore.Http.IFormFile file)
         {
             using StreamReader streamReader = new(file.OpenReadStream());
 
@@ -16,11 +18,8 @@ namespace AdvertisingPlatforms.Domain.Services
             {
                 var fileData = await streamReader.ReadToEndAsync();
 
-
                 //TODO - refactoring
-                Dictionary<string, string> parseData = GetParseData(fileData);
-
-                Dictionary<string, List<string>> result = GetFomatData(parseData);
+                DataFromFile? result = GetParseData(fileData);
 
                 return result;
             }
@@ -47,55 +46,74 @@ namespace AdvertisingPlatforms.Domain.Services
             }
         }
 
-        private Dictionary<string, string> GetParseData(string fileData)
-        {
-            Dictionary<string, string>? result = new();
+        private DataFromFile? GetParseData(string fileData)
+        {            
+            List<AdvertisingPlatform> advertisingPlatforms = new();
+            List<List<string>> locationNamesList = new();
 
             var rowList = fileData.Split("\r\n");
 
-            foreach (var row in rowList) 
+            foreach (var row in rowList)
             {
                 string[] rowFragments = row.Split(":");
 
-                if(rowFragments.Length == 2)
+                if (rowFragments.Length == 2)
                 {
-                    string value = rowFragments[0].Trim();
-                    string[] keys = rowFragments[1].Split(",");
+                    string advertisingPlatform = rowFragments[0].Trim();
+                    advertisingPlatforms.Add(new() { Name = advertisingPlatform });
 
-                    foreach (var key in keys) 
+                    List<string> locationNames = rowFragments[1].Split(",").ToList();
+                    locationNamesList.Add(locationNames);
+                }
+            }
+
+            SetIndexesForCollection(advertisingPlatforms);
+
+            var locations = locationNamesList.SelectMany(x=>x.ToList())
+                                             .Select(x=>new Location() { Name = x})
+                                             .ToList();
+
+            foreach (var location in locations)
+            {
+                for (int i = 0; i < advertisingPlatforms.Count; i++)
+                {
+                    if (locationNamesList[i].Contains(location.Name))
                     {
-                        result.Add(key.Trim(), value);
+                        location.AdvertisingIds.Add(advertisingPlatforms[i].Id);
                     }
                 }
             }
 
+            foreach (var location in locations)
+            {
+                var ids = locations.Where(x => location.Name.Contains(x.Name) && x != location)
+                                 .Select(x=>x.AdvertisingIds)
+                                 .SelectMany(x=>x.ToList())
+                                 .ToList();
+
+                if (ids != null)
+                {
+                    location.AdvertisingIds.AddRange(ids);
+                }
+            }
+
+            SetIndexesForCollection(locations);
+
+            DataFromFile result = new(advertisingPlatforms, locations);
             return result;
         }
 
-        private Dictionary<string, List<string>> GetFomatData(Dictionary<string, string> data)
+        private List<T> SetIndexesForCollection<T>(List<T> collection) where T : notnull, Resource
         {
-            Dictionary<string, List<string>> result = new();
+            int counter = 1;
 
-            foreach (var item in data) 
+            foreach (var element in collection)
             {
-                string key = item.Key;
-
-                List<string> values = new() { item.Value };
-
-                var advertisingNames = data.Where(x=> item.Key.Contains(x.Key) && x.Key != item.Key)
-                                      .Select(x=>x.Value)
-                                      .Distinct()
-                                      .ToList();
-
-                if(advertisingNames != null)
-                {
-                    values.AddRange(advertisingNames);
-                }
-
-                result.Add(key, values);
+                element.Id = counter;
+                counter++;
             }
 
-            return result;
+            return collection.ToList();
         }
     }
 }

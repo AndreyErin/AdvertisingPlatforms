@@ -41,25 +41,13 @@ namespace AdvertisingPlatforms.Domain.Services
             return result;
         }
 
-        public int SetDbAdvertisingPlatforms(Dictionary<string, List<string>> newDb)
+        public int SetDbAdvertisingPlatforms(DataFromFile dataFromFile)
         {
-            var advertisings = newDb.SelectMany(x=>x.Value)
-                                        .Distinct()
-                                        .Select(x=> new AdvertisingPlatform() { Name = x})
-                                        .ToList();
-            _advertisingsRepository.OwerWriteDbOfRepository(advertisings);
+            _advertisingsRepository.OwerWriteDbOfRepository(dataFromFile.AdvertisingPlatforms);
 
-            var locations = new List<Location>();
-            foreach (var item in newDb)
-            {
-                var advertisingIds = advertisings.Join(item.Value, a=>a.Name, l=>l, (a,l)=> a.Id).ToList();
+            _locationsRepository.OwerWriteDbOfRepository(dataFromFile.Locations);
 
-                locations.Add(new Location() { Name = item.Key, AdvertisingIds = advertisingIds});
-            }
-
-            _locationsRepository.OwerWriteDbOfRepository(locations);
-
-            return locations.Count();    
+            return dataFromFile.Locations.Count();    
         }
     }
 }
