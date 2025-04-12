@@ -12,11 +12,11 @@ namespace AdvertisingPlatforms
             var builder = WebApplication.CreateBuilder(args);
             builder.Services.AddControllers();
 
-            //регистрируем наши сервисы
+            //registering our services
             builder.Services.AddScoped<IPlatformsService, PlatformsService>();
-            builder.Services.AddScoped<IReader, Reader>();
-            builder.Services.AddScoped<Repository<Location>, LocationsJsonRepository>();
-            builder.Services.AddScoped<Repository<Advertising>, AdvertisingsJsonRepository>();
+            builder.Services.AddScoped<IReader, FileReader>();
+            builder.Services.AddScoped<FileRepository<Location>, LocationsFileRepository>();
+            builder.Services.AddScoped<FileRepository<Advertising>, AdvertisingsFileRepository>();
 
 
             var app = builder.Build();

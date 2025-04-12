@@ -1,7 +1,7 @@
 ﻿using AdvertisingPlatforms.Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AdvertisingPlatforms.Controllers.Api.v1
+namespace AdvertisingPlatforms.Controllers
 {
     [ApiController]
     [Route("/api/v1/[controller]")]
@@ -18,7 +18,7 @@ namespace AdvertisingPlatforms.Controllers.Api.v1
         }
 
         [HttpGet("{*location}")]
-        public IActionResult Get(string location)
+        public IActionResult GetPlatforms(string location)
         {
             string locationName = prefLocationName + location;
             var result = _pfService.GetPlatforms(locationName);
@@ -34,8 +34,7 @@ namespace AdvertisingPlatforms.Controllers.Api.v1
         [HttpPost]
         public async Task<IActionResult> UpdateAsync([FromForm] IFormFile file)
         {
-            //пытаемся получить короректные данные из файла
-            var data = await _reader.GetValidDataAsync(file);
+            var data = await _reader.GetDataFromFileAsync(file);
 
             if (data == null)
             {
@@ -46,7 +45,7 @@ namespace AdvertisingPlatforms.Controllers.Api.v1
                 return UnprocessableEntity("Файл прочитан. В файле нет корректных данных.");
             }
 
-            //обновляем базу
+            //update database PlatformsService
             int count = _pfService.SetDbPlatforms(data);
 
             return Ok($"База успешно обновлена. Количество локаций: {count}");

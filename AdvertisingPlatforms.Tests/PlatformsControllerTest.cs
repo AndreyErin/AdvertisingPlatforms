@@ -1,4 +1,4 @@
-﻿using AdvertisingPlatforms.Controllers.Api.v1;
+﻿using AdvertisingPlatforms.Controllers;
 using AdvertisingPlatforms.Domain.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -48,15 +48,15 @@ namespace AdvertisingPlatforms.Tests
             Dictionary<string, List<string>>? db2 = null;
             Dictionary<string, List<string>>? db3 = new() { { "Ключ1",new() { "Значение" } }, { "Ключ2", new() { "Значение" } } };
             var mockReader1 = new Mock<IReader>();
-            mockReader1.Setup(x=> x.GetValidDataAsync(It.IsAny<IFormFile>())).ReturnsAsync(db1);
+            mockReader1.Setup(x=> x.GetDataFromFileAsync(It.IsAny<IFormFile>())).ReturnsAsync(db1);
             PlatformsController platformsController1 = new PlatformsController(mockPfService.Object, mockReader1.Object);
 
             var mockReader2 = new Mock<IReader>();
-            mockReader2.Setup(x => x.GetValidDataAsync(It.IsAny<IFormFile>())).ReturnsAsync(db2);
+            mockReader2.Setup(x => x.GetDataFromFileAsync(It.IsAny<IFormFile>())).ReturnsAsync(db2);
             PlatformsController platformsController2 = new PlatformsController(mockPfService.Object, mockReader2.Object);
 
             var mockReader3 = new Mock<IReader>();
-            mockReader3.Setup(x => x.GetValidDataAsync(It.IsAny<IFormFile>())).ReturnsAsync(db3);
+            mockReader3.Setup(x => x.GetDataFromFileAsync(It.IsAny<IFormFile>())).ReturnsAsync(db3);
             PlatformsController platformsController3 = new PlatformsController(mockPfService.Object, mockReader3.Object);
 
             //Act

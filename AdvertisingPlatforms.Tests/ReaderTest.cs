@@ -17,12 +17,12 @@ namespace AdvertisingPlatforms.Tests
             IFormFile file2 = new FormFile(fileStream2, 0, fileStream2.Length, "data2.txt", "data2.txt");
             IFormFile file3 = new FormFile(fileStream3, 0, fileStream3.Length, "data3.txt", "data3.txt");
 
-            Reader reader = new Reader();
+            FileReader reader = new FileReader();
 
             //Act
-            var result1 = await reader.GetValidDataAsync(file1);
-            var result2 = await reader.GetValidDataAsync(file2);
-            var result3 = await reader.GetValidDataAsync(file3);
+            var result1 = await reader.GetDataFromFileAsync(file1);
+            var result2 = await reader.GetDataFromFileAsync(file2);
+            var result3 = await reader.GetDataFromFileAsync(file3);
 
             //Assert
             Assert.NotNull(result1);

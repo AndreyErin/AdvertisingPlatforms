@@ -9,10 +9,10 @@ namespace AdvertisingPlatforms.Domain.Services
     /// </summary>
     public class PlatformsService : IPlatformsService
     {
-        private Repository<Location> _locationsRepository;
-        private Repository<Advertising> _advertisingsRepository;
+        private FileRepository<Location> _locationsRepository;
+        private FileRepository<Advertising> _advertisingsRepository;
 
-        public PlatformsService(Repository<Location> locationsRepository, Repository<Advertising> advertisingsRepository)
+        public PlatformsService(FileRepository<Location> locationsRepository, FileRepository<Advertising> advertisingsRepository)
         {
             _locationsRepository = locationsRepository;
             _advertisingsRepository = advertisingsRepository;
@@ -22,14 +22,14 @@ namespace AdvertisingPlatforms.Domain.Services
         {
             List<string> result = new();
 
-            var location = _locationsRepository.Get(locationName);
+            var location = _locationsRepository.GetByName(locationName);
 
             if (location != null && location.AdvertisingIds != null)
             {
-                //TODO разнести вложенность по методам
+                //TODO refactoring
                 foreach (var advId in location.AdvertisingIds)
                 {
-                    var advertising = _advertisingsRepository.Get(advId);
+                    var advertising = _advertisingsRepository.GetById(advId);
 
                     if (advertising != null)
                     {
@@ -47,7 +47,7 @@ namespace AdvertisingPlatforms.Domain.Services
                                         .Distinct()
                                         .Select(x=> new Advertising() { Name = x})
                                         .ToList();
-            _advertisingsRepository.OwerWriteRepository(advertisings);
+            _advertisingsRepository.OwerWriteDbOfRepository(advertisings);
 
             var locations = new List<Location>();
             foreach (var item in newDb)
@@ -58,7 +58,7 @@ namespace AdvertisingPlatforms.Domain.Services
                 locations.Add(new Location() { Name = item.Key, AdvertisingIds = advertisingIds});
             }
 
-            _locationsRepository.OwerWriteRepository(locations);
+            _locationsRepository.OwerWriteDbOfRepository(locations);
 
             return _locationsRepository.GetAll().Count();    
         }

@@ -6,9 +6,9 @@ namespace AdvertisingPlatforms.Domain.Services
     /// <summary>
     /// Reader for files containing information about advertising platforms.
     /// </summary>
-    public class Reader: IReader
+    public class FileReader: IReader
     {
-        public async Task<Dictionary<string, List<string>>?> GetValidDataAsync(Microsoft.AspNetCore.Http.IFormFile file)
+        public async Task<Dictionary<string, List<string>>?> GetDataFromFileAsync(Microsoft.AspNetCore.Http.IFormFile file)
         {
             using StreamReader streamReader = new(file.OpenReadStream());
 
@@ -16,6 +16,8 @@ namespace AdvertisingPlatforms.Domain.Services
             {
                 var fileData = await streamReader.ReadToEndAsync();
 
+
+                //TODO - refactoring
                 Dictionary<string, string> parseData = GetParseData(fileData);
 
                 Dictionary<string, List<string>> result = GetFomatData(parseData);
@@ -24,23 +26,23 @@ namespace AdvertisingPlatforms.Domain.Services
             }
             catch (ArgumentOutOfRangeException)
             {
-                //Залогировали
+                //Loging
                 return null;
             }
             catch (ObjectDisposedException)
             {
-                //Залогировали
+                //Loging
                 return null;
             }
             catch (InvalidOperationException)
             {
-                //Залогировали
+                //Loging
                 return null;
             }
             catch (Exception) 
             {
-                //Залогировали, ужаснулись
-                //отправили дальше
+                //Loging, Horrified
+                //Send on
                 throw;
             }
         }
@@ -80,14 +82,14 @@ namespace AdvertisingPlatforms.Domain.Services
 
                 List<string> values = new() { item.Value };
 
-                var execpValues = data.Where(x=> item.Key.Contains(x.Key) && x.Key != item.Key)
+                var advertisingNames = data.Where(x=> item.Key.Contains(x.Key) && x.Key != item.Key)
                                       .Select(x=>x.Value)
                                       .Distinct()
                                       .ToList();
 
-                if(execpValues != null)
+                if(advertisingNames != null)
                 {
-                    values.AddRange(execpValues);
+                    values.AddRange(advertisingNames);
                 }
 
                 result.Add(key, values);

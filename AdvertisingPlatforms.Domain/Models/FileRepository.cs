@@ -4,18 +4,18 @@ using System.Text.Json;
 namespace AdvertisingPlatforms.Domain.Models
 {
     //TODO - add xml coments
-    public abstract class Repository<T> where T : notnull, Resource
+    public abstract class FileRepository<T> where T : notnull, Resource
     {
-        protected string filePath = "";
+        protected string _dbFilePath = "";
 
-        public void Add(T entity)
+        public void AddToRepository(T entity)
         {
             var db = ReadDb();
             db.Add(entity);
             WriteDb(db);
         }
 
-        public void Delete(int id)
+        public void DeleteFromRepository(int id)
         {
             var db = ReadDb();
 
@@ -28,22 +28,22 @@ namespace AdvertisingPlatforms.Domain.Models
             }
         }
 
-        public T? Get(int id)
+        public T? GetByIdFromRepository(int id)
         {
             return ReadDb().Find(x => x.Id == id);
         }
 
-        public T? Get(string name)
+        public T? GetByNameFromRepository(string name)
         {
             return ReadDb().Find(x => x.Name == name);
         }
 
-        public List<T> GetAll()
+        public List<T> GetAllFromRepository()
         {
             return ReadDb();
         }
 
-        public void OwerWriteRepository(List<T> entinies)
+        public void OwerWriteDbOfRepository(List<T> entinies)
         {
             int counter = 1;
 
@@ -56,7 +56,7 @@ namespace AdvertisingPlatforms.Domain.Models
             WriteDb(entinies);
         }
 
-        public void Update(T entity)
+        public void UpdateInRepository(T entity)
         {
             var db = ReadDb();
 
@@ -75,7 +75,7 @@ namespace AdvertisingPlatforms.Domain.Models
 
         private List<T> ReadDb()
         {
-            using StreamReader sr = new StreamReader(filePath);
+            using StreamReader sr = new StreamReader(_dbFilePath);
             var jsonDb = sr.ReadToEnd();
 
             var result = JsonSerializer.Deserialize<List<T>>(jsonDb);
@@ -93,7 +93,7 @@ namespace AdvertisingPlatforms.Domain.Models
 
             if (newDbJson != null)
             {
-                using StreamWriter sw = new StreamWriter(filePath, false);
+                using StreamWriter sw = new StreamWriter(_dbFilePath, false);
 
                 sw.Write(newDbJson);
             }
