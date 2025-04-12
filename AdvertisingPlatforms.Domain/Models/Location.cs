@@ -3,7 +3,7 @@
 namespace AdvertisingPlatforms.Domain.Models
 {
     /// <summary>
-    /// Location for advertising.
+    /// Location for advertising platforms.
     /// </summary>
     public class Location: Resource
     {

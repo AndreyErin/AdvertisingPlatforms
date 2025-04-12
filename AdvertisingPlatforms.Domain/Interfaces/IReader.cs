@@ -9,10 +9,10 @@ namespace AdvertisingPlatforms.Domain.Interfaces
     public interface IReader
     {
         /// <summary>
-        /// Convert txt-file to Dictionary.
+        /// Convert txt-file to DataFromFile.
         /// </summary>
         /// <param name="file">File for convert.</param>
-        /// <returns>Returns Dictionary for success, null for fail.</returns>
+        /// <returns>Returns DataFromFile for success, null for fail.</returns>
         public Task<DataFromFile?> GetDataFromFileAsync(IFormFile file);
     }
 }

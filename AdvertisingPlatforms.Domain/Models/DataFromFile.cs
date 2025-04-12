@@ -1,5 +1,8 @@
 ﻿namespace AdvertisingPlatforms.Domain.Models
 {
+    /// <summary>
+    /// The type contains advertising and locations obtained from the file.
+    /// </summary>
     public class DataFromFile
     {
         public List<AdvertisingPlatform> AdvertisingPlatforms { get; set; }

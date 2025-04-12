@@ -46,6 +46,7 @@ namespace AdvertisingPlatforms.Domain.Services
             }
         }
 
+        //TODO - refatoring
         private DataFromFile? GetParseData(string fileData)
         {            
             List<AdvertisingPlatform> advertisingPlatforms = new();

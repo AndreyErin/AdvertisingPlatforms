@@ -11,7 +11,7 @@ namespace AdvertisingPlatforms.Domain.Interfaces
         /// <summary>
         /// Get advertising platforms for location.
         /// </summary>
-        /// <param name="location">Location for Advertising.</param>
+        /// <param name="location">Location for Advertising platforms.</param>
         /// <returns>Return count advertising platforms for location.</returns>
         public List<string> GetAdvertisingPlatforms(string locationName);
 

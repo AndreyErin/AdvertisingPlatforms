@@ -4,7 +4,7 @@ using Microsoft.Extensions.Configuration;
 namespace AdvertisingPlatforms.DAL.Repositories
 {
     /// <summary>
-    /// Repository of advertisings for working with a json file.
+    /// Repository of advertisingPlatforms for working with a json file.
     /// </summary>
     public class AdvertisingPlatformsFileRepository : FileRepository<AdvertisingPlatform>
     {
