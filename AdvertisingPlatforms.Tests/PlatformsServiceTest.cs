@@ -29,12 +29,12 @@ namespace AdvertisingPlatforms.Tests
             var mockPlatformsRepository = new Mock<IPlatformsRepository>();
             mockPlatformsRepository.Setup(x => x.GetDb()).Returns(data);
 
-            PlatformsService pfService = new(mockPlatformsRepository.Object);
+            AdvertisingPlatformsService pfService = new(mockPlatformsRepository.Object);
 
             //Act
-            var result1 = pfService.GetPlatforms(region1);
-            var result2 = pfService.GetPlatforms(region2);
-            var result3 = pfService.GetPlatforms(region3);
+            var result1 = pfService.GetAdvertisingPlatforms(region1);
+            var result2 = pfService.GetAdvertisingPlatforms(region2);
+            var result3 = pfService.GetAdvertisingPlatforms(region3);
 
             //Assert
             Assert.NotNull(result1);
@@ -76,13 +76,13 @@ namespace AdvertisingPlatforms.Tests
             var mockPlatformsRepository = new Mock<IPlatformsRepository>();
             mockPlatformsRepository.Setup(x=>x.SetDb(It.IsAny<Dictionary<string,List<string>>>())).Returns(1);
 
-            PlatformsService pfService = new(mockPlatformsRepository.Object);
+            AdvertisingPlatformsService pfService = new(mockPlatformsRepository.Object);
 
 
             //Act
-            var result1 = pfService.SetDbPlatforms(newData1);
-            var result2 = pfService.SetDbPlatforms(newData2);
-            var result3 = pfService.SetDbPlatforms(newData3);
+            var result1 = pfService.SetDbAdvertisingPlatforms(newData1);
+            var result2 = pfService.SetDbAdvertisingPlatforms(newData2);
+            var result3 = pfService.SetDbAdvertisingPlatforms(newData3);
 
             //Assert
             Assert.IsType<int>(result1);

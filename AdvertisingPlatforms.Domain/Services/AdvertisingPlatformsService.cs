@@ -7,18 +7,18 @@ namespace AdvertisingPlatforms.Domain.Services
     /// <summary>
     /// Service for searching advertising platforms for a specific location.
     /// </summary>
-    public class PlatformsService : IPlatformsService
+    public class AdvertisingPlatformsService : IAdvertisingPlatformsService
     {
         private FileRepository<Location> _locationsRepository;
-        private FileRepository<Advertising> _advertisingsRepository;
+        private FileRepository<AdvertisingPlatform> _advertisingsRepository;
 
-        public PlatformsService(FileRepository<Location> locationsRepository, FileRepository<Advertising> advertisingsRepository)
+        public AdvertisingPlatformsService(FileRepository<Location> locationsRepository, FileRepository<AdvertisingPlatform> advertisingsRepository)
         {
             _locationsRepository = locationsRepository;
             _advertisingsRepository = advertisingsRepository;
         }
 
-        public List<string> GetPlatforms(string locationName)
+        public List<string> GetAdvertisingPlatforms(string locationName)
         {
             List<string> result = new();
 
@@ -41,11 +41,11 @@ namespace AdvertisingPlatforms.Domain.Services
             return result;
         }
 
-        public int SetDbPlatforms(Dictionary<string, List<string>> newDb)
+        public int SetDbAdvertisingPlatforms(Dictionary<string, List<string>> newDb)
         {
             var advertisings = newDb.SelectMany(x=>x.Value)
                                         .Distinct()
-                                        .Select(x=> new Advertising() { Name = x})
+                                        .Select(x=> new AdvertisingPlatform() { Name = x})
                                         .ToList();
             _advertisingsRepository.OwerWriteDbOfRepository(advertisings);
 

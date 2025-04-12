@@ -5,7 +5,7 @@ namespace AdvertisingPlatforms.Domain.Models
     /// <summary>
     /// Advertising platform.
     /// </summary>
-    public class Advertising: Resource
+    public class AdvertisingPlatform: Resource
     {
     }
 }

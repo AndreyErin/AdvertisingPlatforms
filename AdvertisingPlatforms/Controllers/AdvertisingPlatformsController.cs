@@ -5,23 +5,23 @@ namespace AdvertisingPlatforms.Controllers
 {
     [ApiController]
     [Route("/api/v1/[controller]")]
-    public class PlatformsController : Controller
+    public class AdvertisingPlatformsController : Controller
     {
-        private IPlatformsService _pfService;
+        private IAdvertisingPlatformsService _pfService;
         private IReader _reader;
         private const string prefLocationName = @"/";
 
-        public PlatformsController(IPlatformsService platformsService, IReader reader)
+        public AdvertisingPlatformsController(IAdvertisingPlatformsService platformsService, IReader reader)
         {
             _pfService = platformsService;
             _reader = reader;
         }
 
         [HttpGet("{*location}")]
-        public IActionResult GetPlatforms(string location)
+        public IActionResult GetAdvertisingPlatforms(string location)
         {
             string locationName = prefLocationName + location;
-            var result = _pfService.GetPlatforms(locationName);
+            var result = _pfService.GetAdvertisingPlatforms(locationName);
 
             if (result.Count() == 0)
             {
@@ -32,7 +32,7 @@ namespace AdvertisingPlatforms.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpdateAsync([FromForm] IFormFile file)
+        public async Task<IActionResult> UpdateDataForAdvertisingPlatformsAsync([FromForm] IFormFile file)
         {
             var data = await _reader.GetDataFromFileAsync(file);
 
@@ -46,7 +46,7 @@ namespace AdvertisingPlatforms.Controllers
             }
 
             //update database PlatformsService
-            int count = _pfService.SetDbPlatforms(data);
+            int count = _pfService.SetDbAdvertisingPlatforms(data);
 
             return Ok($"База успешно обновлена. Количество локаций: {count}");
 

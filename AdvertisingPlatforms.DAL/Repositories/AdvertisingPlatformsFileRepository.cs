@@ -6,11 +6,11 @@ namespace AdvertisingPlatforms.DAL.Repositories
     /// <summary>
     /// Repository of advertisings for working with a json file.
     /// </summary>
-    public class AdvertisingsFileRepository : FileRepository<Advertising>
+    public class AdvertisingPlatformsFileRepository : FileRepository<AdvertisingPlatform>
     {
-        public AdvertisingsFileRepository(IConfiguration configuration)
+        public AdvertisingPlatformsFileRepository(IConfiguration configuration)
         {
-            string? dbFilePath = configuration.GetSection("DataBases:Advertisings").Value;
+            string? dbFilePath = configuration.GetSection("DataBases:AdvertisingPlatforms").Value;
 
             if (dbFilePath != null)
             {

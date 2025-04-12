@@ -12,10 +12,10 @@ namespace AdvertisingPlatforms.ServiceCollection
         /// </summary>
         public static IServiceCollection AddServices(this IServiceCollection services)
         {
-            services.AddScoped<IPlatformsService, PlatformsService>();
+            services.AddScoped<IAdvertisingPlatformsService, AdvertisingPlatformsService>();
             services.AddScoped<IReader, FileReader>();
             services.AddScoped<FileRepository<Location>, LocationsFileRepository>();
-            services.AddScoped<FileRepository<Advertising>, AdvertisingsFileRepository>();
+            services.AddScoped<FileRepository<AdvertisingPlatform>, AdvertisingPlatformsFileRepository>();
 
             return services;
         }
