@@ -1,4 +1,5 @@
 ﻿using AdvertisingPlatforms.Domain.Models;
+using Microsoft.Extensions.Configuration;
 
 namespace AdvertisingPlatforms.DAL.Repositories
 {
@@ -7,9 +8,19 @@ namespace AdvertisingPlatforms.DAL.Repositories
     /// </summary>
     public class AdvertisingsFileRepository : FileRepository<Advertising>
     {
-        public AdvertisingsFileRepository()
+        public AdvertisingsFileRepository(IConfiguration configuration)
         {
-            _dbFilePath = Directory.GetParent(Directory.GetCurrentDirectory()) + @"\AdvertisingPlatforms.DAL\JsonDBs\AdvertisingsDb.json";
-        }     
+            string? dbFilePath = configuration.GetSection("DataBases:Advertisings").Value;
+
+            if (dbFilePath != null)
+            {
+                _dbFilePath = dbFilePath;
+            }
+            else
+            {
+                //Exeption
+            }
+
+        }
     }
 }

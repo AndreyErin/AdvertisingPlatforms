@@ -22,14 +22,14 @@ namespace AdvertisingPlatforms.Domain.Services
         {
             List<string> result = new();
 
-            var location = _locationsRepository.GetByName(locationName);
+            var location = _locationsRepository.GetByNameFromRepository(locationName);
 
             if (location != null && location.AdvertisingIds != null)
             {
                 //TODO refactoring
                 foreach (var advId in location.AdvertisingIds)
                 {
-                    var advertising = _advertisingsRepository.GetById(advId);
+                    var advertising = _advertisingsRepository.GetByIdFromRepository(advId);
 
                     if (advertising != null)
                     {
@@ -52,15 +52,14 @@ namespace AdvertisingPlatforms.Domain.Services
             var locations = new List<Location>();
             foreach (var item in newDb)
             {
-                var advertisingIds = _advertisingsRepository.GetAll()
-                                                            .Join(item.Value, a=>a.Name, l=>l, (a,l)=> a.Id).ToList();
+                var advertisingIds = advertisings.Join(item.Value, a=>a.Name, l=>l, (a,l)=> a.Id).ToList();
 
                 locations.Add(new Location() { Name = item.Key, AdvertisingIds = advertisingIds});
             }
 
             _locationsRepository.OwerWriteDbOfRepository(locations);
 
-            return _locationsRepository.GetAll().Count();    
+            return locations.Count();    
         }
     }
 }

@@ -1,7 +1,4 @@
-using AdvertisingPlatforms.DAL.Repositories;
-using AdvertisingPlatforms.Domain.Interfaces;
-using AdvertisingPlatforms.Domain.Models;
-using AdvertisingPlatforms.Domain.Services;
+using AdvertisingPlatforms.ServiceCollection;
 
 namespace AdvertisingPlatforms
 {
@@ -10,14 +7,10 @@ namespace AdvertisingPlatforms
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-            builder.Services.AddControllers();
+            builder.Services.AddControllers();          
 
             //registering our services
-            builder.Services.AddScoped<IPlatformsService, PlatformsService>();
-            builder.Services.AddScoped<IReader, FileReader>();
-            builder.Services.AddScoped<FileRepository<Location>, LocationsFileRepository>();
-            builder.Services.AddScoped<FileRepository<Advertising>, AdvertisingsFileRepository>();
-
+            builder.Services.AddServices();
 
             var app = builder.Build();
 
