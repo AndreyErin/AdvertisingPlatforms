@@ -21,7 +21,7 @@ namespace AdvertisingPlatforms.Controllers
         public IActionResult GetAdvertisingPlatforms(string location)
         {
             string locationName = prefLocationName + location;
-            var result = _pfService.GetAdvertisingPlatforms(locationName);
+            var result = _pfService.GetAdvertisingPlatformsForLocation(locationName);
 
             if (result.Count() == 0)
             {
@@ -32,7 +32,7 @@ namespace AdvertisingPlatforms.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpdateDataForAdvertisingPlatformsAsync([FromForm] IFormFile file)
+        public async Task<IActionResult> UploadingAndReplacingDataOfRepositoryFromFileAsync([FromForm] IFormFile file)
         {
             var data = await _reader.GetDataFromFileAsync(file);
 
@@ -46,7 +46,7 @@ namespace AdvertisingPlatforms.Controllers
             }
 
             //update database PlatformsService
-            int count = _pfService.SetDbAdvertisingPlatforms(data);
+            int count = _pfService.ReplaceAllRepositoryData(data);
 
             return Ok($"База успешно обновлена. Количество локаций: {count}");
 

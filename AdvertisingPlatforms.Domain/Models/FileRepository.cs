@@ -63,7 +63,7 @@ namespace AdvertisingPlatforms.Domain.Models
         /// Owerwrite all entities of repository.
         /// </summary>
         /// <param name="entinies">New entities for owerwrite repository.</param>
-        public void OwerWriteDbOfRepository(List<T> entinies)
+        public void OwerwriteRepository(List<T> entinies)
         {
             this.SaveChangesToFile(_dbFilePath, entinies);
         }

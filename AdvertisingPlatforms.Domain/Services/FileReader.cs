@@ -16,10 +16,10 @@ namespace AdvertisingPlatforms.Domain.Services
 
             try
             {
-                var fileData = await streamReader.ReadToEndAsync();
+                var fileContent = await streamReader.ReadToEndAsync();
 
                 //TODO - refactoring
-                DataFromFile? result = GetParseData(fileData);
+                DataFromFile? result = ParseData(fileContent);
 
                 return result;
             }
@@ -47,64 +47,65 @@ namespace AdvertisingPlatforms.Domain.Services
         }
 
         //TODO - refatoring
-        private DataFromFile? GetParseData(string fileData)
+        private DataFromFile? ParseData(string fileContent)
         {            
             List<AdvertisingPlatform> advertisingPlatforms = new();
-            List<List<string>> locationNamesList = new();
+            List<List<string>> groupedLocationNames = new();
 
-            var rowList = fileData.Split("\r\n");
+            var fileRows = fileContent.Split("\r\n");
 
-            foreach (var row in rowList)
+            foreach (var row in fileRows)
             {
-                string[] rowFragments = row.Split(":");
+                string[] platformAndLocations = row.Split(":");
 
-                if (rowFragments.Length == 2)
+                if (platformAndLocations.Length == 2)
                 {
-                    string advertisingPlatform = rowFragments[0].Trim();
+                    string advertisingPlatform = platformAndLocations[0].Trim();
                     advertisingPlatforms.Add(new() { Name = advertisingPlatform });
 
-                    List<string> locationNames = rowFragments[1].Split(",").ToList();
-                    locationNamesList.Add(locationNames);
+                    List<string> locationNames = platformAndLocations[1].Split(",").ToList();
+                    groupedLocationNames.Add(locationNames);
                 }
             }
 
-            SetIndexesForCollection(advertisingPlatforms);
+            GenerateIdsForCollection(advertisingPlatforms);
 
-            var locations = locationNamesList.SelectMany(x=>x.ToList())
+            var locations = groupedLocationNames.SelectMany(x=>x.ToList())
                                              .Select(x=>new Location() { Name = x})
                                              .ToList();
 
+            
             foreach (var location in locations)
             {
                 for (int i = 0; i < advertisingPlatforms.Count; i++)
                 {
-                    if (locationNamesList[i].Contains(location.Name))
+                    if (groupedLocationNames[i].Contains(location.Name))
                     {
-                        location.AdvertisingIds.Add(advertisingPlatforms[i].Id);
+                        location.AdvertisingIPlatformds.Add(advertisingPlatforms[i].Id);
                     }
                 }
             }
 
             foreach (var location in locations)
             {
-                var ids = locations.Where(x => location.Name.Contains(x.Name) && x != location)
-                                 .Select(x=>x.AdvertisingIds)
+                var AdvertisingPlatformIds = locations.Where(x => location.Name.Contains(x.Name) && x != location)
+                                 .Select(x=>x.AdvertisingIPlatformds)
                                  .SelectMany(x=>x.ToList())
                                  .ToList();
 
-                if (ids != null)
+                if (AdvertisingPlatformIds != null)
                 {
-                    location.AdvertisingIds.AddRange(ids);
+                    location.AdvertisingIPlatformds.AddRange(AdvertisingPlatformIds);
                 }
             }
 
-            SetIndexesForCollection(locations);
+            GenerateIdsForCollection(locations);
 
             DataFromFile result = new(advertisingPlatforms, locations);
             return result;
         }
 
-        private List<T> SetIndexesForCollection<T>(List<T> collection) where T : notnull, Resource
+        private List<T> GenerateIdsForCollection<T>(List<T> collection) where T : notnull, Resource
         {
             int counter = 1;
 

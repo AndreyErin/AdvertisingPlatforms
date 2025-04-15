@@ -13,13 +13,13 @@ namespace AdvertisingPlatforms.Domain.Interfaces
         /// </summary>
         /// <param name="location">Location for Advertising platforms.</param>
         /// <returns>Return count advertising platforms for location.</returns>
-        public List<string> GetAdvertisingPlatforms(string locationName);
+        public List<string> GetAdvertisingPlatformsForLocation(string locationName);
 
         /// <summary>
         /// Set new database for PlatformsService.
         /// </summary>
         /// <param name="newDb">New database for update.</param>
         /// <returns>Return count elements of database for success, -1 for fail.</returns>
-        public int SetDbAdvertisingPlatforms(DataFromFile newDb);
+        public int ReplaceAllRepositoryData(DataFromFile newDата);
     }
 }

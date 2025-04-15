@@ -10,26 +10,26 @@ namespace AdvertisingPlatforms.Domain.Services
     public class AdvertisingPlatformsService : IAdvertisingPlatformsService
     {
         private FileRepository<Location> _locationsRepository;
-        private FileRepository<AdvertisingPlatform> _advertisingsRepository;
+        private FileRepository<AdvertisingPlatform> _advertisingPlatformsRepository;
 
         public AdvertisingPlatformsService(FileRepository<Location> locationsRepository, FileRepository<AdvertisingPlatform> advertisingsRepository)
         {
             _locationsRepository = locationsRepository;
-            _advertisingsRepository = advertisingsRepository;
+            _advertisingPlatformsRepository = advertisingsRepository;
         }
 
-        public List<string> GetAdvertisingPlatforms(string locationName)
+        public List<string> GetAdvertisingPlatformsForLocation(string locationName)
         {
             List<string> result = new();
 
             var location = _locationsRepository.GetByNameFromRepository(locationName);
 
-            if (location != null && location.AdvertisingIds != null)
+            if (location != null && location.AdvertisingIPlatformds != null)
             {
                 //TODO refactoring
-                foreach (var advId in location.AdvertisingIds)
+                foreach (var advertisingPlatformId in location.AdvertisingIPlatformds)
                 {
-                    var advertising = _advertisingsRepository.GetByIdFromRepository(advId);
+                    var advertising = _advertisingPlatformsRepository.GetByIdFromRepository(advertisingPlatformId);
 
                     if (advertising != null)
                     {
@@ -41,11 +41,11 @@ namespace AdvertisingPlatforms.Domain.Services
             return result;
         }
 
-        public int SetDbAdvertisingPlatforms(DataFromFile dataFromFile)
+        public int ReplaceAllRepositoryData(DataFromFile dataFromFile)
         {
-            _advertisingsRepository.OwerWriteDbOfRepository(dataFromFile.AdvertisingPlatforms);
+            _advertisingPlatformsRepository.OwerwriteRepository(dataFromFile.AdvertisingPlatforms);
 
-            _locationsRepository.OwerWriteDbOfRepository(dataFromFile.Locations);
+            _locationsRepository.OwerwriteRepository(dataFromFile.Locations);
 
             return dataFromFile.Locations.Count();    
         }
