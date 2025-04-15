@@ -30,9 +30,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AdvertisingPlatforms.DAL\AdvertisingPlatforms.DAL.csproj" />
     <ProjectReference Include="..\AdvertisingPlatforms\AdvertisingPlatforms.csproj" />
-    <ProjectReference Include="..\DAL\DAL.csproj" />
-    <ProjectReference Include="..\Domain\Domain.csproj" />
+    <ProjectReference Include="..\AdvertisingPlatforms.Domain\AdvertisingPlatforms.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
