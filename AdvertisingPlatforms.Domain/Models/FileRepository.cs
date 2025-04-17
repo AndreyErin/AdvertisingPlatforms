@@ -50,6 +50,16 @@ namespace AdvertisingPlatforms.Domain.Models
         }
 
         /// <summary>
+        /// Get entities by id form repository.
+        /// </summary>
+        /// <param name="ids">id of entity.</param>
+        /// <returns>List of enties for success, null for fail.</returns>
+        public List<T> GetByIdFromRepository(List<int> ids)
+        {
+            return this.GetAllFromFile(_dbFilePath).Where(x => ids.Contains(x.Id)).ToList();
+        }
+
+        /// <summary>
         /// Get entity by name form repository.
         /// </summary>
         /// <param name="name">name of entity.</param>

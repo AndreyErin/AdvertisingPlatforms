@@ -26,16 +26,11 @@ namespace AdvertisingPlatforms.Domain.Services
 
             if (location != null && location.AdvertisingIPlatformds != null)
             {
-                //TODO refactoring
-                foreach (var advertisingPlatformId in location.AdvertisingIPlatformds)
-                {
-                    var advertising = _advertisingPlatformsRepository.GetByIdFromRepository(advertisingPlatformId);
+                var advertisingNames = _advertisingPlatformsRepository.GetByIdFromRepository(location.AdvertisingIPlatformds)
+                    .Select(x=>x.Name)
+                    .ToList();
 
-                    if (advertising != null)
-                    {
-                        result.Add(advertising.Name);
-                    }
-                }
+                result = advertisingNames;
             }
 
             return result;

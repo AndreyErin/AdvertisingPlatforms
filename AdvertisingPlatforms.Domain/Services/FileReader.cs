@@ -70,34 +70,7 @@ namespace AdvertisingPlatforms.Domain.Services
 
             GenerateIdsForCollection(advertisingPlatforms);
 
-            var locations = groupedLocationNames.SelectMany(x=>x.ToList())
-                                             .Select(x=>new Location() { Name = x})
-                                             .ToList();
-
-            
-            foreach (var location in locations)
-            {
-                for (int i = 0; i < advertisingPlatforms.Count; i++)
-                {
-                    if (groupedLocationNames[i].Contains(location.Name))
-                    {
-                        location.AdvertisingIPlatformds.Add(advertisingPlatforms[i].Id);
-                    }
-                }
-            }
-
-            foreach (var location in locations)
-            {
-                var AdvertisingPlatformIds = locations.Where(x => location.Name.Contains(x.Name) && x != location)
-                                 .Select(x=>x.AdvertisingIPlatformds)
-                                 .SelectMany(x=>x.ToList())
-                                 .ToList();
-
-                if (AdvertisingPlatformIds != null)
-                {
-                    location.AdvertisingIPlatformds.AddRange(AdvertisingPlatformIds);
-                }
-            }
+            List<Location> locations =  GetLocations(groupedLocationNames, advertisingPlatforms);
 
             GenerateIdsForCollection(locations);
 
@@ -116,6 +89,50 @@ namespace AdvertisingPlatforms.Domain.Services
             }
 
             return collection.ToList();
+        }
+
+        private List<Location> GetLocations(List<List<string>> groupedLocationNames, List<AdvertisingPlatform> advertisingPlatforms)
+        {
+            List<Location> locations = groupedLocationNames.SelectMany(x => x.ToList())
+                                 .Select(x => new Location() { Name = x })
+                                 .ToList();
+
+            foreach (var location in locations)
+            {
+                location.AdvertisingIPlatformds.AddRange(GetDirectIds(location, groupedLocationNames, advertisingPlatforms));
+            }
+
+            foreach (var location in locations)
+            {
+                location.AdvertisingIPlatformds.AddRange(GetAdditionlIds(locations, location, advertisingPlatforms));
+            }
+
+            return locations;
+        }
+
+        private List<int> GetDirectIds(Location location, List<List<string>> groupedLocationNames, List<AdvertisingPlatform> advertisingPlatforms)
+        {
+            List<int> result = new();
+
+            for (int i = 0; i < advertisingPlatforms.Count; i++)
+            {
+                if (groupedLocationNames[i].Contains(location.Name))
+                {
+                    result.Add(advertisingPlatforms[i].Id);
+                }
+            }
+
+            return result;
+        }
+
+        private List<int> GetAdditionlIds(List<Location> locations, Location currentLocation, List<AdvertisingPlatform> advertisingPlatforms)
+        {
+            List<int> AdvertisingPlatformIds = locations.Where(x => currentLocation.Name.Contains(x.Name) && x != currentLocation)
+                 .Select(x => x.AdvertisingIPlatformds)
+                 .SelectMany(x => x.ToList())
+                 .ToList();
+
+            return AdvertisingPlatformIds;
         }
     }
 }
