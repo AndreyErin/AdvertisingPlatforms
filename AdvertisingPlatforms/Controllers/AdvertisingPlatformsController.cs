@@ -10,10 +10,10 @@ namespace AdvertisingPlatforms.Controllers
     {
         private IAdvertisingPlatformsService _advertisitngPlatformsService;
         private ILocationsService _locationsService;
-        private IReader _reader;
+        private IFileReader _reader;
         private const string prefLocationName = @"/";
 
-        public AdvertisingPlatformsController(IAdvertisingPlatformsService platformsService, ILocationsService locationsService, IReader reader)
+        public AdvertisingPlatformsController(IAdvertisingPlatformsService platformsService, ILocationsService locationsService, IFileReader reader)
         {
             _advertisitngPlatformsService = platformsService;
             _locationsService = locationsService;

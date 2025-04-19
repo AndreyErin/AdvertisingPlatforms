@@ -15,7 +15,7 @@ namespace AdvertisingPlatforms.ServiceCollection
         {
             services.AddScoped<IAdvertisingPlatformsService, AdvertisingPlatformsService>();
             services.AddScoped<ILocationsService, LocationsService>();
-            services.AddScoped<IReader, FileReader>();
+            services.AddScoped<IFileReader, FileReader>();
             services.AddScoped<FileRepository<Location>, LocationsFileRepository>();
             services.AddScoped<FileRepository<AdvertisingPlatform>, AdvertisingPlatformsFileRepository>();
 

@@ -1,6 +1,5 @@
 ﻿using AdvertisingPlatforms.Domain.Interfaces;
 using AdvertisingPlatforms.Domain.Models;
-using AdvertisingPlatforms.Domain.Models.BaseModels;
 
 namespace AdvertisingPlatforms.Domain.Services
 {
@@ -8,8 +7,16 @@ namespace AdvertisingPlatforms.Domain.Services
     /// <summary>
     /// Reader for files containing information about advertising platforms.
     /// </summary>
-    public class FileReader: IReader
+    public class FileReader: IFileReader
     {
+        private IFileValidator _validator;
+        private IFileParser _parser;
+        public FileReader(IFileValidator validator, IFileParser parser)
+        {
+            _validator = validator;
+            _parser = parser;
+        }
+
         public async Task<DataFromFile?> GetDataFromFileAsync(Microsoft.AspNetCore.Http.IFormFile file)
         {
             using StreamReader streamReader = new(file.OpenReadStream());
@@ -18,8 +25,13 @@ namespace AdvertisingPlatforms.Domain.Services
             {
                 var fileContent = await streamReader.ReadToEndAsync();
 
+                if (_validator.IsValid(fileContent))
+                {
+                    //Exeption
+                }
+
                 //TODO - refactoring
-                DataFromFile? result = ParseData(fileContent);
+                DataFromFile? result = _parser.GetParseData(fileContent);
 
                 return result;
             }
@@ -44,95 +56,6 @@ namespace AdvertisingPlatforms.Domain.Services
                 //Send on
                 throw;
             }
-        }
-
-        //TODO - refatoring
-        private DataFromFile? ParseData(string fileContent)
-        {            
-            List<AdvertisingPlatform> advertisingPlatforms = new();
-            List<List<string>> groupedLocationNames = new();
-
-            var fileRows = fileContent.Split("\r\n");
-
-            foreach (var row in fileRows)
-            {
-                string[] platformAndLocations = row.Split(":");
-
-                if (platformAndLocations.Length == 2)
-                {
-                    string advertisingPlatform = platformAndLocations[0].Trim();
-                    advertisingPlatforms.Add(new() { Name = advertisingPlatform });
-
-                    List<string> locationNames = platformAndLocations[1].Split(",").ToList();
-                    groupedLocationNames.Add(locationNames);
-                }
-            }
-
-            GenerateIdsForCollection(advertisingPlatforms);
-
-            List<Location> locations =  GetLocations(groupedLocationNames, advertisingPlatforms);
-
-            GenerateIdsForCollection(locations);
-
-            DataFromFile result = new(advertisingPlatforms, locations);
-            return result;
-        }
-
-        private List<T> GenerateIdsForCollection<T>(List<T> collection) where T : notnull, Resource
-        {
-            int counter = 1;
-
-            foreach (var element in collection)
-            {
-                element.Id = counter;
-                counter++;
-            }
-
-            return collection.ToList();
-        }
-
-        private List<Location> GetLocations(List<List<string>> groupedLocationNames, List<AdvertisingPlatform> advertisingPlatforms)
-        {
-            List<Location> locations = groupedLocationNames.SelectMany(x => x.ToList())
-                                 .Select(x => new Location() { Name = x })
-                                 .ToList();
-
-            foreach (var location in locations)
-            {
-                location.AdvertisingIPlatformds.AddRange(GetDirectIds(location, groupedLocationNames, advertisingPlatforms));
-            }
-
-            foreach (var location in locations)
-            {
-                location.AdvertisingIPlatformds.AddRange(GetAdditionlIds(locations, location, advertisingPlatforms));
-            }
-
-            return locations;
-        }
-
-        private List<int> GetDirectIds(Location location, List<List<string>> groupedLocationNames, List<AdvertisingPlatform> advertisingPlatforms)
-        {
-            List<int> result = new();
-
-            for (int i = 0; i < advertisingPlatforms.Count; i++)
-            {
-                if (groupedLocationNames[i].Contains(location.Name))
-                {
-                    result.Add(advertisingPlatforms[i].Id);
-                }
-            }
-
-            return result;
-        }
-
-        private List<int> GetAdditionlIds(List<Location> locations, Location currentLocation, List<AdvertisingPlatform> advertisingPlatforms)
-        {
-            List<int> AdvertisingPlatformIds = locations.Where(x => currentLocation.Name.Contains(x.Name) && x != currentLocation)
-                 .Select(x => x.AdvertisingIPlatformds)
-                 .SelectMany(x => x.ToList())
-                 .ToList();
-
-            return AdvertisingPlatformIds;
         }
     }
 }

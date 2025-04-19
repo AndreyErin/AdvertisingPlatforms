@@ -6,7 +6,7 @@ namespace AdvertisingPlatforms.Domain.Interfaces
     /// <summary>
     /// Interface for reader of files.
     /// </summary>
-    public interface IReader
+    public interface IFileReader
     {
         /// <summary>
         /// Convert txt-file to DataFromFile.
