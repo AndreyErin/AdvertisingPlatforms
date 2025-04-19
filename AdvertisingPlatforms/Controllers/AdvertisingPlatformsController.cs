@@ -1,6 +1,8 @@
 ﻿using AdvertisingPlatforms.Domain.Interfaces;
 using AdvertisingPlatforms.Domain.Interfaces.Services;
+using AdvertisingPlatforms.Domain.Services;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace AdvertisingPlatforms.Controllers
 {
@@ -39,11 +41,16 @@ namespace AdvertisingPlatforms.Controllers
         {
             var data = await _reader.GetDataFromFileAsync(file);
 
+            //It will need to be moved to general error checking.
+            //Exeption in FileReader
             if (data == null)
             {
                 return new StatusCodeResult(500);
             }
-            else if (data.AdvertisingPlatforms.Count() == 0)
+
+            //It will need to be moved to general error checking.
+            //Exeption in FileReader
+            if (data?.AdvertisingPlatforms.Count() == 0)
             {
                 return UnprocessableEntity("Файл прочитан. В файле нет корректных данных.");
             }

@@ -1,6 +1,7 @@
 ﻿using AdvertisingPlatforms.Domain.Interfaces;
 using AdvertisingPlatforms.Domain.Models;
 
+
 namespace AdvertisingPlatforms.Domain.Services
 {
 
@@ -32,6 +33,11 @@ namespace AdvertisingPlatforms.Domain.Services
 
                 //TODO - refactoring
                 DataFromFile? result = _parser.GetParseData(fileContent);
+
+                if (result == null) 
+                {
+                    //Exeption
+                }
 
                 return result;
             }
