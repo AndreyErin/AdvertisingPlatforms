@@ -1,4 +1,4 @@
-﻿using AdvertisingPlatforms.Domain.Interfaces;
+﻿using AdvertisingPlatforms.Domain.Interfaces.Services;
 using AdvertisingPlatforms.Domain.Models;
 
 namespace AdvertisingPlatforms.Domain.Services
@@ -9,12 +9,13 @@ namespace AdvertisingPlatforms.Domain.Services
     /// </summary>
     public class AdvertisingPlatformsService : IAdvertisingPlatformsService
     {
-        private FileRepository<Location> _locationsRepository;
         private FileRepository<AdvertisingPlatform> _advertisingPlatformsRepository;
+        private ILocationsService _locationsService;
 
-        public AdvertisingPlatformsService(FileRepository<Location> locationsRepository, FileRepository<AdvertisingPlatform> advertisingsRepository)
+        public AdvertisingPlatformsService(FileRepository<AdvertisingPlatform> advertisingsRepository, 
+                                           ILocationsService locationsSevice)
         {
-            _locationsRepository = locationsRepository;
+            _locationsService = locationsSevice;
             _advertisingPlatformsRepository = advertisingsRepository;
         }
 
@@ -22,7 +23,7 @@ namespace AdvertisingPlatforms.Domain.Services
         {
             List<string> result = new();
 
-            var location = _locationsRepository.GetByNameFromRepository(locationName);
+            var location = _locationsService.GetByName(locationName);
 
             if (location != null && location.AdvertisingIPlatformds != null)
             {
@@ -36,13 +37,12 @@ namespace AdvertisingPlatforms.Domain.Services
             return result;
         }
 
-        public int ReplaceAllRepositoryData(DataFromFile dataFromFile)
+        public int ReplaceAllData(List<AdvertisingPlatform> newEntitiesList)
         {
-            _advertisingPlatformsRepository.OwerwriteRepository(dataFromFile.AdvertisingPlatforms);
+            _advertisingPlatformsRepository.OwerwriteRepository(newEntitiesList);
 
-            _locationsRepository.OwerwriteRepository(dataFromFile.Locations);
 
-            return dataFromFile.Locations.Count();    
+            return newEntitiesList.Count();    
         }
     }
 }

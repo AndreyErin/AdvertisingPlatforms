@@ -1,4 +1,5 @@
 ﻿using AdvertisingPlatforms.Domain.Interfaces;
+using AdvertisingPlatforms.Domain.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AdvertisingPlatforms.Controllers
@@ -7,13 +8,15 @@ namespace AdvertisingPlatforms.Controllers
     [Route("/api/v1/[controller]")]
     public class AdvertisingPlatformsController : Controller
     {
-        private IAdvertisingPlatformsService _pfService;
+        private IAdvertisingPlatformsService _advertisitngPlatformsService;
+        private ILocationsService _locationsService;
         private IReader _reader;
         private const string prefLocationName = @"/";
 
-        public AdvertisingPlatformsController(IAdvertisingPlatformsService platformsService, IReader reader)
+        public AdvertisingPlatformsController(IAdvertisingPlatformsService platformsService, ILocationsService locationsService, IReader reader)
         {
-            _pfService = platformsService;
+            _advertisitngPlatformsService = platformsService;
+            _locationsService = locationsService;
             _reader = reader;
         }
 
@@ -21,7 +24,7 @@ namespace AdvertisingPlatforms.Controllers
         public IActionResult GetAdvertisingPlatforms(string location)
         {
             string locationName = prefLocationName + location;
-            var result = _pfService.GetAdvertisingPlatformsForLocation(locationName);
+            var result = _advertisitngPlatformsService.GetAdvertisingPlatformsForLocation(locationName);
 
             if (result.Count() == 0)
             {
@@ -45,10 +48,15 @@ namespace AdvertisingPlatforms.Controllers
                 return UnprocessableEntity("Файл прочитан. В файле нет корректных данных.");
             }
 
-            //update database PlatformsService
-            int count = _pfService.ReplaceAllRepositoryData(data);
+            //update databases for services
+            int countAdvertisingPlatforms = _advertisitngPlatformsService.ReplaceAllData(data.AdvertisingPlatforms);
+            int countLocations = _locationsService.ReplaceAllData(data.Locations);
 
-            return Ok($"База успешно обновлена. Количество локаций: {count}");
+            string message = $"База успешно обновлена!\n" +
+                             $"Количество рекламных площадок: {countAdvertisingPlatforms}.\n" +
+                             $"Количество локаций: {countLocations}.";
+
+            return Ok(message);
 
         }
     }
