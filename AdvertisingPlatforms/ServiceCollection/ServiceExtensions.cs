@@ -1,4 +1,5 @@
 ﻿using AdvertisingPlatforms.DAL.Repositories;
+using AdvertisingPlatforms.Domain.Configuration;
 using AdvertisingPlatforms.Domain.Interfaces;
 using AdvertisingPlatforms.Domain.Interfaces.Services;
 using AdvertisingPlatforms.Domain.Models;
@@ -15,6 +16,8 @@ namespace AdvertisingPlatforms.ServiceCollection
         {
             services.AddScoped<IAdvertisingPlatformsService, AdvertisingPlatformsService>();
             services.AddScoped<ILocationsService, LocationsService>();
+
+            services.AddScoped<Config>();
 
             services.AddScoped<IFileReader, FileReader>();
             services.AddScoped<IFileParser, FileParser>();

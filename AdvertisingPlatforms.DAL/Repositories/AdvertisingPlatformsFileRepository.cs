@@ -1,5 +1,5 @@
-﻿using AdvertisingPlatforms.Domain.Models;
-using Microsoft.Extensions.Configuration;
+﻿using AdvertisingPlatforms.Domain.Configuration;
+using AdvertisingPlatforms.Domain.Models;
 
 namespace AdvertisingPlatforms.DAL.Repositories
 {
@@ -8,19 +8,9 @@ namespace AdvertisingPlatforms.DAL.Repositories
     /// </summary>
     public class AdvertisingPlatformsFileRepository : FileRepository<AdvertisingPlatform>
     {
-        public AdvertisingPlatformsFileRepository(IConfiguration configuration)
+        public AdvertisingPlatformsFileRepository(Config _)
         {
-            string? dbFilePath = configuration.GetSection("DataBases:AdvertisingPlatforms").Value;
-
-            if (dbFilePath != null)
-            {
-                _dbFilePath = dbFilePath;
-            }
-            else
-            {
-                //Exeption
-            }
-
+            _dbFilePath = Config.AdvertisingPlatformsDbPath;
         }
     }
 }

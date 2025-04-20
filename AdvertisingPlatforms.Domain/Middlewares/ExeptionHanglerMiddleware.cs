@@ -35,8 +35,9 @@ namespace AdvertisingPlatforms.Domain.Middlewares
 
             switch (exception)
             {
-                case InvalidFileExeption:
-                    statusCode = 400;
+                case ConfigureReadExeption:
+                    statusCode = 500;
+                    message = "Ошибка сервера";
                     break;
                 case InvalidFileDataExeption:
                     statusCode = 422;

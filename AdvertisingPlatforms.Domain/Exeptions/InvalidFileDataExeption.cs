@@ -1,5 +1,4 @@
-﻿
-namespace AdvertisingPlatforms.Domain.Exeptions
+﻿namespace AdvertisingPlatforms.Domain.Exeptions
 {
     /// <summary>
     /// The data has been read, but it is not correct.

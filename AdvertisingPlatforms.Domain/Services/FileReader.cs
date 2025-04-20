@@ -25,7 +25,7 @@ namespace AdvertisingPlatforms.Domain.Services
 
             if (!_validator.IsValid(fileContent))
             {
-                throw new InvalidFileExeption("Некорректный файл.");                
+                throw new InvalidFileDataExeption("Некорректный файл.");                
             }
 
             DataFromFile result = _parser.GetParsedData(fileContent);
