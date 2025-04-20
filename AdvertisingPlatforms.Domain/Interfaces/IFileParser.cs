@@ -2,8 +2,16 @@
 
 namespace AdvertisingPlatforms.Domain.Interfaces
 {
+    /// <summary>
+    /// Parser for data from file.
+    /// </summary>
     public interface IFileParser
     {
-        public DataFromFile? GetParseData(string fileContent);
+        /// <summary>
+        /// Get parsed data from file.
+        /// </summary>
+        /// <param name="fileContent">Content from file.</param>
+        /// <returns>Parsed data from file.</returns>
+        public DataFromFile GetParsedData(string fileContent);
     }
 }

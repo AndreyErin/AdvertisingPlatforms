@@ -2,7 +2,6 @@
 
 namespace AdvertisingPlatforms.Domain.Interfaces.Services
 {
-
     /// <summary>
     /// Interface for service of platforms.
     /// </summary>

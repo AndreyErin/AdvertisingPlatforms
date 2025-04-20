@@ -3,6 +3,9 @@ using AdvertisingPlatforms.Domain.Models;
 
 namespace AdvertisingPlatforms.Domain.Services
 {
+    /// <summary>
+    /// Service for manage locations.
+    /// </summary>
     public class LocationsService : ILocationsService
     {
         private FileRepository<Location> _locationRepository;

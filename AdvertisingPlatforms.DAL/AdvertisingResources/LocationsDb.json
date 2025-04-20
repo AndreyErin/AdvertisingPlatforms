@@ -9,8 +9,7 @@
   {
     "AdvertisingIPlatformds": [
       2,
-      1,
-      4
+      1
     ],
     "Id": 2,
     "Name": "/ru/svrd/revda"
@@ -18,42 +17,9 @@
   {
     "AdvertisingIPlatformds": [
       2,
-      1,
-      4
+      1
     ],
     "Id": 3,
     "Name": "/ru/svrd/pervik"
-  },
-  {
-    "AdvertisingIPlatformds": [
-      3,
-      1
-    ],
-    "Id": 4,
-    "Name": "/ru/msk"
-  },
-  {
-    "AdvertisingIPlatformds": [
-      3,
-      1
-    ],
-    "Id": 5,
-    "Name": "/ru/permobl"
-  },
-  {
-    "AdvertisingIPlatformds": [
-      3,
-      1
-    ],
-    "Id": 6,
-    "Name": "/ru/chelobl"
-  },
-  {
-    "AdvertisingIPlatformds": [
-      4,
-      1
-    ],
-    "Id": 7,
-    "Name": "/ru/svrd"
   }
 ]

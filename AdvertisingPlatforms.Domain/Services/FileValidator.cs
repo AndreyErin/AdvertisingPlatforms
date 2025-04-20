@@ -2,6 +2,9 @@
 
 namespace AdvertisingPlatforms.Domain.Services
 {
+    /// <summary>
+    /// Validater for data of file.
+    /// </summary>
     public class FileValidator : IFileValidator
     {
         const string splitter = ":";

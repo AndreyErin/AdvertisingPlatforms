@@ -1,5 +1,9 @@
 ﻿namespace AdvertisingPlatforms.Domain.Interfaces.Services
 {
+    /// <summary>
+    /// Interface for replaced data.
+    /// </summary>
+    /// <typeparam name="T">Type of data.</typeparam>
     public interface IReplaceData<T>
     {
         /// <summary>

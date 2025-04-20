@@ -1,10 +1,9 @@
-﻿using AdvertisingPlatforms.Domain.Interfaces;
+﻿using AdvertisingPlatforms.Domain.Exeptions;
+using AdvertisingPlatforms.Domain.Interfaces;
 using AdvertisingPlatforms.Domain.Models;
-
 
 namespace AdvertisingPlatforms.Domain.Services
 {
-
     /// <summary>
     /// Reader for files containing information about advertising platforms.
     /// </summary>
@@ -22,46 +21,22 @@ namespace AdvertisingPlatforms.Domain.Services
         {
             using StreamReader streamReader = new(file.OpenReadStream());
 
-            try
-            {
-                var fileContent = await streamReader.ReadToEndAsync();
+            var fileContent = await streamReader.ReadToEndAsync();
 
-                if (_validator.IsValid(fileContent))
-                {
-                    //Exeption
-                }
+            if (!_validator.IsValid(fileContent))
+            {
+                throw new InvalidFileExeption("Некорректный файл.");                
+            }
 
-                //TODO - refactoring
-                DataFromFile? result = _parser.GetParseData(fileContent);
+            DataFromFile result = _parser.GetParsedData(fileContent);
 
-                if (result == null) 
-                {
-                    //Exeption
-                }
+            if (result.AdvertisingPlatforms.Count == 0 ||
+                result.Locations.Count == 0) 
+            {
+                throw new InvalidFileDataExeption("Файл прочитан. В файле нет корректных данных.");
+            }
 
-                return result;
-            }
-            catch (ArgumentOutOfRangeException)
-            {
-                //Loging
-                return null;
-            }
-            catch (ObjectDisposedException)
-            {
-                //Loging
-                return null;
-            }
-            catch (InvalidOperationException)
-            {
-                //Loging
-                return null;
-            }
-            catch (Exception) 
-            {
-                //Loging, Horrified
-                //Send on
-                throw;
-            }
+            return result;
         }
     }
 }

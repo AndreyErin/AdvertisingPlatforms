@@ -25,9 +25,9 @@ namespace AdvertisingPlatforms.Domain.Services
 
             var location = _locationsService.GetByName(locationName);
 
-            if (location != null && location.AdvertisingIPlatformds != null)
+            if (location != null && location.AdvertisingPlatformIds != null)
             {
-                var advertisingNames = _advertisingPlatformsRepository.GetByIdFromRepository(location.AdvertisingIPlatformds)
+                var advertisingNames = _advertisingPlatformsRepository.GetByIdFromRepository(location.AdvertisingPlatformIds)
                     .Select(x=>x.Name)
                     .ToList();
 

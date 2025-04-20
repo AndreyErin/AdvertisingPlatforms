@@ -1,3 +1,4 @@
+using AdvertisingPlatforms.Domain.Middlewares;
 using AdvertisingPlatforms.ServiceCollection;
 
 namespace AdvertisingPlatforms
@@ -13,6 +14,8 @@ namespace AdvertisingPlatforms
             builder.Services.AddServices();
 
             var app = builder.Build();
+
+            app.UseMiddleware<ExeptionHanglerMiddleware>();
 
             app.UseRouting();
             app.MapControllers();

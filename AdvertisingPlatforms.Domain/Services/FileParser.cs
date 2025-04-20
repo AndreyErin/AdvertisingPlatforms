@@ -4,9 +4,12 @@ using AdvertisingPlatforms.Domain.Models.BaseModels;
 
 namespace AdvertisingPlatforms.Domain.Services
 {
+    /// <summary>
+    /// Parser for data from file.
+    /// </summary>
     public class FileParser : IFileParser
     {
-        public DataFromFile? GetParseData(string fileContent)
+        public DataFromFile GetParsedData(string fileContent)
         {
             List<AdvertisingPlatform> advertisingPlatforms = new();
             List<List<string>> groupedLocationNames = new();
@@ -17,7 +20,7 @@ namespace AdvertisingPlatforms.Domain.Services
             {
                 string[] platformAndLocations = row.Split(":");
 
-                if (platformAndLocations.Length == 2)
+                if (platformAndLocations.Length == 2 && platformAndLocations[1].Trim().Length > 0)
                 {
                     string advertisingPlatform = platformAndLocations[0].Trim();
                     advertisingPlatforms.Add(new() { Name = advertisingPlatform });
@@ -53,17 +56,18 @@ namespace AdvertisingPlatforms.Domain.Services
         private List<Location> GetLocations(List<List<string>> groupedLocationNames, List<AdvertisingPlatform> advertisingPlatforms)
         {
             List<Location> locations = groupedLocationNames.SelectMany(x => x.ToList())
+                                 .Where(x=>x.Length > 0)
                                  .Select(x => new Location() { Name = x })
                                  .ToList();
 
             foreach (var location in locations)
             {
-                location.AdvertisingIPlatformds.AddRange(GetDirectIds(location, groupedLocationNames, advertisingPlatforms));
+                location.AdvertisingPlatformIds.AddRange(GetDirectIds(location, groupedLocationNames, advertisingPlatforms));
             }
 
             foreach (var location in locations)
             {
-                location.AdvertisingIPlatformds.AddRange(GetAdditionlIds(locations, location, advertisingPlatforms));
+                location.AdvertisingPlatformIds.AddRange(GetAdditionlIds(locations, location, advertisingPlatforms));
             }
 
             return locations;
@@ -87,7 +91,7 @@ namespace AdvertisingPlatforms.Domain.Services
         private List<int> GetAdditionlIds(List<Location> locations, Location currentLocation, List<AdvertisingPlatform> advertisingPlatforms)
         {
             List<int> AdvertisingPlatformIds = locations.Where(x => currentLocation.Name.Contains(x.Name) && x != currentLocation)
-                 .Select(x => x.AdvertisingIPlatformds)
+                 .Select(x => x.AdvertisingPlatformIds)
                  .SelectMany(x => x.ToList())
                  .ToList();
 
