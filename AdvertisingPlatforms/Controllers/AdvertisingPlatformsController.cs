@@ -1,8 +1,7 @@
 ﻿using AdvertisingPlatforms.Domain.Interfaces;
 using AdvertisingPlatforms.Domain.Interfaces.Services;
-using AdvertisingPlatforms.Domain.Services;
 using Microsoft.AspNetCore.Mvc;
-using System;
+
 
 namespace AdvertisingPlatforms.Controllers
 {
@@ -37,7 +36,7 @@ namespace AdvertisingPlatforms.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UploadingAndReplacingDataOfRepositoryFromFileAsync([FromForm] IFormFile file)
+        public async Task<IActionResult> ReplaceAdvertisingData([FromForm] IFormFile file)
         {
             var data = await _reader.GetDataFromFileAsync(file);
 
@@ -56,8 +55,8 @@ namespace AdvertisingPlatforms.Controllers
             }
 
             //update databases for services
-            int countAdvertisingPlatforms = _advertisitngPlatformsService.ReplaceAllData(data.AdvertisingPlatforms);
-            int countLocations = _locationsService.ReplaceAllData(data.Locations);
+            var countAdvertisingPlatforms = _advertisitngPlatformsService.ReplaceRepository(data.AdvertisingPlatforms);
+            var countLocations = _locationsService.ReplaceRepository(data.Locations);
 
             string message = $"База успешно обновлена!\n" +
                              $"Количество рекламных площадок: {countAdvertisingPlatforms}.\n" +

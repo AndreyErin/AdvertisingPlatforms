@@ -30,7 +30,7 @@ namespace AdvertisingPlatforms.Domain.Models
         {
             var db = this.GetAllFromFile(_dbFilePath);
 
-            T? advertising = db.Find(x => x.Id == id);
+            var advertising = db.Find(x => x.Id == id);
 
             if (advertising != null)
             {
@@ -73,7 +73,7 @@ namespace AdvertisingPlatforms.Domain.Models
         /// Owerwrite all entities of repository.
         /// </summary>
         /// <param name="entinies">New entities for owerwrite repository.</param>
-        public void OwerwriteRepository(List<T> entinies)
+        public void ReplaceRepository(List<T> entinies)
         {
             this.SaveChangesToFile(_dbFilePath, entinies);
         }
@@ -86,7 +86,7 @@ namespace AdvertisingPlatforms.Domain.Models
         {
             var db = this.GetAllFromFile(_dbFilePath);
 
-            T? advertising = db.Find(x => x.Id == entity.Id);
+            var advertising = db.Find(x => x.Id == entity.Id);
 
             if (advertising != null)
             {

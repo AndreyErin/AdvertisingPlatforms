@@ -13,6 +13,6 @@ namespace AdvertisingPlatforms.Domain.Interfaces
         /// </summary>
         /// <param name="file">File for convert.</param>
         /// <returns>Returns DataFromFile for success, null for fail.</returns>
-        public Task<DataFromFile?> GetDataFromFileAsync(IFormFile file);
+        public Task<AdvertisingInformation?> GetDataFromFileAsync(IFormFile file);
     }
 }

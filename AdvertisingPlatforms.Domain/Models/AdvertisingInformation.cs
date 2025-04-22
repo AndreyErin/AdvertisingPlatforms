@@ -3,12 +3,12 @@
     /// <summary>
     /// The type contains advertising and locations obtained from the file.
     /// </summary>
-    public class DataFromFile
+    public class AdvertisingInformation
     {
         public List<AdvertisingPlatform> AdvertisingPlatforms { get; set; }
         public List<Location> Locations { get; set; }
 
-        public DataFromFile(List<AdvertisingPlatform> advertisingPlatforms, List<Location> locations)
+        public AdvertisingInformation(List<AdvertisingPlatform> advertisingPlatforms, List<Location> locations)
         {
             AdvertisingPlatforms = advertisingPlatforms;
             Locations = locations;

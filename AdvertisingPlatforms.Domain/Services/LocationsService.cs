@@ -6,6 +6,7 @@ namespace AdvertisingPlatforms.Domain.Services
     public class LocationsService : ILocationsService
     {
         private FileRepository<Location> _locationRepository;
+
         public LocationsService(FileRepository<Location> locationRepository)
         {
             _locationRepository = locationRepository;
@@ -16,9 +17,9 @@ namespace AdvertisingPlatforms.Domain.Services
             return _locationRepository.GetByNameFromRepository(name);
         }
 
-        public int ReplaceAllData(List<Location> newEntitiesList)
+        public int ReplaceRepository(List<Location> newEntitiesList)
         {
-            _locationRepository.OwerwriteRepository(newEntitiesList);
+            _locationRepository.ReplaceRepository(newEntitiesList);
 
             return newEntitiesList.Count;
         }

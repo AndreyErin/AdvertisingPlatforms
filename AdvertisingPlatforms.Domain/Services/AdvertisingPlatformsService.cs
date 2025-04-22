@@ -37,10 +37,9 @@ namespace AdvertisingPlatforms.Domain.Services
             return result;
         }
 
-        public int ReplaceAllData(List<AdvertisingPlatform> newEntitiesList)
+        public int ReplaceRepository(List<AdvertisingPlatform> newEntitiesList)
         {
-            _advertisingPlatformsRepository.OwerwriteRepository(newEntitiesList);
-
+            _advertisingPlatformsRepository.ReplaceRepository(newEntitiesList);
 
             return newEntitiesList.Count();    
         }

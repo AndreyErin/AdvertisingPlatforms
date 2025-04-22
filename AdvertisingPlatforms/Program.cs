@@ -8,9 +8,10 @@ namespace AdvertisingPlatforms
         {
             var builder = WebApplication.CreateBuilder(args);
             builder.Services.AddControllers();          
-
-            //registering our services
-            builder.Services.AddServices();
+            
+            builder.Services.AddAdvertisingServices();
+            builder.Services.AddRepositoryServices();
+            builder.Services.AddFileServices();
 
             var app = builder.Build();
 

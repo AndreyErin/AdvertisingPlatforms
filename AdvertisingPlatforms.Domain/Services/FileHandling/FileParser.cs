@@ -2,11 +2,11 @@
 using AdvertisingPlatforms.Domain.Models;
 using AdvertisingPlatforms.Domain.Models.BaseModels;
 
-namespace AdvertisingPlatforms.Domain.Services
+namespace AdvertisingPlatforms.Domain.Services.FileHandling
 {
     public class FileParser : IFileParser
     {
-        public DataFromFile? GetParseData(string fileContent)
+        public AdvertisingInformation GetParseData(string fileContent)
         {
             List<AdvertisingPlatform> advertisingPlatforms = new();
             List<List<string>> groupedLocationNames = new();
@@ -15,25 +15,28 @@ namespace AdvertisingPlatforms.Domain.Services
 
             foreach (var row in fileRows)
             {
-                string[] platformAndLocations = row.Split(":");
+                var platformAndLocations = row.Split(":");
 
                 if (platformAndLocations.Length == 2)
                 {
-                    string advertisingPlatform = platformAndLocations[0].Trim();
+                    var advertisingPlatform = platformAndLocations[0].Trim();
                     advertisingPlatforms.Add(new() { Name = advertisingPlatform });
 
-                    List<string> locationNames = platformAndLocations[1].Split(",").ToList();
+                    var locationNames = platformAndLocations[1].Split(",").ToList();
                     groupedLocationNames.Add(locationNames);
                 }
             }
 
             GenerateIdsForCollection(advertisingPlatforms);
 
-            List<Location> locations = GetLocations(groupedLocationNames, advertisingPlatforms);
-
+            var locations = GetLocations(groupedLocationNames, advertisingPlatforms);
             GenerateIdsForCollection(locations);
 
-            DataFromFile result = new(advertisingPlatforms, locations);
+
+            //TODO - проверка корректности данных
+
+            AdvertisingInformation result = new(advertisingPlatforms, locations);
+
             return result;
         }
 
@@ -52,7 +55,7 @@ namespace AdvertisingPlatforms.Domain.Services
 
         private List<Location> GetLocations(List<List<string>> groupedLocationNames, List<AdvertisingPlatform> advertisingPlatforms)
         {
-            List<Location> locations = groupedLocationNames.SelectMany(x => x.ToList())
+            var locations = groupedLocationNames.SelectMany(x => x)
                                  .Select(x => new Location() { Name = x })
                                  .ToList();
 
@@ -86,13 +89,12 @@ namespace AdvertisingPlatforms.Domain.Services
 
         private List<int> GetAdditionlIds(List<Location> locations, Location currentLocation, List<AdvertisingPlatform> advertisingPlatforms)
         {
-            List<int> AdvertisingPlatformIds = locations.Where(x => currentLocation.Name.Contains(x.Name) && x != currentLocation)
+            var AdvertisingPlatformIds = locations.Where(x => currentLocation.Name.Contains(x.Name) && x != currentLocation)
                  .Select(x => x.AdvertisingIPlatformds)
                  .SelectMany(x => x.ToList())
                  .ToList();
 
             return AdvertisingPlatformIds;
         }
-
     }
 }

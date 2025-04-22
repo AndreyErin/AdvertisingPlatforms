@@ -10,7 +10,7 @@ namespace AdvertisingPlatforms.DAL.Repositories
     {
         public AdvertisingPlatformsFileRepository(IConfiguration configuration)
         {
-            string? dbFilePath = configuration.GetSection("DataBases:AdvertisingPlatforms").Value;
+            var dbFilePath = configuration.GetSection("DataBases:AdvertisingPlatforms").Value;
 
             if (dbFilePath != null)
             {

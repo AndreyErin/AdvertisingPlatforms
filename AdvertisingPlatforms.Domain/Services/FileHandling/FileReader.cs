@@ -2,7 +2,7 @@
 using AdvertisingPlatforms.Domain.Models;
 
 
-namespace AdvertisingPlatforms.Domain.Services
+namespace AdvertisingPlatforms.Domain.Services.FileHandling
 {
 
     /// <summary>
@@ -12,13 +12,14 @@ namespace AdvertisingPlatforms.Domain.Services
     {
         private IFileValidator _validator;
         private IFileParser _parser;
+
         public FileReader(IFileValidator validator, IFileParser parser)
         {
             _validator = validator;
             _parser = parser;
         }
 
-        public async Task<DataFromFile?> GetDataFromFileAsync(Microsoft.AspNetCore.Http.IFormFile file)
+        public async Task<AdvertisingInformation?> GetDataFromFileAsync(Microsoft.AspNetCore.Http.IFormFile file)
         {
             using StreamReader streamReader = new(file.OpenReadStream());
 
@@ -26,18 +27,12 @@ namespace AdvertisingPlatforms.Domain.Services
             {
                 var fileContent = await streamReader.ReadToEndAsync();
 
-                if (_validator.IsValid(fileContent))
+                if (_validator.IsValid(fileContent) == false)
                 {
                     //Exeption
                 }
 
-                //TODO - refactoring
-                DataFromFile? result = _parser.GetParseData(fileContent);
-
-                if (result == null) 
-                {
-                    //Exeption
-                }
+                var result = _parser.GetParseData(fileContent);
 
                 return result;
             }
