@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AdvertisingPlatforms.Business\AdvertisingPlatforms.Business.csproj" />
     <ProjectReference Include="..\AdvertisingPlatforms.Domain\AdvertisingPlatforms.Domain.csproj" />
   </ItemGroup>
 

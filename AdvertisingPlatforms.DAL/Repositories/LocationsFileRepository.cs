@@ -1,4 +1,5 @@
-﻿using AdvertisingPlatforms.Domain.Models;
+﻿using AdvertisingPlatforms.Business.Abstractions.Repositories;
+using AdvertisingPlatforms.Domain.Models;
 using Microsoft.Extensions.Configuration;
 
 namespace AdvertisingPlatforms.DAL.Repositories

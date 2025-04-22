@@ -1,6 +1,6 @@
-﻿using AdvertisingPlatforms.Domain.Interfaces;
+﻿using AdvertisingPlatforms.Domain.Interfaces.Services.FileHandling;
 
-namespace AdvertisingPlatforms.Domain.Services.FileHandling
+namespace AdvertisingPlatforms.Business.Services.FileHandlingServices
 {
     public class FileValidator : IFileValidator
     {

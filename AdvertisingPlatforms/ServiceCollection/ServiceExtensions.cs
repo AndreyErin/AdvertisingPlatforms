@@ -1,9 +1,10 @@
 ﻿using AdvertisingPlatforms.DAL.Repositories;
-using AdvertisingPlatforms.Domain.Interfaces;
+using AdvertisingPlatforms.Business.Abstractions.Repositories;
 using AdvertisingPlatforms.Domain.Interfaces.Services;
+using AdvertisingPlatforms.Domain.Interfaces.Services.FileHandling;
 using AdvertisingPlatforms.Domain.Models;
-using AdvertisingPlatforms.Domain.Services;
-using AdvertisingPlatforms.Domain.Services.FileHandling;
+using AdvertisingPlatforms.Business.Services.AdvertisingServices;
+using AdvertisingPlatforms.Business.Services.FileHandlingServices;
 
 namespace AdvertisingPlatforms.ServiceCollection
 {

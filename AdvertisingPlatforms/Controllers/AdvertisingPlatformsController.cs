@@ -1,5 +1,5 @@
-﻿using AdvertisingPlatforms.Domain.Interfaces;
-using AdvertisingPlatforms.Domain.Interfaces.Services;
+﻿using AdvertisingPlatforms.Domain.Interfaces.Services;
+using AdvertisingPlatforms.Domain.Interfaces.Services.FileHandling;
 using Microsoft.AspNetCore.Mvc;
 
 

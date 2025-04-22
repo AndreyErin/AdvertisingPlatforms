@@ -1,6 +1,6 @@
 ﻿using AdvertisingPlatforms.Domain.Models;
 
-namespace AdvertisingPlatforms.Domain.Interfaces
+namespace AdvertisingPlatforms.Domain.Interfaces.Services.FileHandling
 {
     public interface IFileParser
     {

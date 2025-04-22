@@ -1,8 +1,8 @@
-﻿using AdvertisingPlatforms.Domain.Interfaces;
+﻿using AdvertisingPlatforms.Domain.Interfaces.Services.FileHandling;
 using AdvertisingPlatforms.Domain.Models;
 using AdvertisingPlatforms.Domain.Models.BaseModels;
 
-namespace AdvertisingPlatforms.Domain.Services.FileHandling
+namespace AdvertisingPlatforms.Business.Services.FileHandlingServices
 {
     public class FileParser : IFileParser
     {

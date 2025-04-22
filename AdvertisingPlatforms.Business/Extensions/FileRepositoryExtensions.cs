@@ -1,8 +1,8 @@
-﻿using AdvertisingPlatforms.Domain.Models;
-using AdvertisingPlatforms.Domain.Models.BaseModels;
+﻿using AdvertisingPlatforms.Domain.Models.BaseModels;
+using AdvertisingPlatforms.Business.Abstractions.Repositories;
 using System.Text.Json;
 
-namespace AdvertisingPlatforms.Domain.Extensions
+namespace AdvertisingPlatforms.Business.Extensions
 {
     public static class FileRepositoryExtensions
     {

@@ -1,7 +1,8 @@
-﻿using AdvertisingPlatforms.Domain.Interfaces.Services;
+﻿using AdvertisingPlatforms.Business.Abstractions.Repositories;
+using AdvertisingPlatforms.Domain.Interfaces.Services;
 using AdvertisingPlatforms.Domain.Models;
 
-namespace AdvertisingPlatforms.Domain.Services
+namespace AdvertisingPlatforms.Business.Services.AdvertisingServices
 {
 
     /// <summary>

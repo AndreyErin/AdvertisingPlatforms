@@ -1,4 +1,4 @@
-﻿namespace AdvertisingPlatforms.Domain.Interfaces
+﻿namespace AdvertisingPlatforms.Domain.Interfaces.Services.FileHandling
 {
     public interface IFileValidator
     {

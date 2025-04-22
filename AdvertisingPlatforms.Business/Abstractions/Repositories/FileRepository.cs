@@ -1,7 +1,7 @@
-﻿using AdvertisingPlatforms.Domain.Extensions;
+﻿using AdvertisingPlatforms.Business.Extensions;
 using AdvertisingPlatforms.Domain.Models.BaseModels;
 
-namespace AdvertisingPlatforms.Domain.Models
+namespace AdvertisingPlatforms.Business.Abstractions.Repositories
 {
     /// <summary>
     /// Repository for working with files.

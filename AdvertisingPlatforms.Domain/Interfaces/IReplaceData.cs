@@ -1,6 +1,6 @@
 ﻿using AdvertisingPlatforms.Domain.Models.BaseModels;
 
-namespace AdvertisingPlatforms.Domain.Interfaces.Services
+namespace AdvertisingPlatforms.Domain.Interfaces
 {
     public interface IReplaceData<T> where T : notnull, Resource    
     {

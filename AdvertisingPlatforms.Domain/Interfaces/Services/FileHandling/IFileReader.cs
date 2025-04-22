@@ -1,7 +1,7 @@
 ﻿using AdvertisingPlatforms.Domain.Models;
 using Microsoft.AspNetCore.Http;
 
-namespace AdvertisingPlatforms.Domain.Interfaces
+namespace AdvertisingPlatforms.Domain.Interfaces.Services.FileHandling
 {
     /// <summary>
     /// Interface for reader of files.
