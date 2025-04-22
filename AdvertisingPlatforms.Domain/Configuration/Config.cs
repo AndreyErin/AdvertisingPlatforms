@@ -7,7 +7,7 @@ namespace AdvertisingPlatforms.Domain.Configuration
     /// <summary>
     /// Сlass provides access to the configuration file parameter.
     /// </summary>
-    public class Config: IConfig
+    public class Config
     {
         private static string _apDbPath = "";
         private static string _lDbPath = "";

@@ -30,7 +30,7 @@ namespace AdvertisingPlatforms.Domain.Models
         {
             var db = this.GetAllFromFile(_dbFilePath);
 
-            T? advertising = db.Find(x => x.Id == id);
+            var advertising = db.Find(x => x.Id == id);
 
             if (advertising != null)
             {
@@ -86,7 +86,7 @@ namespace AdvertisingPlatforms.Domain.Models
         {
             var db = this.GetAllFromFile(_dbFilePath);
 
-            T? advertising = db.Find(x => x.Id == entity.Id);
+            var advertising = db.Find(x => x.Id == entity.Id);
 
             if (advertising != null)
             {
