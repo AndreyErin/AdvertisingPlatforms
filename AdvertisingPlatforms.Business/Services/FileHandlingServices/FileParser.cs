@@ -1,6 +1,5 @@
 ﻿using AdvertisingPlatforms.Domain.Interfaces.Services.FileHandling;
 using AdvertisingPlatforms.Domain.Models;
-using AdvertisingPlatforms.Domain.Models.BaseModels;
 
 namespace AdvertisingPlatforms.Business.Services.FileHandlingServices
 {
@@ -8,9 +7,10 @@ namespace AdvertisingPlatforms.Business.Services.FileHandlingServices
     {
         public AdvertisingInformation GetParseData(string fileContent)
         {
+            Dictionary<string, string> locationsRaw = new();
             List<AdvertisingPlatform> advertisingPlatforms = new();
-            List<List<string>> groupedLocationNames = new();
 
+            int idCounter = 1;
             var fileRows = fileContent.Split("\r\n");
 
             foreach (var row in fileRows)
@@ -19,82 +19,74 @@ namespace AdvertisingPlatforms.Business.Services.FileHandlingServices
 
                 if (platformAndLocations.Length == 2)
                 {
-                    var advertisingPlatform = platformAndLocations[0].Trim();
-                    advertisingPlatforms.Add(new() { Name = advertisingPlatform });
+                    var advertisingPlatformName = platformAndLocations[0].Trim();
+                    advertisingPlatforms.Add(new() { Id = idCounter++, Name = advertisingPlatformName });
 
                     var locationNames = platformAndLocations[1].Split(",").ToList();
-                    groupedLocationNames.Add(locationNames);
+                    AddLocationsRaw(locationsRaw, advertisingPlatformName, locationNames);
                 }
             }
 
-            GenerateIdsForCollection(advertisingPlatforms);
+            var locations = GetLocations(locationsRaw, advertisingPlatforms);
 
-            var locations = GetLocations(groupedLocationNames, advertisingPlatforms);
-            GenerateIdsForCollection(locations);
-
-
-            //TODO - проверка корректности данных
-
-            AdvertisingInformation result = new(advertisingPlatforms, locations);
-
-            return result;
+            return new(advertisingPlatforms, locations);
         }
 
-        private List<T> GenerateIdsForCollection<T>(List<T> collection) where T : notnull, Resource
+        private void AddLocationsRaw(Dictionary<string, string> locationsRawDictionary, string advertisingPlatformName, List<string> locationNames)
         {
-            int counter = 1;
-
-            foreach (var element in collection)
+            foreach (var locationName in locationNames)
             {
-                element.Id = counter;
-                counter++;
+                locationsRawDictionary.Add(locationName, advertisingPlatformName);
             }
-
-            return collection.ToList();
         }
 
-        private List<Location> GetLocations(List<List<string>> groupedLocationNames, List<AdvertisingPlatform> advertisingPlatforms)
+        private List<Location> GetLocations(Dictionary<string, string> locationsRaw, List<AdvertisingPlatform> advertisingPlatforms)
         {
-            var locations = groupedLocationNames.SelectMany(x => x)
-                                 .Select(x => new Location() { Name = x })
-                                 .ToList();
+            int idCounter = 1;
+            List<Location> locations = new();
 
-            foreach (var location in locations)
+            foreach (var item in locationsRaw)
             {
-                location.AdvertisingIPlatformds.AddRange(GetDirectIds(location, groupedLocationNames, advertisingPlatforms));
-            }
+                List<int> ids = new();
 
-            foreach (var location in locations)
-            {
-                location.AdvertisingIPlatformds.AddRange(GetAdditionlIds(locations, location, advertisingPlatforms));
+                var directId = GetDirectId(advertisingPlatforms, item.Value);
+                if (directId != 0)
+                {
+                    ids.Add(directId);
+                }
+
+                var additionalIds = GetAdditionalIds(locationsRaw, advertisingPlatforms, item.Key);
+                if (additionalIds != null && additionalIds.Any())
+                {
+                    ids.AddRange(additionalIds);
+                }
+
+                locations.Add(new() { Id = idCounter++, Name = item.Key, AdvertisingIPlatformds = ids });
             }
 
             return locations;
         }
 
-        private List<int> GetDirectIds(Location location, List<List<string>> groupedLocationNames, List<AdvertisingPlatform> advertisingPlatforms)
+        private int GetDirectId(List<AdvertisingPlatform> advertisingPlatforms, string currentAdvertisingPlatorm)
         {
-            List<int> result = new();
+            int result = 0;
 
-            for (int i = 0; i < advertisingPlatforms.Count; i++)
+            var advirtisingPlatform = advertisingPlatforms.Find(x => x.Name == currentAdvertisingPlatorm);
+
+            if (advirtisingPlatform != null) 
             {
-                if (groupedLocationNames[i].Contains(location.Name))
-                {
-                    result.Add(advertisingPlatforms[i].Id);
-                }
+                result = advirtisingPlatform.Id;
             }
 
             return result;
         }
 
-        private List<int> GetAdditionlIds(List<Location> locations, Location currentLocation, List<AdvertisingPlatform> advertisingPlatforms)
+        private List<int>? GetAdditionalIds(Dictionary<string, string> locationsRaw, List<AdvertisingPlatform> advertisingPlatforms, string currentAdvertisingPlatorm)
         {
-            var AdvertisingPlatformIds = locations.Where(x => currentLocation.Name.Contains(x.Name) && x != currentLocation)
-                 .Select(x => x.AdvertisingIPlatformds)
-                 .SelectMany(x => x.ToList())
-                 .ToList();
-
-            return AdvertisingPlatformIds;
+            return locationsRaw.Where(x => currentAdvertisingPlatorm.Contains(x.Key) && x.Key != currentAdvertisingPlatorm)
+                               .Select(x => x.Value)
+                               .Join(advertisingPlatforms, x => x, y => y.Name, (x, y) => y.Id)
+                               .ToList();
         }
     }
 }
