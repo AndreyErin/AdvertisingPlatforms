@@ -1,4 +1,6 @@
-﻿using AdvertisingPlatforms.Domain.Interfaces.Services;
+﻿using AdvertisingPlatforms.Business.Resources;
+using AdvertisingPlatforms.Business.Models;
+using AdvertisingPlatforms.Domain.Interfaces.Services;
 using AdvertisingPlatforms.Domain.Interfaces.Services.FileHandling;
 using Microsoft.AspNetCore.Mvc;
 
@@ -51,19 +53,16 @@ namespace AdvertisingPlatforms.Controllers
             //Exeption in FileReader
             if (data?.AdvertisingPlatforms.Count() == 0)
             {
-                return UnprocessableEntity("Файл прочитан. В файле нет корректных данных.");
+                return UnprocessableEntity(Messages.Error.NoCorrectFileData);
             }
 
             //update databases for services
             var countAdvertisingPlatforms = _advertisitngPlatformsService.ReplaceRepository(data.AdvertisingPlatforms);
             var countLocations = _locationsService.ReplaceRepository(data.Locations);
 
-            string message = $"База успешно обновлена!\n" +
-                             $"Количество рекламных площадок: {countAdvertisingPlatforms}.\n" +
-                             $"Количество локаций: {countLocations}.";
+            var message = new MessageOfReplace(countAdvertisingPlatforms, countLocations);
 
             return Ok(message);
-
         }
     }
 }

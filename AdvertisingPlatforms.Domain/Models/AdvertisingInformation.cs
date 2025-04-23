@@ -5,8 +5,8 @@
     /// </summary>
     public class AdvertisingInformation
     {
-        public List<AdvertisingPlatform> AdvertisingPlatforms { get; set; }
-        public List<Location> Locations { get; set; }
+        public List<AdvertisingPlatform> AdvertisingPlatforms { get; }
+        public List<Location> Locations { get; }
 
         public AdvertisingInformation(List<AdvertisingPlatform> advertisingPlatforms, List<Location> locations)
         {
