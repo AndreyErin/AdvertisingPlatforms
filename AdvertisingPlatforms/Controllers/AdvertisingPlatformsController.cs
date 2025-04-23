@@ -3,6 +3,7 @@ using AdvertisingPlatforms.Business.Models;
 using AdvertisingPlatforms.Domain.Interfaces.Services;
 using AdvertisingPlatforms.Domain.Interfaces.Services.FileHandling;
 using Microsoft.AspNetCore.Mvc;
+using AdvertisingPlatforms.Domain.Models;
 
 
 namespace AdvertisingPlatforms.Controllers
@@ -38,7 +39,7 @@ namespace AdvertisingPlatforms.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ReplaceAdvertisingData([FromForm] IFormFile file)
+        public async Task<IActionResult> ReplaceAdvertisingData(IFormFile file)
         {
             var data = await _reader.GetDataFromFileAsync(file);
 
@@ -53,14 +54,17 @@ namespace AdvertisingPlatforms.Controllers
             //Exeption in FileReader
             if (data?.AdvertisingPlatforms.Count() == 0)
             {
-                return UnprocessableEntity(Messages.Error.NoCorrectFileData);
+                var errorResult = new ResponseModel(false, Messages.Error.NoCorrectFileData);
+                return UnprocessableEntity(errorResult);
             }
 
             //update databases for services
             var countAdvertisingPlatforms = _advertisitngPlatformsService.ReplaceRepository(data.AdvertisingPlatforms);
             var countLocations = _locationsService.ReplaceRepository(data.Locations);
 
-            var message = new MessageOfReplace(countAdvertisingPlatforms, countLocations);
+            AdvertisingUpdateResult advertisingUpdateResult = new(countAdvertisingPlatforms, countLocations);
+
+            var message = new ResponseModel(true, Messages.Information.UpdateDatabase, advertisingUpdateResult);
 
             return Ok(message);
         }

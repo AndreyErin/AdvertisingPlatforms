@@ -6,10 +6,12 @@ namespace AdvertisingPlatforms.Business.Resources
     public static class Messages
     {
         private static ResourceManager _errorManager;
+        private static ResourceManager _informationManager;
 
         static Messages()
         {
             _errorManager = new ResourceManager("AdvertisingPlatforms.Business.Resources.ErrorMessages", Assembly.GetExecutingAssembly());
+            _informationManager = new ResourceManager("AdvertisingPlatforms.Business.Resources.InformationMessages", Assembly.GetExecutingAssembly());
         }
 
         public static class Error
@@ -20,7 +22,7 @@ namespace AdvertisingPlatforms.Business.Resources
 
         public static class Information 
         {
-
+            public static string UpdateDatabase => _informationManager.GetString("UpdateDatabase") ?? "";
         }
     }
 }

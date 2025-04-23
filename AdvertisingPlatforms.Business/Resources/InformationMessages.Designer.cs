@@ -59,5 +59,14 @@ namespace AdvertisingPlatforms.Business.Resources {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на База успешно обновлена!.
+        /// </summary>
+        internal static string UpdateDatabase {
+            get {
+                return ResourceManager.GetString("UpdateDatabase", resourceCulture);
+            }
+        }
     }
 }
