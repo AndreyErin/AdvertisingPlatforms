@@ -35,7 +35,7 @@ namespace AdvertisingPlatforms.Business.Extensions
         /// <param name="fileRepository"></param>
         /// <param name="filePath">Path for file.</param>
         /// <param name="newDataForDb">List of entities for writing.</param>
-        public static void SaveChangesToFile<TResource>(this FileRepository<TResource> fileRepository, string filePath, List<TResource> newDataForDb) where TResource : notnull, Resource
+        public static void SaveChangesToFile<TResource>(this FileRepository<TResource> fileRepository, string filePath, IReadOnlyList<TResource> newDataForDb) where TResource : notnull, Resource
         {
             var newDbJson = JsonSerializer.Serialize(newDataForDb, new JsonSerializerOptions() { WriteIndented = true });
 

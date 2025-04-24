@@ -12,6 +12,6 @@ namespace AdvertisingPlatforms.Domain.Interfaces
         /// Set new entities for Service.
         /// </summary>
         /// <param name="newEntitiesList">New enities for replace.</param>
-        public int ReplaceRepository(List<TResource> newEntitiesList);
+        public int ReplaceRepository(IReadOnlyList<TResource> newEntitiesList);
     }
 }

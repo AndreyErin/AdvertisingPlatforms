@@ -73,7 +73,7 @@ namespace AdvertisingPlatforms.Business.Abstractions.Repositories
         /// Owerwrite all entities of repository.
         /// </summary>
         /// <param name="entinies">New entities for owerwrite repository.</param>
-        public void ReplaceRepository(List<TResource> entinies)
+        public void ReplaceRepository(IReadOnlyList<TResource> entinies)
         {
             this.SaveChangesToFile(_dbFilePath, entinies);
         }
