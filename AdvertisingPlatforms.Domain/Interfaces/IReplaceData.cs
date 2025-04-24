@@ -2,12 +2,16 @@
 
 namespace AdvertisingPlatforms.Domain.Interfaces
 {
-    public interface IReplaceData<T> where T : notnull, Resource    
+    /// <summary>
+    /// Interface for replace repository.
+    /// </summary>
+    /// <typeparam name="TResource"></typeparam>
+    public interface IReplaceData<TResource> where TResource : notnull, Resource    
     {
         /// <summary>
         /// Set new entities for Service.
         /// </summary>
-        /// <param name="newDb">New enities for replace.</param>
-        public int ReplaceRepository(List<T> newEntitiesList);
+        /// <param name="newEntitiesList">New enities for replace.</param>
+        public int ReplaceRepository(List<TResource> newEntitiesList);
     }
 }

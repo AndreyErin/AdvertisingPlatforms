@@ -18,6 +18,8 @@ namespace AdvertisingPlatforms.Business.Resources
         {
             public static string NoCorrectFileData  => _errorManager.GetString("NoCorrectFileData") ?? "";
             public static string InvalidFile => _errorManager.GetString("InvalidFile") ?? "";
+
+            public static string NotFound => _errorManager.GetString("NotFound") ?? "";
         }
 
         public static class Information 

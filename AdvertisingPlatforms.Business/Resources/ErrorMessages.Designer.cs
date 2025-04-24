@@ -77,5 +77,14 @@ namespace AdvertisingPlatforms.Business.Resources {
                 return ResourceManager.GetString("NoCorrectFileData", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Данные не найдены..
+        /// </summary>
+        internal static string NotFound {
+            get {
+                return ResourceManager.GetString("NotFound", resourceCulture);
+            }
+        }
     }
 }

@@ -7,6 +7,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="AdvertisingJsonDbs\AdvertisingPlatformsDb.json" />
+    <None Remove="AdvertisingJsonDbs\LocationsDb.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="AdvertisingJsonDbs\AdvertisingPlatformsDb.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AdvertisingJsonDbs\LocationsDb.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\AdvertisingPlatforms.Business\AdvertisingPlatforms.Business.csproj" />
     <ProjectReference Include="..\AdvertisingPlatforms.Domain\AdvertisingPlatforms.Domain.csproj" />
   </ItemGroup>

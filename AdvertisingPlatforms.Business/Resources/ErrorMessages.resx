@@ -123,4 +123,7 @@
   <data name="NoCorrectFileData" xml:space="preserve">
     <value>Файл прочитан. В файле нет корректных данных.</value>
   </data>
+  <data name="NotFound" xml:space="preserve">
+    <value>Данные не найдены.</value>
+  </data>
 </root>
