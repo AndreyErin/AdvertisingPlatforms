@@ -9,16 +9,16 @@ namespace AdvertisingPlatforms.Business.Extensions
         /// <summary>
         /// Method for reading all entities from json-file.
         /// </summary>
-        /// <typeparam name="T">notnull, Resource</typeparam>
+        /// <typeparam name="TResource">notnull, Resource</typeparam>
         /// <param name="fileRepository"></param>
         /// <param name="filePath">Path for file with data.</param>
         /// <returns>List of entities.</returns>
-        public static List<T> GetAllFromFile<T>(this FileRepository<T> fileRepository, string filePath) where T : notnull, Resource
+        public static List<TResource> GetAllFromFile<TResource>(this FileRepository<TResource> fileRepository, string filePath) where TResource : notnull, Resource
         {
             using StreamReader sr = new StreamReader(filePath);
             var jsonDb = sr.ReadToEnd();
 
-            var result = JsonSerializer.Deserialize<List<T>>(jsonDb);
+            var result = JsonSerializer.Deserialize<List<TResource>>(jsonDb);
 
             if (result == null)
             {
@@ -31,11 +31,11 @@ namespace AdvertisingPlatforms.Business.Extensions
         /// <summary>
         /// Method for writing all entities to json-file.
         /// </summary>
-        /// <typeparam name="T">notnull, Resource</typeparam>
+        /// <typeparam name="TResource">notnull, Resource</typeparam>
         /// <param name="fileRepository"></param>
         /// <param name="filePath">Path for file.</param>
         /// <param name="newDataForDb">List of entities for writing.</param>
-        public static void SaveChangesToFile<T>(this FileRepository<T> fileRepository, string filePath, List<T> newDataForDb) where T : notnull, Resource
+        public static void SaveChangesToFile<TResource>(this FileRepository<TResource> fileRepository, string filePath, List<TResource> newDataForDb) where TResource : notnull, Resource
         {
             var newDbJson = JsonSerializer.Serialize(newDataForDb, new JsonSerializerOptions() { WriteIndented = true });
 

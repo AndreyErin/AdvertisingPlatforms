@@ -19,6 +19,11 @@ namespace AdvertisingPlatforms.Business.Services.FileHandlingServices
             _parser = parser;
         }
 
+        /// <summary>
+        /// Get data from file.
+        /// </summary>
+        /// <param name="file">File with data.</param>
+        /// <returns>Return data or exeption.</returns>
         public async Task<AdvertisingInformation?> GetDataFromFileAsync(Microsoft.AspNetCore.Http.IFormFile file)
         {
             using StreamReader streamReader = new(file.OpenReadStream());

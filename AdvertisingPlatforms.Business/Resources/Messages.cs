@@ -3,6 +3,9 @@ using System.Resources;
 
 namespace AdvertisingPlatforms.Business.Resources
 {
+    /// <summary>
+    /// Сlass for working with message resources.
+    /// </summary>
     public static class Messages
     {
         private static ResourceManager _errorManager;
@@ -14,6 +17,9 @@ namespace AdvertisingPlatforms.Business.Resources
             _informationManager = new ResourceManager("AdvertisingPlatforms.Business.Resources.InformationMessages", Assembly.GetExecutingAssembly());
         }
 
+        /// <summary>
+        /// Messages for errors.
+        /// </summary>
         public static class Error
         {
             public static string NoCorrectFileData  => _errorManager.GetString("NoCorrectFileData") ?? "";
@@ -22,6 +28,9 @@ namespace AdvertisingPlatforms.Business.Resources
             public static string NotFound => _errorManager.GetString("NotFound") ?? "";
         }
 
+        /// <summary>
+        /// Messages for information.
+        /// </summary>
         public static class Information 
         {
             public static string UpdateDatabase => _informationManager.GetString("UpdateDatabase") ?? "";

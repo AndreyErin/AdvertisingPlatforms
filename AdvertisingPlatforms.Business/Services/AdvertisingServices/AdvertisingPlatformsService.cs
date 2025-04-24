@@ -20,6 +20,11 @@ namespace AdvertisingPlatforms.Business.Services.AdvertisingServices
             _advertisingPlatformsRepository = advertisingsRepository;
         }
 
+        /// <summary>
+        /// Get advertisings for location.
+        /// </summary>
+        /// <param name="locationName">Name of location.</param>
+        /// <returns></returns>
         public List<string> GetAdvertisingPlatformsForLocation(string locationName)
         {
             List<string> result = new();
@@ -38,6 +43,11 @@ namespace AdvertisingPlatforms.Business.Services.AdvertisingServices
             return result;
         }
 
+        /// <summary>
+        /// Replace data of repository.
+        /// </summary>
+        /// <param name="newEntitiesList">New data for repository.</param>
+        /// <returns>Count new entieies.</returns>
         public int ReplaceRepository(List<AdvertisingPlatform> newEntitiesList)
         {
             _advertisingPlatformsRepository.ReplaceRepository(newEntitiesList);

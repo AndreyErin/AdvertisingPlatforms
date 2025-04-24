@@ -3,8 +3,16 @@ using AdvertisingPlatforms.Domain.Models;
 
 namespace AdvertisingPlatforms.Business.Services.FileHandlingServices
 {
+    /// <summary>
+    /// Parcer for file.
+    /// </summary>
     public class FileParser : IFileParser
     {
+        /// <summary>
+        /// Parsing data from file.
+        /// </summary>
+        /// <param name="fileContent">Content from file.</param>
+        /// <returns>Get data or exeption.</returns>
         public AdvertisingInformation GetParseData(string fileContent)
         {
             Dictionary<string, string> locationsRaw = new();

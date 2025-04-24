@@ -2,10 +2,18 @@
 
 namespace AdvertisingPlatforms.Business.Services.FileHandlingServices
 {
+    /// <summary>
+    /// Validator for files.
+    /// </summary>
     public class FileValidator : IFileValidator
     {
         const string splitter = ":";
 
+        /// <summary>
+        /// Validation check.
+        /// </summary>
+        /// <param name="data">Data for validation.</param>
+        /// <returns>True or false.</returns>
         public bool IsValid(string? data)
         {
             if (data != null &&
