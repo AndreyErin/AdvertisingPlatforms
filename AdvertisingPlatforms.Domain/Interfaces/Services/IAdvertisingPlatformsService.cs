@@ -1,12 +1,12 @@
 ﻿using AdvertisingPlatforms.Domain.Models;
 
-namespace AdvertisingPlatforms.Domain.Interfaces
+namespace AdvertisingPlatforms.Domain.Interfaces.Services
 {
 
     /// <summary>
     /// Interface for service of platforms.
     /// </summary>
-    public interface IAdvertisingPlatformsService
+    public interface IAdvertisingPlatformsService: IReplaceData<AdvertisingPlatform>
     {
         /// <summary>
         /// Get advertising platforms for location.
@@ -15,11 +15,5 @@ namespace AdvertisingPlatforms.Domain.Interfaces
         /// <returns>Return count advertising platforms for location.</returns>
         public List<string> GetAdvertisingPlatformsForLocation(string locationName);
 
-        /// <summary>
-        /// Set new database for PlatformsService.
-        /// </summary>
-        /// <param name="newDb">New database for update.</param>
-        /// <returns>Return count elements of database for success, -1 for fail.</returns>
-        public int ReplaceAllRepositoryData(DataFromFile newDата);
     }
 }

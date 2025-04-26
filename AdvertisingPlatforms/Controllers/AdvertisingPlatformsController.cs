@@ -1,5 +1,8 @@
-﻿using AdvertisingPlatforms.Domain.Interfaces;
+﻿using AdvertisingPlatforms.Business.Resources;
+using AdvertisingPlatforms.Domain.Interfaces.Services;
+using AdvertisingPlatforms.Domain.Interfaces.Services.FileHandling;
 using Microsoft.AspNetCore.Mvc;
+using AdvertisingPlatforms.Domain.Models.ResponseApi;
 
 namespace AdvertisingPlatforms.Controllers
 {
@@ -7,49 +10,79 @@ namespace AdvertisingPlatforms.Controllers
     [Route("/api/v1/[controller]")]
     public class AdvertisingPlatformsController : Controller
     {
-        private IAdvertisingPlatformsService _pfService;
-        private IReader _reader;
+        private IAdvertisingPlatformsService _advertisitngPlatformsService;
+        private ILocationsService _locationsService;
+        private IFileReader _reader;
         private const string prefLocationName = @"/";
 
-        public AdvertisingPlatformsController(IAdvertisingPlatformsService platformsService, IReader reader)
+        public AdvertisingPlatformsController(IAdvertisingPlatformsService platformsService, ILocationsService locationsService, IFileReader reader)
         {
-            _pfService = platformsService;
+            _advertisitngPlatformsService = platformsService;
+            _locationsService = locationsService;
             _reader = reader;
         }
 
+
+        /// <summary>
+        /// Get advertising for location.
+        /// </summary>
+        /// <param name="location">Location to search for advertising platforms.</param>
         [HttpGet("{*location}")]
+        [ProducesResponseType<ResponseApi<AdvertisingNullResult>>(StatusCodes.Status404NotFound)]
+        [ProducesResponseType<ResponseApi<AdvertisingsResult>>(StatusCodes.Status200OK)]
         public IActionResult GetAdvertisingPlatforms(string location)
         {
             string locationName = prefLocationName + location;
-            var result = _pfService.GetAdvertisingPlatformsForLocation(locationName);
+            var advertisings = _advertisitngPlatformsService.GetAdvertisingPlatformsForLocation(locationName);
 
-            if (result.Count() == 0)
+            if (advertisings.Count() == 0)
             {
-                return NotFound();
+                var notFoundResult = new ResponseApi<AdvertisingNullResult>(false, Messages.Error.NotFound);
+                return NotFound(notFoundResult);
             }
-
-            return Ok(result);
+            else
+            {
+                AdvertisingsResult advertisingsResult = new(advertisings);
+                var okResult = new ResponseApi<AdvertisingsResult>(true, "", advertisingsResult);
+                return Ok(okResult);
+            }               
         }
 
+        /// <summary>
+        /// Replace the advertising data.
+        /// </summary>
+        /// <param name="file">File with new advertising data.</param>
         [HttpPost]
-        public async Task<IActionResult> UploadingAndReplacingDataOfRepositoryFromFileAsync([FromForm] IFormFile file)
+        [ProducesResponseType<ResponseApi<AdvertisingNullResult>>(StatusCodes.Status422UnprocessableEntity)]
+        [ProducesResponseType<ResponseApi<AdvertisingUpdateResult>>(StatusCodes.Status200OK)]
+        public async Task<IActionResult> ReplaceAdvertisingData(IFormFile file)
         {
             var data = await _reader.GetDataFromFileAsync(file);
 
-            if (data == null)
+            //It will need to be moved to general error checking.
+            //Exeption in FileReader
+            //if (data == null)
+            //{
+            //    return new StatusCodeResult(500);
+            //}
+
+            //It will need to be moved to general error checking.
+            //Exeption in FileReader
+            if (data?.AdvertisingPlatforms.Count() == 0)
             {
-                return new StatusCodeResult(500);
-            }
-            else if (data.AdvertisingPlatforms.Count() == 0)
-            {
-                return UnprocessableEntity("Файл прочитан. В файле нет корректных данных.");
+                var errorResult = new ResponseApi<AdvertisingNullResult>(false, Messages.Error.NoCorrectFileData);
+                return UnprocessableEntity(errorResult);
             }
 
-            //update database PlatformsService
-            int count = _pfService.ReplaceAllRepositoryData(data);
+            //update databases for services
+            var countAdvertisingPlatforms = _advertisitngPlatformsService.ReplaceRepository(data.AdvertisingPlatforms);
+            var countLocations = _locationsService.ReplaceRepository(data.Locations);
 
-            return Ok($"База успешно обновлена. Количество локаций: {count}");
+            AdvertisingUpdateResult advertisingUpdateResult = new(countAdvertisingPlatforms, countLocations);
 
+            var okResult = new ResponseApi<AdvertisingUpdateResult>(true, Messages.Information.UpdateDatabase, advertisingUpdateResult);
+
+            return Ok(okResult);
         }
     }
 }

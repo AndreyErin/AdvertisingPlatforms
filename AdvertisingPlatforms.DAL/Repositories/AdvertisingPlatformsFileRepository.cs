@@ -1,4 +1,5 @@
-﻿using AdvertisingPlatforms.Domain.Models;
+﻿using AdvertisingPlatforms.Business.Abstractions.Repositories;
+using AdvertisingPlatforms.Domain.Models;
 using Microsoft.Extensions.Configuration;
 
 namespace AdvertisingPlatforms.DAL.Repositories
@@ -10,7 +11,7 @@ namespace AdvertisingPlatforms.DAL.Repositories
     {
         public AdvertisingPlatformsFileRepository(IConfiguration configuration)
         {
-            string? dbFilePath = configuration.GetSection("DataBases:AdvertisingPlatforms").Value;
+            var dbFilePath = configuration.GetSection("DataBases:AdvertisingPlatforms").Value;
 
             if (dbFilePath != null)
             {

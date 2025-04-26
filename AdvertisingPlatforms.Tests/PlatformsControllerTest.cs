@@ -1,8 +1,8 @@
-﻿using AdvertisingPlatforms.Controllers;
-using AdvertisingPlatforms.Domain.Interfaces;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Moq;
+﻿//using AdvertisingPlatforms.Controllers;
+//using AdvertisingPlatforms.Domain.Interfaces;
+//using Microsoft.AspNetCore.Http;
+//using Microsoft.AspNetCore.Mvc;
+//using Moq;
 
 
 namespace AdvertisingPlatforms.Tests
