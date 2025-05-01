@@ -5,19 +5,18 @@ namespace AdvertisingPlatforms.Domain.Models.ResponseApi
     /// <summary>
     /// Collection advertising for response.
     /// </summary>
-    public class AdvertisingsResult: BaseResponse
+    public class AdvertisingsResult: ApiResultData
     {
         /// <summary>
-        /// Collection advertising platforms.
+        /// Collection advertidings.
         /// </summary>
         public List<string> Advertisings { get; }
 
         /// <summary>
         /// Create new model.
         /// </summary>
-        /// <param name="success">Success of fail response.</param>
-        /// <param name="advertisings">Collection advertising platforms.</param>
-        public AdvertisingsResult(bool success, List<string> advertisings) : base(success)
+        /// <param name="advertisings">Collection advertidings.</param>
+        public AdvertisingsResult(List<string> advertisings)
         {
             Advertisings = advertisings;
         }

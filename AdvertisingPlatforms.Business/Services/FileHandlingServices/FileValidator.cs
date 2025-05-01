@@ -14,7 +14,7 @@ namespace AdvertisingPlatforms.Business.Services.FileHandlingServices
         /// </summary>
         /// <param name="data">Data for validation.</param>
         /// <returns>True or false.</returns>
-        public bool IsValidAdvertisingData(string? data)
+        public bool IsValid(string? data)
         {
             if (data != null &&
                 data?.Trim().Length >= 3 &&

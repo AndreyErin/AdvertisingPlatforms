@@ -11,6 +11,6 @@
         /// </summary>
         /// <param name="data">Data for vadidaty.</param>
         /// <returns>true or false</returns>
-        bool IsValidAdvertisingData(string? data);
+        bool IsValid(string? data);
     }
 }
