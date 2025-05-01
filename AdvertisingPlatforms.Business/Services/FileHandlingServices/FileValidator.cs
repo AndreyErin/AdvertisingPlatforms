@@ -1,14 +1,20 @@
-﻿using AdvertisingPlatforms.Domain.Interfaces;
+﻿using AdvertisingPlatforms.Domain.Interfaces.Services.FileHandling;
 
-namespace AdvertisingPlatforms.Domain.Services
+namespace AdvertisingPlatforms.Business.Services.FileHandlingServices
 {
     /// <summary>
-    /// Validater for data of file.
+    /// Validator for files.
     /// </summary>
     public class FileValidator : IFileValidator
     {
         const string splitter = ":";
-        public bool IsValid(string? data)
+
+        /// <summary>
+        /// Validation check.
+        /// </summary>
+        /// <param name="data">Data for validation.</param>
+        /// <returns>True or false.</returns>
+        public bool IsValidAdvertisingData(string? data)
         {
             if (data != null &&
                 data?.Trim().Length >= 3 &&

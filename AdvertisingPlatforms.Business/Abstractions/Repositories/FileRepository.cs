@@ -1,13 +1,13 @@
-﻿using AdvertisingPlatforms.Domain.Extensions;
+﻿using AdvertisingPlatforms.Business.Extensions;
 using AdvertisingPlatforms.Domain.Models.BaseModels;
 
-namespace AdvertisingPlatforms.Domain.Models
+namespace AdvertisingPlatforms.Business.Abstractions.Repositories
 {
     /// <summary>
     /// Repository for working with files.
     /// </summary>
-    /// <typeparam name="T"> notnull, Resource</typeparam>
-    public abstract class FileRepository<T> where T : notnull, Resource
+    /// <typeparam name="TResource"> notnull, Resource</typeparam>
+    public abstract class FileRepository<TResource> where TResource : notnull, Resource
     {
         protected string _dbFilePath = "";
 
@@ -15,7 +15,7 @@ namespace AdvertisingPlatforms.Domain.Models
         /// Add entity to repository.
         /// </summary>
         /// <param name="entity"></param>
-        public void AddToRepository(T entity)
+        public void AddToRepository(TResource entity)
         {
             var db = this.GetAllFromFile(_dbFilePath);
             db.Add(entity);
@@ -44,7 +44,7 @@ namespace AdvertisingPlatforms.Domain.Models
         /// </summary>
         /// <param name="id">id of entity.</param>
         /// <returns>Entity for success, null for fail.</returns>
-        public T? GetByIdFromRepository(int id)
+        public TResource? GetByIdFromRepository(int id)
         {
             return this.GetAllFromFile(_dbFilePath).Find(x => x.Id == id);
         }
@@ -54,7 +54,7 @@ namespace AdvertisingPlatforms.Domain.Models
         /// </summary>
         /// <param name="ids">id of entity.</param>
         /// <returns>List of enties for success, null for fail.</returns>
-        public List<T> GetByIdFromRepository(List<int> ids)
+        public List<TResource> GetByIdFromRepository(List<int> ids)
         {
             return this.GetAllFromFile(_dbFilePath).Where(x => ids.Contains(x.Id)).ToList();
         }
@@ -64,7 +64,7 @@ namespace AdvertisingPlatforms.Domain.Models
         /// </summary>
         /// <param name="name">name of entity.</param>
         /// <returns>Entity for success, null for fail</returns>
-        public T? GetByNameFromRepository(string name)
+        public TResource? GetByNameFromRepository(string name)
         {
             return this.GetAllFromFile(_dbFilePath).Find(x => x.Name == name);
         }
@@ -73,7 +73,7 @@ namespace AdvertisingPlatforms.Domain.Models
         /// Owerwrite all entities of repository.
         /// </summary>
         /// <param name="entinies">New entities for owerwrite repository.</param>
-        public void OwerwriteRepository(List<T> entinies)
+        public void ReplaceRepository(IReadOnlyList<TResource> entinies)
         {
             this.SaveChangesToFile(_dbFilePath, entinies);
         }
@@ -82,7 +82,7 @@ namespace AdvertisingPlatforms.Domain.Models
         /// Update entity in repository.
         /// </summary>
         /// <param name="entity">Entity for update.</param>
-        public void UpdateInRepository(T entity)
+        public void UpdateInRepository(TResource entity)
         {
             var db = this.GetAllFromFile(_dbFilePath);
 

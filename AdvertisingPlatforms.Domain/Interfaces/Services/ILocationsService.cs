@@ -3,7 +3,7 @@
 namespace AdvertisingPlatforms.Domain.Interfaces.Services
 {
     /// <summary>
-    /// Interface for service of locations.
+    /// Interface for managing locations.
     /// </summary>
     public interface ILocationsService: IReplaceData<Location>
     {

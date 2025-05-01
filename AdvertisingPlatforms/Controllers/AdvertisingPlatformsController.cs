@@ -1,9 +1,8 @@
-﻿using AdvertisingPlatforms.Domain.Configuration;
-using AdvertisingPlatforms.Domain.Interfaces;
+﻿using AdvertisingPlatforms.Business.Resources;
 using AdvertisingPlatforms.Domain.Interfaces.Services;
-using AdvertisingPlatforms.Domain.Services;
+using AdvertisingPlatforms.Domain.Interfaces.Services.FileHandling;
 using Microsoft.AspNetCore.Mvc;
-using System;
+using AdvertisingPlatforms.Domain.Models.ResponseApi;
 
 namespace AdvertisingPlatforms.Controllers
 {
@@ -11,10 +10,10 @@ namespace AdvertisingPlatforms.Controllers
     [Route("/api/v1/[controller]")]
     public class AdvertisingPlatformsController : Controller
     {
-        private IAdvertisingPlatformsService _advertisitngPlatformsService;
-        private ILocationsService _locationsService;
-        private IFileReader _reader;
-        private const string prefLocationName = @"/";
+        private readonly IAdvertisingPlatformsService _advertisitngPlatformsService;
+        private readonly ILocationsService _locationsService;
+        private readonly IFileReader _reader;
+        private const string PrefLocationName = @"/";
 
         public AdvertisingPlatformsController(IAdvertisingPlatformsService platformsService, ILocationsService locationsService, IFileReader reader)
         {
@@ -23,34 +22,64 @@ namespace AdvertisingPlatforms.Controllers
             _reader = reader;
         }
 
+
+        /// <summary>
+        /// Get advertising for location.
+        /// </summary>
+        /// <param name="location">Location to search for advertising platforms.</param>
         [HttpGet("{*location}")]
+        [ProducesResponseType<AdvertisingNullDataResult>(StatusCodes.Status404NotFound)]
+        [ProducesResponseType<AdvertisingsResult>(StatusCodes.Status200OK)]
         public IActionResult GetAdvertisingPlatforms(string location)
         {
-            string locationName = prefLocationName + location;
-            var result = _advertisitngPlatformsService.GetAdvertisingPlatformsForLocation(locationName);
+            string locationName = PrefLocationName + location;
+            var advertisingPlatformsForLocation = _advertisitngPlatformsService.GetAdvertisingPlatformsForLocation(locationName);
 
-            if (result.Count() == 0)
+            if (advertisingPlatformsForLocation.Count > 0)
             {
-                return NotFound();
+                var okResult = new AdvertisingsResult(true, advertisingPlatformsForLocation);
+                return Ok(okResult);
             }
-
-            return Ok(result);
+            else
+            {
+                var notFoundResult = new AdvertisingNullDataResult(false, Messages.Error.NotFound);
+                return NotFound(notFoundResult);
+            }               
         }
 
+        /// <summary>
+        /// Replace the advertising data.
+        /// </summary>
+        /// <param name="file">File with new advertising data.</param>
         [HttpPost]
-        public async Task<IActionResult> UploadingAndReplacingDataOfRepositoryFromFileAsync([FromForm] IFormFile file)
+        [ProducesResponseType<AdvertisingNullDataResult>(StatusCodes.Status422UnprocessableEntity)]
+        [ProducesResponseType<AdvertisingUpdateResult>(StatusCodes.Status200OK)]
+        public async Task<IActionResult> ReplaceAdvertisingData(IFormFile file)
         {
             var data = await _reader.GetDataFromFileAsync(file);
 
-            //update databases for services
-            int countAdvertisingPlatforms = _advertisitngPlatformsService.ReplaceAllData(data.AdvertisingPlatforms);
-            int countLocations = _locationsService.ReplaceAllData(data.Locations);
+            //TODO: It will need to be moved to general error checking.
+            //Exeption in FileReader
+            //if (data == null)
+            //{
+            //    return new StatusCodeResult(500);
+            //}
 
-            string message = $"База успешно обновлена!\n" +
-                             $"Количество рекламных площадок: {countAdvertisingPlatforms}.\n" +
-                             $"Количество локаций: {countLocations}.";
+            //TODO It will need to be moved to general error checking.
+            //Exeption in FileReader
+            if (data?.AdvertisingPlatforms.Count > 0)
+            {
+                var countAdvertisingPlatforms = _advertisitngPlatformsService.ReplaceRepository(data.AdvertisingPlatforms);
+                var countLocations = _locationsService.ReplaceRepository(data.Locations);
 
-            return Ok(message);
+                var okResult = new AdvertisingUpdateResult(true, countAdvertisingPlatforms, countLocations);
+                return Ok(okResult);
+            }
+            else
+            {
+                var errorResult = new AdvertisingNullDataResult(false, Messages.Error.NoCorrectFileData);
+                return UnprocessableEntity(errorResult);
+            }
         }
     }
 }

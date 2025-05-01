@@ -7,6 +7,9 @@ namespace AdvertisingPlatforms.Domain.Models
     /// </summary>
     public class Location: Resource
     {
-        public List<int> AdvertisingPlatformIds { get; set; } = new();
+        /// <summary>
+        /// Advertising IDs for locations.
+        /// </summary>
+        public List<int> AdvertisingIPlatformds { get; set; } = new();
     }
 }

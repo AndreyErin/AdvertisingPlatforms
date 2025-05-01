@@ -1,4 +1,4 @@
-﻿using AdvertisingPlatforms.Domain.Configuration;
+﻿using AdvertisingPlatforms.Business.Abstractions.Repositories;
 using AdvertisingPlatforms.Domain.Models;
 
 namespace AdvertisingPlatforms.DAL.Repositories

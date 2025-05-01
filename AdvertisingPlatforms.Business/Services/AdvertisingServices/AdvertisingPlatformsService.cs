@@ -1,7 +1,8 @@
-﻿using AdvertisingPlatforms.Domain.Interfaces.Services;
+﻿using AdvertisingPlatforms.Business.Abstractions.Repositories;
+using AdvertisingPlatforms.Domain.Interfaces.Services;
 using AdvertisingPlatforms.Domain.Models;
 
-namespace AdvertisingPlatforms.Domain.Services
+namespace AdvertisingPlatforms.Business.Services.AdvertisingServices
 {
 
     /// <summary>
@@ -19,6 +20,11 @@ namespace AdvertisingPlatforms.Domain.Services
             _advertisingPlatformsRepository = advertisingsRepository;
         }
 
+        /// <summary>
+        /// Get advertisings for location.
+        /// </summary>
+        /// <param name="locationName">Name of location.</param>
+        /// <returns></returns>
         public List<string> GetAdvertisingPlatformsForLocation(string locationName)
         {
             List<string> result = new();
@@ -37,10 +43,14 @@ namespace AdvertisingPlatforms.Domain.Services
             return result;
         }
 
-        public int ReplaceAllData(List<AdvertisingPlatform> newEntitiesList)
+        /// <summary>
+        /// Replace data of repository.
+        /// </summary>
+        /// <param name="newEntitiesList">New data for repository.</param>
+        /// <returns>Count new entieies.</returns>
+        public int ReplaceRepository(IReadOnlyList<AdvertisingPlatform> newEntitiesList)
         {
-            _advertisingPlatformsRepository.OwerwriteRepository(newEntitiesList);
-
+            _advertisingPlatformsRepository.ReplaceRepository(newEntitiesList);
 
             return newEntitiesList.Count();    
         }

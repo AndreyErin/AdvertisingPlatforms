@@ -1,0 +1,25 @@
+[
+  {
+    "AdvertisingIPlatformds": [
+      1
+    ],
+    "Id": 1,
+    "Name": "/ru"
+  },
+  {
+    "AdvertisingIPlatformds": [
+      2,
+      1
+    ],
+    "Id": 2,
+    "Name": "/ru/svrd/revda"
+  },
+  {
+    "AdvertisingIPlatformds": [
+      2,
+      1
+    ],
+    "Id": 3,
+    "Name": "/ru/svrd/pervik"
+  }
+]
