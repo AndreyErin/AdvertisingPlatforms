@@ -32,7 +32,7 @@ namespace AdvertisingPlatforms.Business.Services.FileHandlingServices
             {
                 var fileContent = await streamReader.ReadToEndAsync();
 
-                if (_validator.IsValid(fileContent) == false)
+                if (_validator.IsValidAdvertisingData(fileContent) == false)
                 {
                     //Exeption
                 }

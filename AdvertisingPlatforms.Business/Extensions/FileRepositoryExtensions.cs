@@ -15,7 +15,7 @@ namespace AdvertisingPlatforms.Business.Extensions
         /// <returns>List of entities.</returns>
         public static List<TResource> GetAllFromFile<TResource>(this FileRepository<TResource> fileRepository, string filePath) where TResource : notnull, Resource
         {
-            using StreamReader sr = new StreamReader(filePath);
+            using StreamReader sr = new StreamReader(Path.Combine(AppContext.BaseDirectory, filePath));
             var jsonDb = sr.ReadToEnd();
 
             var result = JsonSerializer.Deserialize<List<TResource>>(jsonDb);
@@ -41,7 +41,7 @@ namespace AdvertisingPlatforms.Business.Extensions
 
             if (newDbJson != null)
             {
-                using StreamWriter sw = new StreamWriter(filePath, false);
+                using StreamWriter sw = new StreamWriter(Path.Combine(AppContext.BaseDirectory, filePath), false);
 
                 sw.Write(newDbJson);
             }

@@ -5,10 +5,10 @@ namespace AdvertisingPlatforms.Domain.Models.ResponseApi
     /// <summary>
     /// Information about the number of updated entities.
     /// </summary>
-    public class AdvertisingUpdateResult: ApiResultData
+    public class AdvertisingUpdateResult: BaseResponse
     {
         /// <summary>
-        /// Count of adds advertisings.
+        /// Count of adds advertising platforms.
         /// </summary>
         public int CountAdvertisingPlatforms { get; }
 
@@ -20,9 +20,10 @@ namespace AdvertisingPlatforms.Domain.Models.ResponseApi
         /// <summary>
         /// Create new model.
         /// </summary>
-        /// <param name="countAdvertisingPlatforms">Count of adds advertisings.</param>
+        /// <param name="success">Success of fail response.</param>
+        /// <param name="countAdvertisingPlatforms">Count of adds advertising platforms.</param>
         /// <param name="countLocations">Count of adds locations.</param>
-        public AdvertisingUpdateResult(int countAdvertisingPlatforms, int countLocations)
+        public AdvertisingUpdateResult(bool success, int countAdvertisingPlatforms, int countLocations) : base(success)
         {
             CountAdvertisingPlatforms = countAdvertisingPlatforms;
             CountLocations = countLocations;
