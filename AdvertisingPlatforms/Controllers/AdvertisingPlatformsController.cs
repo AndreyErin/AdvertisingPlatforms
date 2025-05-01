@@ -58,15 +58,7 @@ namespace AdvertisingPlatforms.Controllers
         {
             var data = await _reader.GetDataFromFileAsync(file);
 
-            //TODO: It will need to be moved to general error checking.
-            //Exeption in FileReader
-            //if (data == null)
-            //{
-            //    return new StatusCodeResult(500);
-            //}
 
-            //TODO It will need to be moved to general error checking.
-            //Exeption in FileReader
             if (data?.AdvertisingPlatforms.Count > 0)
             {
                 var countAdvertisingPlatforms = _advertisitngPlatformsService.ReplaceRepository(data.AdvertisingPlatforms);

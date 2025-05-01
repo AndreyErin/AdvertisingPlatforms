@@ -10,6 +10,6 @@ namespace AdvertisingPlatforms.Domain.Models
         /// <summary>
         /// Advertising IDs for locations.
         /// </summary>
-        public List<int> AdvertisingIPlatformds { get; set; } = new();
+        public List<int> AdvertisingPlatformIds { get; set; } = new();
     }
 }

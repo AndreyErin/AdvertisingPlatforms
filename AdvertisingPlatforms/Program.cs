@@ -1,3 +1,4 @@
+using AdvertisingPlatforms.Domain.Configuration;
 using AdvertisingPlatforms.Domain.Middlewares;
 using AdvertisingPlatforms.ServiceCollection;
 
@@ -14,6 +15,9 @@ namespace AdvertisingPlatforms
             builder.Services.AddRepositoryServices();
             builder.Services.AddFileServices();
 
+            //TODO
+            builder.Services.AddScoped<Config>();
+
             if (builder.Environment.IsDevelopment())
             {
                 builder.Services.AddSwaggerServices();
@@ -27,6 +31,9 @@ namespace AdvertisingPlatforms
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            //TODO
+            app.UseMiddleware<ExeptionHanglerMiddleware>();
 
             app.UseRouting();
             app.MapControllers();

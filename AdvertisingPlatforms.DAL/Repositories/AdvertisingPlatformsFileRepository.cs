@@ -11,7 +11,7 @@ namespace AdvertisingPlatforms.DAL.Repositories
     {
         public AdvertisingPlatformsFileRepository(Config _)
         {
-            _dbFilePath = Config.AdvertisingPlatformsDbPath;
+            DbFilePath = Config.AdvertisingPlatformsDbPath;
         }
     }
 }

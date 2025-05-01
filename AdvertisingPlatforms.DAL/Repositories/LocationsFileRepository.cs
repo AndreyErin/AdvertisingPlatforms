@@ -1,4 +1,5 @@
 ﻿using AdvertisingPlatforms.Business.Abstractions.Repositories;
+using AdvertisingPlatforms.Domain.Configuration;
 using AdvertisingPlatforms.Domain.Models;
 
 namespace AdvertisingPlatforms.DAL.Repositories
@@ -10,7 +11,7 @@ namespace AdvertisingPlatforms.DAL.Repositories
     {       
         public LocationsFileRepository(Config _)
         {
-            _dbFilePath = Config.LocationsDbPath;
+            DbFilePath = Config.LocationsDbPath;
         }      
     }
 }

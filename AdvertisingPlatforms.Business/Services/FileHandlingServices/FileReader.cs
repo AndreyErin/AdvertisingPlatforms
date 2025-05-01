@@ -1,4 +1,5 @@
-﻿using AdvertisingPlatforms.Domain.Interfaces.Services.FileHandling;
+﻿using AdvertisingPlatforms.Domain.Exeptions;
+using AdvertisingPlatforms.Domain.Interfaces.Services.FileHandling;
 using AdvertisingPlatforms.Domain.Models;
 
 
@@ -29,12 +30,12 @@ namespace AdvertisingPlatforms.Business.Services.FileHandlingServices
 
             var fileContent = await streamReader.ReadToEndAsync();
 
-            if (!_validator.IsValid(fileContent))
+            if (!_validator.IsValidAdvertisingData(fileContent))
             {
                 throw new InvalidFileDataExeption("Некорректный файл.");                
             }
 
-            DataFromFile result = _parser.GetParsedData(fileContent);
+            AdvertisingInformation result = _parser.GetParseData(fileContent);
 
             if (result.AdvertisingPlatforms.Count == 0 ||
                 result.Locations.Count == 0) 

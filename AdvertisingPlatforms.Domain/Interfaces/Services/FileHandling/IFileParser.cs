@@ -12,6 +12,6 @@ namespace AdvertisingPlatforms.Domain.Interfaces.Services.FileHandling
         /// </summary>
         /// <param name="fileContent">Content of file.</param>
         /// <returns></returns>
-        public AdvertisingInformation? GetParseData(string fileContent);
+        public AdvertisingInformation GetParseData(string fileContent);
     }
 }

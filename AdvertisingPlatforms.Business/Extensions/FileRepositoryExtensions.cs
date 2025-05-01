@@ -39,7 +39,7 @@ namespace AdvertisingPlatforms.Business.Extensions
         {
             var newDbJson = JsonSerializer.Serialize(newDataForDb, new JsonSerializerOptions() { WriteIndented = true });
 
-            if (newDbJson != null)
+            if (newDbJson.Length > 0)
             {
                 using StreamWriter sw = new StreamWriter(Path.Combine(AppContext.BaseDirectory, filePath), false);
 

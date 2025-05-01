@@ -31,7 +31,7 @@ namespace AdvertisingPlatforms.Business.Services.AdvertisingServices
 
             var location = _locationsService.GetByName(locationName);
 
-            if (location != null && location.AdvertisingPlatformIds != null)
+            if (location?.AdvertisingPlatformIds.Count > 0)
             {
                 var advertisingNames = _advertisingPlatformsRepository.GetByIdFromRepository(location.AdvertisingPlatformIds)
                     .Select(x=>x.Name)
@@ -52,7 +52,7 @@ namespace AdvertisingPlatforms.Business.Services.AdvertisingServices
         {
             _advertisingPlatformsRepository.ReplaceRepository(newEntitiesList);
 
-            return newEntitiesList.Count();    
+            return newEntitiesList.Count;    
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using AdvertisingPlatforms.Domain.Exeptions;
-using AdvertisingPlatforms.Domain.Interfaces;
 using Microsoft.Extensions.Configuration;
 
 namespace AdvertisingPlatforms.Domain.Configuration
@@ -11,7 +10,7 @@ namespace AdvertisingPlatforms.Domain.Configuration
     {
         private static string _apDbPath = "";
         private static string _lDbPath = "";
-        private static bool isInicialize = false;
+        private static bool _isInicialize = false;
 
         /// <summary>
         /// Path for database AcdvertisingPlatforms.
@@ -26,7 +25,7 @@ namespace AdvertisingPlatforms.Domain.Configuration
         
         public Config(IConfiguration configuration)
         {
-            if (isInicialize)
+            if (_isInicialize)
             {
                 return;
             }
@@ -40,7 +39,7 @@ namespace AdvertisingPlatforms.Domain.Configuration
                 _apDbPath = apDbPath;
                 _lDbPath = lDbPath;
 
-                isInicialize = true;
+                _isInicialize = true;
             }
             else
             {

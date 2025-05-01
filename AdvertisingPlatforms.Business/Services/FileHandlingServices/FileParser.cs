@@ -69,7 +69,7 @@ namespace AdvertisingPlatforms.Business.Services.FileHandlingServices
                     ids.AddRange(additionalIds);
                 }
 
-                locations.Add(new() { Id = idCounter++, Name = item.Key, AdvertisingIPlatformds = ids });
+                locations.Add(new() { Id = idCounter++, Name = item.Key, AdvertisingPlatformIds = ids });
             }
 
             return locations;

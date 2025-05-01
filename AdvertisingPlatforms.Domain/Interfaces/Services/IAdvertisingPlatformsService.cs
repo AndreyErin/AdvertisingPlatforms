@@ -10,7 +10,7 @@ namespace AdvertisingPlatforms.Domain.Interfaces.Services
         /// <summary>
         /// Get advertising platforms for location.
         /// </summary>
-        /// <param name="location">Location for Advertising platforms.</param>
+        /// <param name="locationName">Location for Advertising platforms.</param>
         /// <returns>Return count advertising platforms for location.</returns>
         public List<string> GetAdvertisingPlatformsForLocation(string locationName);
 

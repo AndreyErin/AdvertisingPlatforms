@@ -9,7 +9,7 @@ namespace AdvertisingPlatforms.Business.Abstractions.Repositories
     /// <typeparam name="TResource"> notnull, Resource</typeparam>
     public abstract class FileRepository<TResource> where TResource : notnull, Resource
     {
-        protected string _dbFilePath = "";
+        protected string DbFilePath = "";
 
         /// <summary>
         /// Add entity to repository.
@@ -17,9 +17,9 @@ namespace AdvertisingPlatforms.Business.Abstractions.Repositories
         /// <param name="entity"></param>
         public void AddToRepository(TResource entity)
         {
-            var db = this.GetAllFromFile(_dbFilePath);
+            var db = this.GetAllFromFile(DbFilePath);
             db.Add(entity);
-            this.SaveChangesToFile( _dbFilePath,db);
+            this.SaveChangesToFile( DbFilePath,db);
         }
 
         /// <summary>
@@ -28,14 +28,14 @@ namespace AdvertisingPlatforms.Business.Abstractions.Repositories
         /// <param name="id">id of entity.</param>
         public void DeleteFromRepository(int id)
         {
-            var db = this.GetAllFromFile(_dbFilePath);
+            var db = this.GetAllFromFile(DbFilePath);
 
             var advertising = db.Find(x => x.Id == id);
 
             if (advertising != null)
             {
                 db.Remove(advertising);
-                this.SaveChangesToFile(_dbFilePath, db);
+                this.SaveChangesToFile(DbFilePath, db);
             }
         }
 
@@ -46,7 +46,7 @@ namespace AdvertisingPlatforms.Business.Abstractions.Repositories
         /// <returns>Entity for success, null for fail.</returns>
         public TResource? GetByIdFromRepository(int id)
         {
-            return this.GetAllFromFile(_dbFilePath).Find(x => x.Id == id);
+            return this.GetAllFromFile(DbFilePath).Find(x => x.Id == id);
         }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace AdvertisingPlatforms.Business.Abstractions.Repositories
         /// <returns>List of enties for success, null for fail.</returns>
         public List<TResource> GetByIdFromRepository(List<int> ids)
         {
-            return this.GetAllFromFile(_dbFilePath).Where(x => ids.Contains(x.Id)).ToList();
+            return this.GetAllFromFile(DbFilePath).Where(x => ids.Contains(x.Id)).ToList();
         }
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace AdvertisingPlatforms.Business.Abstractions.Repositories
         /// <returns>Entity for success, null for fail</returns>
         public TResource? GetByNameFromRepository(string name)
         {
-            return this.GetAllFromFile(_dbFilePath).Find(x => x.Name == name);
+            return this.GetAllFromFile(DbFilePath).Find(x => x.Name == name);
         }
 
         /// <summary>
@@ -75,7 +75,7 @@ namespace AdvertisingPlatforms.Business.Abstractions.Repositories
         /// <param name="entinies">New entities for owerwrite repository.</param>
         public void ReplaceRepository(IReadOnlyList<TResource> entinies)
         {
-            this.SaveChangesToFile(_dbFilePath, entinies);
+            this.SaveChangesToFile(DbFilePath, entinies);
         }
 
         /// <summary>
@@ -84,14 +84,14 @@ namespace AdvertisingPlatforms.Business.Abstractions.Repositories
         /// <param name="entity">Entity for update.</param>
         public void UpdateInRepository(TResource entity)
         {
-            var db = this.GetAllFromFile(_dbFilePath);
+            var db = this.GetAllFromFile(DbFilePath);
 
             var advertising = db.Find(x => x.Id == entity.Id);
 
             if (advertising != null)
             {
                 advertising = entity;
-                this.SaveChangesToFile(_dbFilePath, db);
+                this.SaveChangesToFile(DbFilePath, db);
             }
             else
             {

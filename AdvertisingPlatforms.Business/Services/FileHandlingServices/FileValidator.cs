@@ -7,7 +7,7 @@ namespace AdvertisingPlatforms.Business.Services.FileHandlingServices
     /// </summary>
     public class FileValidator : IFileValidator
     {
-        const string splitter = ":";
+        const string Splitter = ":";
 
         /// <summary>
         /// Validation check.
@@ -17,8 +17,8 @@ namespace AdvertisingPlatforms.Business.Services.FileHandlingServices
         public bool IsValidAdvertisingData(string? data)
         {
             if (data != null &&
-                data?.Trim().Length >= 3 &&
-                data?.Contains(splitter) == true)
+                data.Trim().Length >= 3 &&
+                data.Contains(Splitter))
             {
                 return true;
             }

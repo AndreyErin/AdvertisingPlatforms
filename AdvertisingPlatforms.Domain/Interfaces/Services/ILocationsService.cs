@@ -10,7 +10,7 @@ namespace AdvertisingPlatforms.Domain.Interfaces.Services
         /// <summary>
         /// Get id location by name.
         /// </summary>
-        /// <param name="location">Name of location.</param>
+        /// <param name="name">Name of location.</param>
         /// <returns>Return location or null.</returns>
         public Location? GetByName(string name);
     }
