@@ -1,5 +1,4 @@
-﻿using AdvertisingPlatforms.Business.Abstractions.Repositories;
-using AdvertisingPlatforms.Domain.Configuration;
+﻿using AdvertisingPlatforms.DAL.Repositories.Base;
 using AdvertisingPlatforms.Domain.Models;
 
 namespace AdvertisingPlatforms.DAL.Repositories
@@ -7,11 +6,7 @@ namespace AdvertisingPlatforms.DAL.Repositories
     /// <summary>
     /// Repository of locations for working with a json file.
     /// </summary>
-    public class LocationsFileRepository : FileRepository<Location>
+    public class LocationsFileRepository : Repository<Location>
     {       
-        public LocationsFileRepository(Config _)
-        {
-            DbFilePath = Config.LocationsDbPath;
-        }      
     }
 }

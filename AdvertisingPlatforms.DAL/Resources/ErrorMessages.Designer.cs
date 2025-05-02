@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace AdvertisingPlatforms.Business.Resources {
+namespace AdvertisingPlatforms.DAL.Resources {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace AdvertisingPlatforms.Business.Resources {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("AdvertisingPlatforms.Business.Resources.ErrorMessages", typeof(ErrorMessages).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("AdvertisingPlatforms.DAL.Resources.ErrorMessages", typeof(ErrorMessages).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

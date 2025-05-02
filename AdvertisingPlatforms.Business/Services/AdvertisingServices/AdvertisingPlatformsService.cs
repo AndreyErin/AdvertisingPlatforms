@@ -1,4 +1,4 @@
-﻿using AdvertisingPlatforms.Business.Abstractions.Repositories;
+﻿using AdvertisingPlatforms.DAL.Repositories.Base;
 using AdvertisingPlatforms.Domain.Interfaces.Services;
 using AdvertisingPlatforms.Domain.Models;
 
@@ -10,10 +10,10 @@ namespace AdvertisingPlatforms.Business.Services.AdvertisingServices
     /// </summary>
     public class AdvertisingPlatformsService : IAdvertisingPlatformsService
     {
-        private FileRepository<AdvertisingPlatform> _advertisingPlatformsRepository;
+        private Repository<AdvertisingPlatform> _advertisingPlatformsRepository;
         private ILocationsService _locationsService;
 
-        public AdvertisingPlatformsService(FileRepository<AdvertisingPlatform> advertisingsRepository, 
+        public AdvertisingPlatformsService(Repository<AdvertisingPlatform> advertisingsRepository, 
                                            ILocationsService locationsSevice)
         {
             _locationsService = locationsSevice;

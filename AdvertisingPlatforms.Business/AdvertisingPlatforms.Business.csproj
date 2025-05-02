@@ -7,31 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AdvertisingPlatforms.DAL\AdvertisingPlatforms.DAL.csproj" />
     <ProjectReference Include="..\AdvertisingPlatforms.Domain\AdvertisingPlatforms.Domain.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="Resources\ErrorMessages.Designer.cs">
-      <DependentUpon>ErrorMessages.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Update="Resources\InformationMessages.Designer.cs">
-      <DependentUpon>InformationMessages.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Update="Resources\ErrorMessages.resx">
-      <LastGenOutput>ErrorMessages.Designer.cs</LastGenOutput>
-      <Generator>ResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Resources\InformationMessages.resx">
-      <LastGenOutput>InformationMessages.Designer.cs</LastGenOutput>
-      <Generator>ResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

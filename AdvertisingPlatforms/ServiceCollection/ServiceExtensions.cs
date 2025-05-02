@@ -1,10 +1,10 @@
 ﻿using AdvertisingPlatforms.DAL.Repositories;
-using AdvertisingPlatforms.Business.Abstractions.Repositories;
 using AdvertisingPlatforms.Domain.Interfaces.Services;
 using AdvertisingPlatforms.Domain.Interfaces.Services.FileHandling;
 using AdvertisingPlatforms.Domain.Models;
 using AdvertisingPlatforms.Business.Services.AdvertisingServices;
 using AdvertisingPlatforms.Business.Services.FileHandlingServices;
+using AdvertisingPlatforms.DAL.Repositories.Base;
 
 namespace AdvertisingPlatforms.ServiceCollection
 {
@@ -26,8 +26,8 @@ namespace AdvertisingPlatforms.ServiceCollection
         /// </summary>
         public static IServiceCollection AddRepositoryServices(this IServiceCollection services)
         {
-            services.AddScoped<FileRepository<Location>, LocationsFileRepository>();
-            services.AddScoped<FileRepository<AdvertisingPlatform>, AdvertisingPlatformsFileRepository>();
+            services.AddScoped<Repository<Location>, LocationsFileRepository>();
+            services.AddScoped<Repository<AdvertisingPlatform>, AdvertisingPlatformsFileRepository>();
 
             return services;
         }

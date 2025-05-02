@@ -1,4 +1,4 @@
-﻿using AdvertisingPlatforms.Business.Resources;
+﻿using AdvertisingPlatforms.DAL.Resources;
 using AdvertisingPlatforms.Domain.Interfaces.Services;
 using AdvertisingPlatforms.Domain.Interfaces.Services.FileHandling;
 using Microsoft.AspNetCore.Mvc;

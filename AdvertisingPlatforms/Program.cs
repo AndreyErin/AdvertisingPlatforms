@@ -15,9 +15,6 @@ namespace AdvertisingPlatforms
             builder.Services.AddRepositoryServices();
             builder.Services.AddFileServices();
 
-            //TODO
-            builder.Services.AddScoped<Config>();
-
             if (builder.Environment.IsDevelopment())
             {
                 builder.Services.AddSwaggerServices();
@@ -31,6 +28,8 @@ namespace AdvertisingPlatforms
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            Config config = new Config(app.Configuration);
 
             //TODO
             app.UseMiddleware<ExeptionHanglerMiddleware>();

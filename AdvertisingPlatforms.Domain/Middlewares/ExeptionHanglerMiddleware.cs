@@ -50,7 +50,7 @@ namespace AdvertisingPlatforms.Domain.Middlewares
 
             httpContext.Response.ContentType = "application/json";
             httpContext.Response.StatusCode = statusCode;
-            await httpContext.Response.WriteAsync($"что-то пошло не так. {exception.Message}.");
+            await httpContext.Response.WriteAsync($"что-то пошло не так. {message}.");
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using System.Resources;
 
-namespace AdvertisingPlatforms.Business.Resources
+namespace AdvertisingPlatforms.DAL.Resources
 {
     /// <summary>
     /// Сlass for working with message resources.
@@ -13,8 +13,8 @@ namespace AdvertisingPlatforms.Business.Resources
 
         static Messages()
         {
-            _errorManager = new ResourceManager("AdvertisingPlatforms.Business.Resources.ErrorMessages", Assembly.GetExecutingAssembly());
-            _informationManager = new ResourceManager("AdvertisingPlatforms.Business.Resources.InformationMessages", Assembly.GetExecutingAssembly());
+            _errorManager = new ResourceManager("AdvertisingPlatforms.DAL.Resources.ErrorMessages", Assembly.GetExecutingAssembly());
+            _informationManager = new ResourceManager("AdvertisingPlatforms.DAL.Resources.InformationMessages", Assembly.GetExecutingAssembly());
         }
 
         /// <summary>

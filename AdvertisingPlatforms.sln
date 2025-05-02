@@ -19,13 +19,11 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdvertisingPlatforms.Domain", "AdvertisingPlatforms.Domain\AdvertisingPlatforms.Domain.csproj", "{2285FDCF-4C97-7B45-BCA4-1AF65EBDDA1A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdvertisingPlatforms.DAL", "AdvertisingPlatforms.DAL\AdvertisingPlatforms.DAL.csproj", "{8ECAD98E-96DA-D532-CFDF-200731811F44}"
-	ProjectSection(ProjectDependencies) = postProject
-		{69EFAD81-4748-B4B0-E396-8D23D2F679F1} = {69EFAD81-4748-B4B0-E396-8D23D2F679F1}
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdvertisingPlatforms.Business", "AdvertisingPlatforms.Business\AdvertisingPlatforms.Business.csproj", "{69EFAD81-4748-B4B0-E396-8D23D2F679F1}"
 	ProjectSection(ProjectDependencies) = postProject
 		{2285FDCF-4C97-7B45-BCA4-1AF65EBDDA1A} = {2285FDCF-4C97-7B45-BCA4-1AF65EBDDA1A}
+		{8ECAD98E-96DA-D532-CFDF-200731811F44} = {8ECAD98E-96DA-D532-CFDF-200731811F44}
 	EndProjectSection
 EndProject
 Global
