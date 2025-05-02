@@ -48,48 +48,35 @@ namespace AdvertisingPlatforms.Business.Services.FileHandlingServices
             }
         }
 
-        private List<Location> GetLocations(Dictionary<string, string> locationsRaw, List<AdvertisingPlatform> advertisingPlatforms)
+
+        private List<Location> GetLocations(Dictionary<string, string> locationsRaw,
+            List<AdvertisingPlatform> advertisingPlatforms)
         {
-            int idCounter = 1;
-            List<Location> locations = new();
-
-            foreach (var item in locationsRaw)
-            {
-                List<int> ids = new();
-
-                var directId = GetDirectId(advertisingPlatforms, item.Value);
-                if (directId != 0)
+            var locations = locationsRaw
+                .Select((x, Index) => new Location
                 {
-                    ids.Add(directId);
-                }
-
-                var additionalIds = GetAdditionalIds(locationsRaw, advertisingPlatforms, item.Key);
-                if (additionalIds != null && additionalIds.Any())
+                    Id = Index + 1, 
+                    Name = x.Key,
+                    AdvertisingPlatformIds = GetDirectId(advertisingPlatforms, x.Value) > 0 ? [GetDirectId(advertisingPlatforms, x.Value)] : new()
+                })
+                .Select(x => new Location
                 {
-                    ids.AddRange(additionalIds);
-                }
-
-                locations.Add(new() { Id = idCounter++, Name = item.Key, AdvertisingPlatformIds = ids });
-            }
+                    Id = x.Id,
+                    Name = x.Name,
+                    AdvertisingPlatformIds = x.AdvertisingPlatformIds.Concat(GetAdditionalIds(locationsRaw, advertisingPlatforms, x.Name)).ToList()
+                })
+                .ToList();
 
             return locations;
         }
 
+
         private int GetDirectId(List<AdvertisingPlatform> advertisingPlatforms, string currentAdvertisingPlatorm)
         {
-            int result = 0;
-
-            var advirtisingPlatform = advertisingPlatforms.Find(x => x.Name == currentAdvertisingPlatorm);
-
-            if (advirtisingPlatform != null) 
-            {
-                result = advirtisingPlatform.Id;
-            }
-
-            return result;
+            return advertisingPlatforms.Find(x => x.Name == currentAdvertisingPlatorm)?.Id ?? 0;
         }
 
-        private List<int>? GetAdditionalIds(Dictionary<string, string> locationsRaw, List<AdvertisingPlatform> advertisingPlatforms, string currentAdvertisingPlatorm)
+        private List<int> GetAdditionalIds(Dictionary<string, string> locationsRaw, List<AdvertisingPlatform> advertisingPlatforms, string currentAdvertisingPlatorm)
         {
             return locationsRaw.Where(x => currentAdvertisingPlatorm.Contains(x.Key) && x.Key != currentAdvertisingPlatorm)
                                .Select(x => x.Value)
