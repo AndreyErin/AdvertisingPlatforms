@@ -1,18 +1,17 @@
-﻿using AdvertisingPlatforms.Domain.Exeptions;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 
 namespace AdvertisingPlatforms.Domain.Configuration
 {
     /// <summary>
-    /// Сlass provides access to the configuration file parameter.
+    /// Class provides access to the configuration file parameter.
     /// </summary>
-    public class Config
+    public static class Config
     {
         private static string _advertisingPlatformsDbPath = String.Empty;
         private static string _locationsDbPath = String.Empty;
 
         /// <summary>
-        /// Path for database AcdvertisingPlatforms.
+        /// Path for database AdvertisingPlatforms.
         /// </summary>
         public static string AdvertisingPlatformsDbPath => _advertisingPlatformsDbPath;
 
@@ -21,7 +20,12 @@ namespace AdvertisingPlatforms.Domain.Configuration
         /// </summary>
         public static string LocationsDbPath => _locationsDbPath;
 
-        public Config(IConfiguration configuration)
+        /// <summary>
+        /// Initialize configuration.
+        /// </summary>
+        /// <param name="configuration">Configuration.</param>
+        /// <exception cref="ConfigureReadExeption">Couldn't read the configuration file.</exception>
+        public static void Initialize(IConfiguration configuration)
         {
             string? apDbPath = configuration.GetSection("DataBases:AdvertisingPlatforms").Value;
 
@@ -31,10 +35,6 @@ namespace AdvertisingPlatforms.Domain.Configuration
             {
                 _advertisingPlatformsDbPath = apDbPath;
                 _locationsDbPath = lDbPath;
-            }
-            else
-            {
-                throw new ConfigureReadExeption("Не удалось получить пути к json-базам данных из файла конфигурации.");
             }
         }
     }

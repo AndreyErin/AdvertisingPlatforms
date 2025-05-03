@@ -37,12 +37,12 @@ namespace AdvertisingPlatforms.Controllers
 
             if (advertisingPlatformsForLocation.Count > 0)
             {
-                var okResult = new AdvertisingsResult(true, advertisingPlatformsForLocation);
+                var okResult = new AdvertisingsResult(advertisingPlatformsForLocation);
                 return Ok(okResult);
             }
             else
             {
-                var notFoundResult = new AdvertisingNullDataResult(false, Messages.Error.NotFound);
+                var notFoundResult = new AdvertisingNullDataResult(Messages.Error.NotFound);
                 return NotFound(notFoundResult);
             }               
         }
@@ -64,12 +64,12 @@ namespace AdvertisingPlatforms.Controllers
                 var countAdvertisingPlatforms = _advertisitngPlatformsService.ReplaceRepository(data.AdvertisingPlatforms);
                 var countLocations = _locationsService.ReplaceRepository(data.Locations);
 
-                var okResult = new AdvertisingUpdateResult(true, countAdvertisingPlatforms, countLocations);
+                var okResult = new AdvertisingUpdateResult(countAdvertisingPlatforms, countLocations);
                 return Ok(okResult);
             }
             else
             {
-                var errorResult = new AdvertisingNullDataResult(false, Messages.Error.NoCorrectFileData);
+                var errorResult = new AdvertisingNullDataResult(Messages.Error.NoCorrectFileData);
                 return UnprocessableEntity(errorResult);
             }
         }

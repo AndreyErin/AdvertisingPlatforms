@@ -1,7 +1,8 @@
-﻿using AdvertisingPlatforms.Domain.Exeptions;
+﻿using AdvertisingPlatforms.Business.Exeptions;
+using AdvertisingPlatforms.DAL.Resources;
 using Microsoft.AspNetCore.Http;
 
-namespace AdvertisingPlatforms.Domain.Middlewares
+namespace AdvertisingPlatforms.Business.Middlewares
 {
     /// <summary>
     /// Middleware for exception handling.
@@ -35,10 +36,7 @@ namespace AdvertisingPlatforms.Domain.Middlewares
 
             switch (exception)
             {
-                case ConfigureReadExeption:
-                    statusCode = 500;
-                    message = "Ошибка сервера";
-                    break;
+
                 case InvalidFileDataExeption:
                     statusCode = 422;
                     break;
@@ -50,7 +48,7 @@ namespace AdvertisingPlatforms.Domain.Middlewares
 
             httpContext.Response.ContentType = "application/json";
             httpContext.Response.StatusCode = statusCode;
-            await httpContext.Response.WriteAsync($"что-то пошло не так. {message}.");
+            await httpContext.Response.WriteAsync($"{Messages.Information.Fail} {message}");
         }
     }
 }

@@ -15,9 +15,8 @@ namespace AdvertisingPlatforms.Domain.Models.ResponseApi
         /// <summary>
         /// Create new model.
         /// </summary>
-        /// <param name="success">Success of fail response.</param>
         /// <param name="errorMessage">ErrorMessage for response.</param>
-        public AdvertisingNullDataResult(bool success, string errorMessage) : base(success)
+        public AdvertisingNullDataResult(string errorMessage) : base(false)
         {
             ErrorMessage = errorMessage;
         }

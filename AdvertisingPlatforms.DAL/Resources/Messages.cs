@@ -24,8 +24,8 @@ namespace AdvertisingPlatforms.DAL.Resources
         {
             public static string NoCorrectFileData  => _errorManager.GetString("NoCorrectFileData") ?? "";
             public static string InvalidFile => _errorManager.GetString("InvalidFile") ?? "";
-
             public static string NotFound => _errorManager.GetString("NotFound") ?? "";
+            public static string ConfigRead => _errorManager.GetString("ConfigRead") ?? "";
         }
 
         /// <summary>
@@ -34,6 +34,7 @@ namespace AdvertisingPlatforms.DAL.Resources
         public static class Information 
         {
             public static string UpdateDatabase => _informationManager.GetString("UpdateDatabase") ?? "";
+            public static string Fail => _informationManager.GetString("Fail") ?? "";
         }
     }
 }

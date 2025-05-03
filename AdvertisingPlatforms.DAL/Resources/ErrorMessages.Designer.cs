@@ -61,6 +61,15 @@ namespace AdvertisingPlatforms.DAL.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Не удалось получить пути к json-базам данных из файла конфигурации..
+        /// </summary>
+        internal static string ConfigRead {
+            get {
+                return ResourceManager.GetString("ConfigRead", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Некорректный файл..
         /// </summary>
         internal static string InvalidFile {

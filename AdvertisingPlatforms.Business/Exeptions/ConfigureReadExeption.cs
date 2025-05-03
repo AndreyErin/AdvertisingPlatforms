@@ -1,4 +1,4 @@
-﻿namespace AdvertisingPlatforms.Domain.Exeptions
+﻿namespace AdvertisingPlatforms.Business.Exeptions
 {
     /// <summary>
     /// File not correct.

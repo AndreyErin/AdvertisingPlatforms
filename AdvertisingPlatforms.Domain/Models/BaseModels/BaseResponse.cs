@@ -11,7 +11,7 @@
         public bool Success { get; }
 
         /// <summary>
-        /// Create new model.
+        /// Initialize base constructor.
         /// </summary>
         /// <param name="success">Success of fail response.</param>
         protected BaseResponse(bool success)

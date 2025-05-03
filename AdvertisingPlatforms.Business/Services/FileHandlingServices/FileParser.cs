@@ -23,8 +23,7 @@ namespace AdvertisingPlatforms.Business.Services.FileHandlingServices
                 {
                     advertisingPlatforms = new AdvertisingPlatform { Id = Index + 1, Name = x[0].Trim() },
                     locationsRaw = GetLocationsRaw(x[0].Trim(), x[1].Split(",").ToList())
-                })
-                .ToList();
+                });
 
             var advertisingPlatforms = advertisingPlatformsAndLocationRaw
                 .Select(x=> x.advertisingPlatforms)

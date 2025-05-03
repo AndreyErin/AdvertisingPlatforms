@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ConfigRead" xml:space="preserve">
+    <value>Не удалось получить пути к json-базам данных из файла конфигурации.</value>
+  </data>
   <data name="InvalidFile" xml:space="preserve">
     <value>Некорректный файл.</value>
   </data>

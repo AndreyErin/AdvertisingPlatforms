@@ -15,9 +15,9 @@ namespace AdvertisingPlatforms.Domain.Models.ResponseApi
         /// <summary>
         /// Create new model.
         /// </summary>
-        /// <param name="success">Success of fail response.</param>
+
         /// <param name="advertisings">Collection advertising platforms.</param>
-        public AdvertisingsResult(bool success, List<string> advertisings) : base(success)
+        public AdvertisingsResult(List<string> advertisings) : base(true)
         {
             Advertisings = advertisings;
         }

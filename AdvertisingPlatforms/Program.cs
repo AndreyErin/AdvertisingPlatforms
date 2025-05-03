@@ -1,5 +1,5 @@
+using AdvertisingPlatforms.Business.Middlewares;
 using AdvertisingPlatforms.Domain.Configuration;
-using AdvertisingPlatforms.Domain.Middlewares;
 using AdvertisingPlatforms.ServiceCollection;
 
 namespace AdvertisingPlatforms
@@ -20,7 +20,6 @@ namespace AdvertisingPlatforms
                 builder.Services.AddSwaggerServices();
             }
 
-
             var app = builder.Build();
 
             if (app.Environment.IsDevelopment())
@@ -29,9 +28,8 @@ namespace AdvertisingPlatforms
                 app.UseSwaggerUI();
             }
 
-            Config config = new Config(app.Configuration);
+            Config.Initialize(app.Configuration);
 
-            //TODO
             app.UseMiddleware<ExeptionHanglerMiddleware>();
 
             app.UseRouting();

@@ -61,6 +61,15 @@ namespace AdvertisingPlatforms.DAL.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Что-то пошло не так..
+        /// </summary>
+        internal static string Fail {
+            get {
+                return ResourceManager.GetString("Fail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на База успешно обновлена!.
         /// </summary>
         internal static string UpdateDatabase {

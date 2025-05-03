@@ -20,10 +20,9 @@ namespace AdvertisingPlatforms.Domain.Models.ResponseApi
         /// <summary>
         /// Create new model.
         /// </summary>
-        /// <param name="success">Success of fail response.</param>
         /// <param name="countAdvertisingPlatforms">Count of adds advertising platforms.</param>
         /// <param name="countLocations">Count of adds locations.</param>
-        public AdvertisingUpdateResult(bool success, int countAdvertisingPlatforms, int countLocations) : base(success)
+        public AdvertisingUpdateResult(int countAdvertisingPlatforms, int countLocations) : base(true)
         {
             CountAdvertisingPlatforms = countAdvertisingPlatforms;
             CountLocations = countLocations;
