@@ -15,39 +15,37 @@ namespace AdvertisingPlatforms.Business.Services.FileHandlingServices
         /// <returns>Get data or exeption.</returns>
         public AdvertisingInformation GetParseData(string fileContent)
         {
-            Dictionary<string, string> locationsRaw = new();
-            List<AdvertisingPlatform> advertisingPlatforms = new();
-
-            int idCounter = 1;
-            var fileRows = fileContent.Split("\r\n");
-
-            foreach (var row in fileRows)
-            {
-                var platformAndLocations = row.Split(":");
-
-                if (platformAndLocations.Length == 2)
+            var advertisingPlatformsAndLocationRaw = fileContent
+                .Split("\r\n")
+                .Select(x => x.Split(":"))
+                .Where(x => x.Length == 2)
+                .Select((x, Index) => new
                 {
-                    var advertisingPlatformName = platformAndLocations[0].Trim();
-                    advertisingPlatforms.Add(new() { Id = idCounter++, Name = advertisingPlatformName });
+                    advertisingPlatforms = new AdvertisingPlatform { Id = Index + 1, Name = x[0].Trim() },
+                    locationsRaw = GetLocationsRaw(x[0].Trim(), x[1].Split(",").ToList())
+                })
+                .ToList();
 
-                    var locationNames = platformAndLocations[1].Split(",").ToList();
-                    AddLocationsRaw(locationsRaw, advertisingPlatformName, locationNames);
-                }
-            }
+            var advertisingPlatforms = advertisingPlatformsAndLocationRaw
+                .Select(x=> x.advertisingPlatforms)
+                .ToList();
+
+            var locationsRaw = advertisingPlatformsAndLocationRaw
+                .SelectMany(x => x.locationsRaw)
+                .ToDictionary();
+
 
             var locations = GetLocations(locationsRaw, advertisingPlatforms);
 
             return new(advertisingPlatforms, locations);
         }
 
-        private void AddLocationsRaw(Dictionary<string, string> locationsRawDictionary, string advertisingPlatformName, List<string> locationNames)
+        private Dictionary<string,string> GetLocationsRaw(string advertisingPlatformName, List<string> locationNames)
         {
-            foreach (var locationName in locationNames)
-            {
-                locationsRawDictionary.Add(locationName, advertisingPlatformName);
-            }
+            return locationNames
+                .Select(x => new KeyValuePair<string,string>(x, advertisingPlatformName))
+                .ToDictionary();
         }
-
 
         private List<Location> GetLocations(Dictionary<string, string> locationsRaw,
             List<AdvertisingPlatform> advertisingPlatforms)
@@ -55,21 +53,18 @@ namespace AdvertisingPlatforms.Business.Services.FileHandlingServices
             var locations = locationsRaw
                 .Select((x, Index) => new Location
                 {
-                    Id = Index + 1, 
+                    Id = Index + 1,
                     Name = x.Key,
-                    AdvertisingPlatformIds = GetDirectId(advertisingPlatforms, x.Value) > 0 ? [GetDirectId(advertisingPlatforms, x.Value)] : new()
-                })
-                .Select(x => new Location
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                    AdvertisingPlatformIds = x.AdvertisingPlatformIds.Concat(GetAdditionalIds(locationsRaw, advertisingPlatforms, x.Name)).ToList()
+                    AdvertisingPlatformIds = GetDirectId(advertisingPlatforms, x.Value) > 0
+                        ? [GetDirectId(advertisingPlatforms, x.Value)]
+                        : new()
                 })
                 .ToList();
 
+            locations.ForEach(x=> x.AdvertisingPlatformIds.AddRange(GetAdditionalIds(locationsRaw, advertisingPlatforms, x.Name)));    
+
             return locations;
         }
-
 
         private int GetDirectId(List<AdvertisingPlatform> advertisingPlatforms, string currentAdvertisingPlatorm)
         {
