@@ -117,8 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Argument" xml:space="preserve">
+    <value>Получено некорректное значение.</value>
+  </data>
   <data name="ConfigRead" xml:space="preserve">
     <value>Не удалось получить пути к json-базам данных из файла конфигурации.</value>
+  </data>
+  <data name="EntityNotFound" xml:space="preserve">
+    <value>Объек не найден в базе данных.</value>
   </data>
   <data name="InvalidFile" xml:space="preserve">
     <value>Некорректный файл.</value>
@@ -128,5 +134,11 @@
   </data>
   <data name="NotFound" xml:space="preserve">
     <value>Данные не найдены.</value>
+  </data>
+  <data name="ReadRepository" xml:space="preserve">
+    <value>Не удалось прочитать данные из репозитория.</value>
+  </data>
+  <data name="WriteRepository" xml:space="preserve">
+    <value>Ошибка при записи в репозиторий.</value>
   </data>
 </root>

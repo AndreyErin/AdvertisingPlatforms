@@ -61,11 +61,29 @@ namespace AdvertisingPlatforms.DAL.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Получено некорректное значение..
+        /// </summary>
+        internal static string Argument {
+            get {
+                return ResourceManager.GetString("Argument", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Не удалось получить пути к json-базам данных из файла конфигурации..
         /// </summary>
         internal static string ConfigRead {
             get {
                 return ResourceManager.GetString("ConfigRead", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Объек не найден в базе данных..
+        /// </summary>
+        internal static string EntityNotFound {
+            get {
+                return ResourceManager.GetString("EntityNotFound", resourceCulture);
             }
         }
         
@@ -93,6 +111,24 @@ namespace AdvertisingPlatforms.DAL.Resources {
         internal static string NotFound {
             get {
                 return ResourceManager.GetString("NotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Не удалось прочитать данные из репозитория..
+        /// </summary>
+        internal static string ReadRepository {
+            get {
+                return ResourceManager.GetString("ReadRepository", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Ошибка при записи в репозиторий..
+        /// </summary>
+        internal static string WriteRepository {
+            get {
+                return ResourceManager.GetString("WriteRepository", resourceCulture);
             }
         }
     }

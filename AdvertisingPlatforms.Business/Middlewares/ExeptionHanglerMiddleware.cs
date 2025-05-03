@@ -1,4 +1,4 @@
-﻿using AdvertisingPlatforms.Business.Exeptions;
+﻿using AdvertisingPlatforms.Domain.Exeptions;
 using AdvertisingPlatforms.DAL.Resources;
 using Microsoft.AspNetCore.Http;
 

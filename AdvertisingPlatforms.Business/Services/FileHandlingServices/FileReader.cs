@@ -1,4 +1,4 @@
-﻿using AdvertisingPlatforms.Business.Exeptions;
+﻿using AdvertisingPlatforms.Domain.Exeptions;
 using AdvertisingPlatforms.Domain.Interfaces.Services.FileHandling;
 using AdvertisingPlatforms.Domain.Models;
 

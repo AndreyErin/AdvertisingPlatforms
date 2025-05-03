@@ -47,7 +47,7 @@ namespace AdvertisingPlatforms.Business.Services.AdvertisingServices
         /// Replace data of repository.
         /// </summary>
         /// <param name="newEntitiesList">New data for repository.</param>
-        /// <returns>Count new entieies.</returns>
+        /// <returns>Count new entities.</returns>
         public int ReplaceRepository(IReadOnlyList<AdvertisingPlatform> newEntitiesList)
         {
             _advertisingPlatformsRepository.ReplaceRepository(newEntitiesList);

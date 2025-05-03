@@ -1,6 +1,8 @@
 ﻿using AdvertisingPlatforms.Domain.Models.BaseModels;
 using System.Text.Json;
 using AdvertisingPlatforms.DAL.Interfaces;
+using AdvertisingPlatforms.DAL.Resources;
+using AdvertisingPlatforms.Domain.Exeptions;
 
 namespace AdvertisingPlatforms.DAL.FileAccess
 {
@@ -14,17 +16,23 @@ namespace AdvertisingPlatforms.DAL.FileAccess
         /// <param name="newDataForDb">List of entities for writing.</param>
         public void SaveChangesToFile<TResource>(string filePath, IReadOnlyList<TResource> newDataForDb) where TResource : Resource
         {
-            var newDbJson = JsonSerializer.Serialize(newDataForDb, new JsonSerializerOptions() { WriteIndented = true });
-
-            if (newDbJson.Length > 0)
+            try
             {
+                if (string.IsNullOrEmpty(filePath))
+                    throw new ArgumentException(Messages.Error.Argument + " - " + nameof(filePath));
+                if (newDataForDb.Count == 0) 
+                    throw new ArgumentException(Messages.Error.Argument + " - " + nameof(newDataForDb));
+
+                var newDbJson = JsonSerializer.Serialize(newDataForDb, new JsonSerializerOptions() { WriteIndented = true });
+
                 using StreamWriter sw = new StreamWriter(Path.Combine(AppContext.BaseDirectory, filePath), false);
 
                 sw.Write(newDbJson);
+
             }
-            else
+            catch (Exception ex)
             {
-                //Exeption
+                throw new WriteRepositoryExeption(Messages.Error.WriteRepository, ex);
             }
         }
     }

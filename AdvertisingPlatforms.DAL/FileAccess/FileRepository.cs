@@ -1,4 +1,6 @@
 ﻿using AdvertisingPlatforms.DAL.Interfaces;
+using AdvertisingPlatforms.DAL.Resources;
+using AdvertisingPlatforms.Domain.Exeptions;
 using AdvertisingPlatforms.Domain.Models.BaseModels;
 
 namespace AdvertisingPlatforms.DAL.FileAccess
@@ -103,15 +105,11 @@ namespace AdvertisingPlatforms.DAL.FileAccess
 
             var advertising = db.Find(x => x.Id == entity.Id);
 
-            if (advertising != null)
-            {
-                advertising = entity;
-                repositoryWriter.SaveChangesToFile(_filePath, db);
-            }
-            else
-            {
-                //Exeption
-            }
+            if (advertising == null)
+                throw new EntityNotFoundExeption(Messages.Error.EntityNotFound);
+
+            advertising = entity;
+            repositoryWriter.SaveChangesToFile(_filePath, db);
         }
     }
 }

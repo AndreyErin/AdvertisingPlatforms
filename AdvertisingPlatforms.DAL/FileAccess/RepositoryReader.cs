@@ -1,6 +1,8 @@
 ﻿using AdvertisingPlatforms.Domain.Models.BaseModels;
 using System.Text.Json;
 using AdvertisingPlatforms.DAL.Interfaces;
+using AdvertisingPlatforms.DAL.Resources;
+using AdvertisingPlatforms.Domain.Exeptions;
 
 namespace AdvertisingPlatforms.DAL.FileAccess
 {
@@ -14,17 +16,21 @@ namespace AdvertisingPlatforms.DAL.FileAccess
         /// <returns>List of entities.</returns>
         public  List<TResource> GetAllFromFile<TResource>(string filePath) where TResource : Resource
         {
-            using StreamReader sr = new StreamReader(Path.Combine(AppContext.BaseDirectory, filePath));
-            var jsonDb = sr.ReadToEnd();
-
-            var result = JsonSerializer.Deserialize<List<TResource>>(jsonDb);
-
-            if (result == null)
+            try
             {
-                //Exeption
-            }
+                if (string.IsNullOrEmpty(filePath)) 
+                    throw new ArgumentException(Messages.Error.Argument + " - " + nameof(filePath));
 
-            return result;
+                using StreamReader sr = new StreamReader(Path.Combine(AppContext.BaseDirectory, filePath));
+                var jsonDb = sr.ReadToEnd();
+                var result = JsonSerializer.Deserialize<List<TResource>>(jsonDb);
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new ReadRepositoryExeption(Messages.Error.ReadRepository, ex);
+            }
         }
     }
 }

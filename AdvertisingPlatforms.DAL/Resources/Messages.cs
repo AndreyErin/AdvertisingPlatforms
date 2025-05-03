@@ -26,6 +26,10 @@ namespace AdvertisingPlatforms.DAL.Resources
             public static string InvalidFile => _errorManager.GetString("InvalidFile") ?? "";
             public static string NotFound => _errorManager.GetString("NotFound") ?? "";
             public static string ConfigRead => _errorManager.GetString("ConfigRead") ?? "";
+            public static string ReadRepository => _errorManager.GetString("ReadRepository") ?? "";
+            public static string WriteRepository => _errorManager.GetString("WriteRepository") ?? "";
+            public static string EntityNotFound => _errorManager.GetString("EntityNotFound") ?? "";
+            public static string Argument => _errorManager.GetString("Argument") ?? "";
         }
 
         /// <summary>
