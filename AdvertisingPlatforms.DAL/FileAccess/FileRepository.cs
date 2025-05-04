@@ -43,11 +43,10 @@ namespace AdvertisingPlatforms.DAL.FileAccess
 
             var advertising = db.Find(x => x.Id == id);
 
-            if (advertising != null)
-            {
-                db.Remove(advertising);
-                repositoryWriter.SaveChangesToFile(_filePath, db);
-            }
+            if (advertising == null) return;
+            
+            db.Remove(advertising);
+            repositoryWriter.SaveChangesToFile(_filePath, db);
         }
 
         /// <summary>
@@ -66,7 +65,7 @@ namespace AdvertisingPlatforms.DAL.FileAccess
         /// </summary>
         /// <param name="ids">id of entity.</param>
         /// <param name="repositoryReader">Reader for repository.</param>
-        /// <returns>List of enties for success, null for fail.</returns>
+        /// <returns>List of entities for success, empty collection for fail.</returns>
         public List<TResource> GetByIdFromRepository(List<int> ids, IRepositoryReader repositoryReader)
         {
             return repositoryReader.GetAllFromFile<TResource>(_filePath).Where(x => ids.Contains(x.Id)).ToList();
@@ -86,11 +85,11 @@ namespace AdvertisingPlatforms.DAL.FileAccess
         /// <summary>
         /// Overwrite all entities of repository.
         /// </summary>
-        /// <param name="entinies">New entities for overwrite repository.</param>
+        /// <param name="entities">New entities for overwrite repository.</param>
         /// <param name="repositoryWriter">Writer for repository.</param>
-        public void ReplaceRepository(IReadOnlyList<TResource> entinies, IRepositoryWriter repositoryWriter)
+        public void ReplaceRepository(IReadOnlyList<TResource> entities, IRepositoryWriter repositoryWriter)
         {
-            repositoryWriter.SaveChangesToFile(_filePath, entinies);
+            repositoryWriter.SaveChangesToFile(_filePath, entities);
         }
 
         /// <summary>
@@ -99,6 +98,7 @@ namespace AdvertisingPlatforms.DAL.FileAccess
         /// <param name="entity">Entity for update.</param>
         /// <param name="repositoryReader">Reader for repository.</param>
         /// <param name="repositoryWriter">Writer for repository.</param>
+        /// <exception cref="EntityNotFoundExeption"></exception>
         public void UpdateInRepository(TResource entity, IRepositoryReader repositoryReader, IRepositoryWriter repositoryWriter)
         {
             var db = repositoryReader.GetAllFromFile<TResource>(_filePath);

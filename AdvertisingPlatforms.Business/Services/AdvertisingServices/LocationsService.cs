@@ -1,4 +1,6 @@
 ﻿using AdvertisingPlatforms.DAL.Repositories.Base;
+using AdvertisingPlatforms.DAL.Resources;
+using AdvertisingPlatforms.Domain.Exeptions;
 using AdvertisingPlatforms.Domain.Interfaces.Services;
 using AdvertisingPlatforms.Domain.Models;
 
@@ -9,7 +11,7 @@ namespace AdvertisingPlatforms.Business.Services.AdvertisingServices
     /// </summary>
     public class LocationsService : ILocationsService
     {
-        private Repository<Location> _locationRepository;
+        private readonly Repository<Location> _locationRepository;
 
         public LocationsService(Repository<Location> locationRepository)
         {
@@ -20,22 +22,38 @@ namespace AdvertisingPlatforms.Business.Services.AdvertisingServices
         /// Get location by name.
         /// </summary>
         /// <param name="name">Name of location.</param>
-        /// <returns></returns>
+        /// <returns>Location.</returns>
+        /// <exception cref="LocationsServiceExeption"></exception>
         public Location? GetByName(string name)
         {
-            return _locationRepository.GetByNameFromRepository(name);
+            try
+            {
+                return _locationRepository.GetByNameFromRepository(name);
+            }
+            catch (Exception ex)
+            {
+                throw new LocationsServiceExeption(Messages.Error.LocationsServiceGetData, ex);
+            }
         }
 
         /// <summary>
         /// Replace data of repository.
         /// </summary>
         /// <param name="newEntitiesList">New data for repository.</param>
-        /// <returns>Count new entieies.</returns>
+        /// <returns>Count new entities.</returns>
+        /// <exception cref="LocationsServiceExeption"></exception>
         public int ReplaceRepository(IReadOnlyList<Location> newEntitiesList)
         {
-            _locationRepository.ReplaceRepository(newEntitiesList);
+            try
+            {
+                _locationRepository.ReplaceRepository(newEntitiesList);
 
-            return newEntitiesList.Count;
+                return newEntitiesList.Count;
+            }
+            catch (Exception ex)
+            {
+                throw new LocationsServiceExeption(Messages.Error.LocationsServiceReplaceRepository, ex);
+            }
         }
     }
 }

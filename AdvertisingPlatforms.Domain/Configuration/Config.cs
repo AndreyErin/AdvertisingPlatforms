@@ -24,7 +24,6 @@ namespace AdvertisingPlatforms.Domain.Configuration
         /// Initialize configuration.
         /// </summary>
         /// <param name="configuration">Configuration.</param>
-        /// <exception cref="ConfigureReadExeption">Couldn't read the configuration file.</exception>
         public static void Initialize(IConfiguration configuration)
         {
             string? apDbPath = configuration.GetSection("DataBases:AdvertisingPlatforms").Value;

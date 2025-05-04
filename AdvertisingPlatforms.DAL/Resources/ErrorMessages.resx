@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AdvertisingPlatformsServiceGetData" xml:space="preserve">
+    <value>Не удалось получить данные из сервиса.</value>
+  </data>
+  <data name="AdvertisingPlatformsServiceReplaceRepository" xml:space="preserve">
+    <value>Не удалось перезаписать данные репозитория.</value>
+  </data>
   <data name="Argument" xml:space="preserve">
     <value>Получено некорректное значение.</value>
   </data>
@@ -128,6 +134,12 @@
   </data>
   <data name="InvalidFile" xml:space="preserve">
     <value>Некорректный файл.</value>
+  </data>
+  <data name="LocationsServiceGetData" xml:space="preserve">
+    <value>Не удалось получить данные из сервиса.</value>
+  </data>
+  <data name="LocationsServiceReplaceRepository" xml:space="preserve">
+    <value>Не удалось перезаписать данные репозитория.</value>
   </data>
   <data name="NoCorrectFileData" xml:space="preserve">
     <value>Файл прочитан. В файле нет корректных данных.</value>

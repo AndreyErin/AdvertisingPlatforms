@@ -30,13 +30,20 @@ namespace AdvertisingPlatforms.Business.Middlewares
 
         private async Task HandleExeptionAsync(HttpContext httpContext, Exception exception)
         {
-            string message = exception.Message;
-            int statusCode = 0;
-
+            var message = exception.Message;
+            var statusCode = 0;
 
             switch (exception)
             {
-
+                case AdvertisingPlatformsControllerExeption:
+                    if (exception.Message == Messages.Error.NotFound)
+                        statusCode = 404;
+                    if (exception.Message == Messages.Error.NoCorrectFileData)
+                        statusCode = 422;
+                    break;
+                case EntityNotFoundExeption:
+                    statusCode = 404;
+                    break;
                 case InvalidFileDataExeption:
                     statusCode = 422;
                     break;

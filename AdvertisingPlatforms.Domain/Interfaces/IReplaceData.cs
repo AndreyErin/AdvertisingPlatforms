@@ -6,12 +6,12 @@ namespace AdvertisingPlatforms.Domain.Interfaces
     /// Interface for replace repository.
     /// </summary>
     /// <typeparam name="TResource"></typeparam>
-    public interface IReplaceData<TResource> where TResource : notnull, Resource    
+    public interface IReplaceData<TResource> where TResource : Resource    
     {
         /// <summary>
         /// Set new entities for Service.
         /// </summary>
-        /// <param name="newEntitiesList">New enities for replace.</param>
+        /// <param name="newEntitiesList">New entities for replace.</param>
         public int ReplaceRepository(IReadOnlyList<TResource> newEntitiesList);
     }
 }

@@ -10,8 +10,8 @@ namespace AdvertisingPlatforms.Business.Services.FileHandlingServices
     /// </summary>
     public class FileReader: IFileReader
     {
-        private IFileValidator _validator;
-        private IFileParser _parser;
+        private readonly IFileValidator _validator;
+        private readonly IFileParser _parser;
 
         public FileReader(IFileValidator validator, IFileParser parser)
         {
@@ -23,7 +23,8 @@ namespace AdvertisingPlatforms.Business.Services.FileHandlingServices
         /// Get data from file.
         /// </summary>
         /// <param name="file">File with data.</param>
-        /// <returns>Return data or exeption.</returns>
+        /// <returns>Data or null.</returns>
+        /// <exception cref="InvalidFileDataExeption"></exception>
         public async Task<AdvertisingInformation?> GetDataFromFileAsync(Microsoft.AspNetCore.Http.IFormFile file)
         {
             using StreamReader streamReader = new(file.OpenReadStream());

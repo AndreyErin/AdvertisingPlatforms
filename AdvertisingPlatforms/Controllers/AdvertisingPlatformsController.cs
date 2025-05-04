@@ -1,4 +1,5 @@
 ﻿using AdvertisingPlatforms.DAL.Resources;
+using AdvertisingPlatforms.Domain.Exeptions;
 using AdvertisingPlatforms.Domain.Interfaces.Services;
 using AdvertisingPlatforms.Domain.Interfaces.Services.FileHandling;
 using Microsoft.AspNetCore.Mvc;
@@ -22,13 +23,11 @@ namespace AdvertisingPlatforms.Controllers
             _reader = reader;
         }
 
-
         /// <summary>
         /// Get advertising for location.
         /// </summary>
         /// <param name="location">Location to search for advertising platforms.</param>
         [HttpGet("{*location}")]
-        [ProducesResponseType<AdvertisingNullDataResult>(StatusCodes.Status404NotFound)]
         [ProducesResponseType<AdvertisingsResult>(StatusCodes.Status200OK)]
         public IActionResult GetAdvertisingPlatforms(string location)
         {
@@ -42,8 +41,7 @@ namespace AdvertisingPlatforms.Controllers
             }
             else
             {
-                var notFoundResult = new AdvertisingNullDataResult(Messages.Error.NotFound);
-                return NotFound(notFoundResult);
+                throw new AdvertisingPlatformsControllerExeption(Messages.Error.NotFound);
             }               
         }
 
@@ -52,12 +50,10 @@ namespace AdvertisingPlatforms.Controllers
         /// </summary>
         /// <param name="file">File with new advertising data.</param>
         [HttpPost]
-        [ProducesResponseType<AdvertisingNullDataResult>(StatusCodes.Status422UnprocessableEntity)]
         [ProducesResponseType<AdvertisingUpdateResult>(StatusCodes.Status200OK)]
         public async Task<IActionResult> ReplaceAdvertisingData(IFormFile file)
         {
             var data = await _reader.GetDataFromFileAsync(file);
-
 
             if (data?.AdvertisingPlatforms.Count > 0)
             {
@@ -69,8 +65,7 @@ namespace AdvertisingPlatforms.Controllers
             }
             else
             {
-                var errorResult = new AdvertisingNullDataResult(Messages.Error.NoCorrectFileData);
-                return UnprocessableEntity(errorResult);
+                throw new AdvertisingPlatformsControllerExeption(Messages.Error.NoCorrectFileData);
             }
         }
     }

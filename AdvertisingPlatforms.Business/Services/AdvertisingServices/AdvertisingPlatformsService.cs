@@ -1,4 +1,6 @@
 ﻿using AdvertisingPlatforms.DAL.Repositories.Base;
+using AdvertisingPlatforms.DAL.Resources;
+using AdvertisingPlatforms.Domain.Exeptions;
 using AdvertisingPlatforms.Domain.Interfaces.Services;
 using AdvertisingPlatforms.Domain.Models;
 
@@ -10,37 +12,47 @@ namespace AdvertisingPlatforms.Business.Services.AdvertisingServices
     /// </summary>
     public class AdvertisingPlatformsService : IAdvertisingPlatformsService
     {
-        private Repository<AdvertisingPlatform> _advertisingPlatformsRepository;
-        private ILocationsService _locationsService;
+        private readonly Repository<AdvertisingPlatform> _advertisingPlatformPlatformsRepository;
+        private readonly ILocationsService _locationsService;
 
-        public AdvertisingPlatformsService(Repository<AdvertisingPlatform> advertisingsRepository, 
-                                           ILocationsService locationsSevice)
+        public AdvertisingPlatformsService(Repository<AdvertisingPlatform> advertisingPlatformsRepository,
+                                           ILocationsService locationsService)
         {
-            _locationsService = locationsSevice;
-            _advertisingPlatformsRepository = advertisingsRepository;
+            _locationsService = locationsService;
+            _advertisingPlatformPlatformsRepository = advertisingPlatformsRepository;
         }
 
         /// <summary>
-        /// Get advertisings for location.
+        /// Get advertising platform names for location.
         /// </summary>
         /// <param name="locationName">Name of location.</param>
-        /// <returns></returns>
+        /// <returns>Advertising platform names.</returns>
+        /// <exception cref="AdvertisingPlatformsServiceExeption"></exception>
         public List<string> GetAdvertisingPlatformsForLocation(string locationName)
         {
-            List<string> result = new();
-
-            var location = _locationsService.GetByName(locationName);
-
-            if (location?.AdvertisingPlatformIds.Count > 0)
+            try
             {
-                var advertisingNames = _advertisingPlatformsRepository.GetByIdFromRepository(location.AdvertisingPlatformIds)
-                    .Select(x=>x.Name)
-                    .ToList();
+                List<string> result = new();
 
-                result = advertisingNames;
+                var location = _locationsService.GetByName(locationName);
+
+                if (location?.AdvertisingPlatformIds.Count > 0)
+                {
+                    var advertisingNames = _advertisingPlatformPlatformsRepository.GetByIdFromRepository(location.AdvertisingPlatformIds)
+                        .Select(x => x.Name)
+                        .ToList();
+
+                    result = advertisingNames;
+                }
+
+                return result;
             }
-
-            return result;
+            catch (Exception ex)
+            {
+                throw new AdvertisingPlatformsServiceExeption(
+                    Messages.Error.AdvertisingPlatformsServiceGetData,
+                    ex);
+            }
         }
 
         /// <summary>
@@ -48,11 +60,21 @@ namespace AdvertisingPlatforms.Business.Services.AdvertisingServices
         /// </summary>
         /// <param name="newEntitiesList">New data for repository.</param>
         /// <returns>Count new entities.</returns>
+        /// <exception cref="AdvertisingPlatformsServiceExeption"></exception>
         public int ReplaceRepository(IReadOnlyList<AdvertisingPlatform> newEntitiesList)
         {
-            _advertisingPlatformsRepository.ReplaceRepository(newEntitiesList);
+            try
+            {
+                _advertisingPlatformPlatformsRepository.ReplaceRepository(newEntitiesList);
 
-            return newEntitiesList.Count;    
+                return newEntitiesList.Count;
+            }
+            catch (Exception ex)
+            {
+                throw new AdvertisingPlatformsServiceExeption(
+                    Messages.Error.AdvertisingPlatformsServiceReplaceRepository,
+                    ex);
+            }
         }
     }
 }

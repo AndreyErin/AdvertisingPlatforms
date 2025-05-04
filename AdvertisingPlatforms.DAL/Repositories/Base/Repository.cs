@@ -5,6 +5,10 @@ using AdvertisingPlatforms.Domain.Models.BaseModels;
 
 namespace AdvertisingPlatforms.DAL.Repositories.Base
 {
+    /// <summary>
+    /// Facade for work with FileRepository, RepositoryReader, RepositoryWriter.
+    /// </summary>
+    /// <typeparam name="TResource">Resource.</typeparam>
     public class Repository<TResource> where TResource: Resource
     {
         private readonly FileRepository<TResource> _repository;
@@ -21,9 +25,6 @@ namespace AdvertisingPlatforms.DAL.Repositories.Base
                     break;
                 case "AdvertisingPlatform":
                     filePath = Config.AdvertisingPlatformsDbPath;
-                    break;
-                default:
-                    //TODO Exeption
                     break;
             }
 
@@ -83,10 +84,10 @@ namespace AdvertisingPlatforms.DAL.Repositories.Base
         /// <summary>
         /// Overwrite all entities of repository.
         /// </summary>
-        /// <param name="entinies">New entities for overwrite repository.</param>
-        public void ReplaceRepository(IReadOnlyList<TResource> entinies)
+        /// <param name="entities">New entities for overwrite repository.</param>
+        public void ReplaceRepository(IReadOnlyList<TResource> entities)
         {
-            _repository.ReplaceRepository(entinies, _repositoryWriter);
+            _repository.ReplaceRepository(entities, _repositoryWriter);
         }
 
         /// <summary>

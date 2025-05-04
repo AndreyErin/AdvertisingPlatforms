@@ -16,16 +16,9 @@ namespace AdvertisingPlatforms.Business.Services.FileHandlingServices
         /// <returns>True or false.</returns>
         public bool IsValidAdvertisingData(string? data)
         {
-            if (data != null &&
-                data.Trim().Length >= 3 &&
-                data.Contains(Splitter))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return (data != null &&
+                    data.Trim().Length >= 5 &&
+                    data.Contains(Splitter));
         }
     }
 }

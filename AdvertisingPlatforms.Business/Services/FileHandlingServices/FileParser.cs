@@ -4,7 +4,7 @@ using AdvertisingPlatforms.Domain.Models;
 namespace AdvertisingPlatforms.Business.Services.FileHandlingServices
 {
     /// <summary>
-    /// Parcer for file.
+    /// Parser for file.
     /// </summary>
     public class FileParser : IFileParser
     {
@@ -12,7 +12,7 @@ namespace AdvertisingPlatforms.Business.Services.FileHandlingServices
         /// Parsing data from file.
         /// </summary>
         /// <param name="fileContent">Content from file.</param>
-        /// <returns>Get data or exeption.</returns>
+        /// <returns>Data.</returns>
         public AdvertisingInformation GetParseData(string fileContent)
         {
             var advertisingPlatformsAndLocationRaw = fileContent

@@ -14,6 +14,7 @@ namespace AdvertisingPlatforms.DAL.FileAccess
         /// <typeparam name="TResource">notnull, Resource</typeparam>
         /// <param name="filePath">Path for file.</param>
         /// <param name="newDataForDb">List of entities for writing.</param>
+        /// <exception cref="WriteRepositoryExeption"></exception>
         public void SaveChangesToFile<TResource>(string filePath, IReadOnlyList<TResource> newDataForDb) where TResource : Resource
         {
             try

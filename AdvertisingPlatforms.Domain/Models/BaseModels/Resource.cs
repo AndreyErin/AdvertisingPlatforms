@@ -6,7 +6,7 @@
     public abstract class Resource
     {
         /// <summary>
-        /// Id of resource.
+        /// ID of resource.
         /// </summary>
         public int Id { get; set; }
 

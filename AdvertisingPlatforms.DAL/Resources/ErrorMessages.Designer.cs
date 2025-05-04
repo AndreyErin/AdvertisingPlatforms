@@ -61,6 +61,24 @@ namespace AdvertisingPlatforms.DAL.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Не удалось получить данные из сервиса..
+        /// </summary>
+        internal static string AdvertisingPlatformsServiceGetData {
+            get {
+                return ResourceManager.GetString("AdvertisingPlatformsServiceGetData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Не удалось перезаписать данные репозитория..
+        /// </summary>
+        internal static string AdvertisingPlatformsServiceReplaceRepository {
+            get {
+                return ResourceManager.GetString("AdvertisingPlatformsServiceReplaceRepository", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Получено некорректное значение..
         /// </summary>
         internal static string Argument {
@@ -93,6 +111,24 @@ namespace AdvertisingPlatforms.DAL.Resources {
         internal static string InvalidFile {
             get {
                 return ResourceManager.GetString("InvalidFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Не удалось получить данные из сервиса..
+        /// </summary>
+        internal static string LocationsServiceGetData {
+            get {
+                return ResourceManager.GetString("LocationsServiceGetData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Не удалось перезаписать данные репозитория..
+        /// </summary>
+        internal static string LocationsServiceReplaceRepository {
+            get {
+                return ResourceManager.GetString("LocationsServiceReplaceRepository", resourceCulture);
             }
         }
         
