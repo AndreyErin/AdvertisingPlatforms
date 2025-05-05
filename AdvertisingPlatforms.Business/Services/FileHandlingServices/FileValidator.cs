@@ -1,4 +1,6 @@
-﻿using AdvertisingPlatforms.Domain.Interfaces.Services.FileHandling;
+﻿using System.Text.RegularExpressions;
+using AdvertisingPlatforms.DAL.Resources;
+using AdvertisingPlatforms.Domain.Interfaces.Services.FileHandling;
 
 namespace AdvertisingPlatforms.Business.Services.FileHandlingServices
 {
@@ -13,12 +15,23 @@ namespace AdvertisingPlatforms.Business.Services.FileHandlingServices
         /// Validation check.
         /// </summary>
         /// <param name="data">Data for validation.</param>
-        /// <returns>True or false.</returns>
-        public bool IsValidAdvertisingData(string? data)
+        /// <returns>(True + null) or (false + error).</returns>
+        public (bool result, string? error) IsValidAdvertisingData(string? data)
         {
-            return (data != null &&
-                    data.Trim().Length >= 5 &&
-                    data.Contains(Splitter));
+            if(string.IsNullOrEmpty(data))
+                return (false, Messages.Error.NoDataFile);
+
+            if (!data.Contains(Splitter))
+                return (false, Messages.Error.FileNoHaveSplitter);
+
+            if(data.Length < 5)
+                return (false, Messages.Error.FileHaveShortData);
+
+            if(Regex.Matches(data, @"\r\n").Count == 0 &&
+               !Regex.IsMatch(data, @"^[А-Яа-я.\- ]+:[A-Za-z,\/]+$"))
+                return (false, Messages.Error.NoCorrectFileData);
+
+            return (true, null);
         }
     }
 }

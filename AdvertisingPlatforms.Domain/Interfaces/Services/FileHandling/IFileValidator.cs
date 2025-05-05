@@ -7,10 +7,10 @@
     public interface IFileValidator
     {
         /// <summary>
-        /// Checking data for validity.
+        /// Validation check.
         /// </summary>
-        /// <param name="data">Data for vadidaty.</param>
-        /// <returns>true or false</returns>
-        bool IsValidAdvertisingData(string? data);
+        /// <param name="data">Data for validation.</param>
+        /// <returns>(True + null) or (false + error).</returns>
+        (bool result, string? error) IsValidAdvertisingData(string? data);
     }
 }

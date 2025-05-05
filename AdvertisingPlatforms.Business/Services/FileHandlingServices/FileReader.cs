@@ -1,4 +1,5 @@
-﻿using AdvertisingPlatforms.Domain.Exeptions;
+﻿using AdvertisingPlatforms.DAL.Resources;
+using AdvertisingPlatforms.Domain.Exeptions;
 using AdvertisingPlatforms.Domain.Interfaces.Services.FileHandling;
 using AdvertisingPlatforms.Domain.Models;
 
@@ -31,9 +32,11 @@ namespace AdvertisingPlatforms.Business.Services.FileHandlingServices
 
             var fileContent = await streamReader.ReadToEndAsync();
 
-            if (!_validator.IsValidAdvertisingData(fileContent))
+            var isValid = _validator.IsValidAdvertisingData(fileContent);
+
+            if (!isValid.result)
             {
-                throw new InvalidFileDataExeption("Некорректный файл.");                
+                throw new InvalidFileDataExeption(isValid.error!);                
             }
 
             AdvertisingInformation result = _parser.GetParseData(fileContent);
@@ -41,7 +44,7 @@ namespace AdvertisingPlatforms.Business.Services.FileHandlingServices
             if (result.AdvertisingPlatforms.Count == 0 ||
                 result.Locations.Count == 0) 
             {
-                throw new InvalidFileDataExeption("Файл прочитан. В файле нет корректных данных.");
+                throw new InvalidFileDataExeption(Messages.Error.NoCorrectFileData);
             }
 
             return result;

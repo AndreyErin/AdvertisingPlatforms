@@ -34,6 +34,10 @@ namespace AdvertisingPlatforms.DAL.Resources
             public static string AdvertisingPlatformsServiceReplaceRepository => ErrorManager.GetString("AdvertisingPlatformsServiceReplaceRepository") ?? "";
             public static string LocationsServiceGetData => ErrorManager.GetString("LocationsServiceGetData") ?? "";
             public static string LocationsServiceReplaceRepository => ErrorManager.GetString("LocationsServiceReplaceRepository") ?? "";
+            public static string NoDataFile => ErrorManager.GetString("NoDataFile") ?? "";
+            public static string FileNoHaveSplitter => ErrorManager.GetString("FileNoHaveSplitter") ?? "";
+            public static string FileHaveShortData => ErrorManager.GetString("FileHaveShortData") ?? "";
+
         }
 
         /// <summary>

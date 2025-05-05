@@ -1,5 +1,6 @@
 ﻿using AdvertisingPlatforms.Domain.Interfaces.Services.FileHandling;
 using AdvertisingPlatforms.Domain.Models;
+using System.Text.RegularExpressions;
 
 namespace AdvertisingPlatforms.Business.Services.FileHandlingServices
 {
@@ -15,8 +16,11 @@ namespace AdvertisingPlatforms.Business.Services.FileHandlingServices
         /// <returns>Data.</returns>
         public AdvertisingInformation GetParseData(string fileContent)
         {
+            var regex = new Regex(@"^[А-Яа-я.\- ]+:[A-Za-z,\/]+$");
+
             var advertisingPlatformsAndLocationRaw = fileContent
                 .Split("\r\n")
+                .Where(x=> regex.IsMatch(x))
                 .Select(x => x.Split(":"))
                 .Where(x => x.Length == 2)
                 .Select((x, Index) => new

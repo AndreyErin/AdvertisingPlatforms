@@ -106,6 +106,24 @@ namespace AdvertisingPlatforms.DAL.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Файл содержит меньше 5-ти символов..
+        /// </summary>
+        internal static string FileHaveShortData {
+            get {
+                return ResourceManager.GetString("FileHaveShortData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Файл не содержит необходимых разделителей..
+        /// </summary>
+        internal static string FileNoHaveSplitter {
+            get {
+                return ResourceManager.GetString("FileNoHaveSplitter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Некорректный файл..
         /// </summary>
         internal static string InvalidFile {
@@ -138,6 +156,15 @@ namespace AdvertisingPlatforms.DAL.Resources {
         internal static string NoCorrectFileData {
             get {
                 return ResourceManager.GetString("NoCorrectFileData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Файл не содержит данных..
+        /// </summary>
+        internal static string NoDataFile {
+            get {
+                return ResourceManager.GetString("NoDataFile", resourceCulture);
             }
         }
         

@@ -141,6 +141,9 @@
   <data name="LocationsServiceReplaceRepository" xml:space="preserve">
     <value>Не удалось перезаписать данные репозитория.</value>
   </data>
+  <data name="NoDataFile" xml:space="preserve">
+    <value>Файл не содержит данных.</value>
+  </data>
   <data name="NoCorrectFileData" xml:space="preserve">
     <value>Файл прочитан. В файле нет корректных данных.</value>
   </data>
@@ -152,5 +155,11 @@
   </data>
   <data name="WriteRepository" xml:space="preserve">
     <value>Ошибка при записи в репозиторий.</value>
+  </data>
+  <data name="FileNoHaveSplitter" xml:space="preserve">
+    <value>Файл не содержит необходимых разделителей.</value>
+  </data>
+  <data name="FileHaveShortData" xml:space="preserve">
+    <value>Файл содержит меньше 5-ти символов.</value>
   </data>
 </root>
