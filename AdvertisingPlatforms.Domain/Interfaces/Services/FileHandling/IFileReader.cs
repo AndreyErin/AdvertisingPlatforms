@@ -1,18 +1,18 @@
 ﻿using AdvertisingPlatforms.Domain.Models;
 using Microsoft.AspNetCore.Http;
 
-namespace AdvertisingPlatforms.Domain.Interfaces
+namespace AdvertisingPlatforms.Domain.Interfaces.Services.FileHandling
 {
     /// <summary>
     /// Interface for reader of files.
     /// </summary>
-    public interface IReader
+    public interface IFileReader
     {
         /// <summary>
         /// Convert txt-file to DataFromFile.
         /// </summary>
         /// <param name="file">File for convert.</param>
         /// <returns>Returns DataFromFile for success, null for fail.</returns>
-        public Task<DataFromFile?> GetDataFromFileAsync(IFormFile file);
+        public Task<AdvertisingInformation?> GetDataFromFileAsync(IFormFile file);
     }
 }

@@ -1,3 +1,5 @@
+using AdvertisingPlatforms.DAL.Configuration;
+using AdvertisingPlatforms.Middlewares;
 using AdvertisingPlatforms.ServiceCollection;
 
 namespace AdvertisingPlatforms
@@ -8,16 +10,32 @@ namespace AdvertisingPlatforms
         {
             var builder = WebApplication.CreateBuilder(args);
             builder.Services.AddControllers();          
+            
+            builder.Services.AddAdvertisingServices();
+            builder.Services.AddRepositoryServices();
+            builder.Services.AddFileServices();
 
-            //registering our services
-            builder.Services.AddServices();
+            if (builder.Environment.IsDevelopment())
+            {
+                builder.Services.AddSwaggerServices();
+            }
 
             var app = builder.Build();
+
+            if (app.Environment.IsDevelopment())
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI();
+            }
+
+            DbConfig.Initialize(app.Configuration);
+
+            app.UseMiddleware<ExeptionHanglerMiddleware>();
 
             app.UseRouting();
             app.MapControllers();
 
-            app.MapGet("/", () =>  Results.Content(
+            app.MapGet("/", () => Results.Content(
                 @"<html><body>" +
                     @"<a href='/api/v1/advertisingplatforms/ru'>/ru</a></br></br>" +
                     @"<a href='/api/v1/advertisingplatforms/ru/msk'>/ru/msk</a></br></br>" +
@@ -25,8 +43,9 @@ namespace AdvertisingPlatforms
 
                     @"<form enctype='multipart/form-data' method='post' action='/api/v1/advertisingplatforms'>" +
                         @"<input type='file' name='file' accept='text/plain' required />" +
-                        @"<input type='submit' value='Send file'/>" + 
-                    @"</form>" +
+                        @"<input type='submit' value='Send file'/>" +
+                    @"</form></br></br></br>" +
+                    @"<a href='/swagger'>swagger</a>" +
                 @"</body></html>", "text/html"));
 
             app.Run();
