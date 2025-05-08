@@ -37,6 +37,7 @@ namespace AdvertisingPlatforms.DAL.Resources
             public static string NoDataFile => ErrorManager.GetString("NoDataFile") ?? "";
             public static string FileNoHaveSplitter => ErrorManager.GetString("FileNoHaveSplitter") ?? "";
             public static string FileHaveShortData => ErrorManager.GetString("FileHaveShortData") ?? "";
+            public static string ServerError => ErrorManager.GetString("ServerError") ?? "";
 
         }
 

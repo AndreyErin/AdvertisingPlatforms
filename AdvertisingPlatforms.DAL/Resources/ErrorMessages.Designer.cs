@@ -187,6 +187,15 @@ namespace AdvertisingPlatforms.DAL.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Ошибка сервера.
+        /// </summary>
+        internal static string ServerError {
+            get {
+                return ResourceManager.GetString("ServerError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Ошибка при записи в репозиторий..
         /// </summary>
         internal static string WriteRepository {

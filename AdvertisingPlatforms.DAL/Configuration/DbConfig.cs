@@ -1,11 +1,11 @@
 ﻿using Microsoft.Extensions.Configuration;
 
-namespace AdvertisingPlatforms.Domain.Configuration
+namespace AdvertisingPlatforms.DAL.Configuration
 {
     /// <summary>
     /// Class provides access to the configuration file parameter.
     /// </summary>
-    public static class Config
+    public static class DbConfig
     {
         private static string _advertisingPlatformsDbPath = String.Empty;
         private static string _locationsDbPath = String.Empty;

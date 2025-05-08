@@ -1,5 +1,5 @@
-using AdvertisingPlatforms.Business.Middlewares;
-using AdvertisingPlatforms.Domain.Configuration;
+using AdvertisingPlatforms.DAL.Configuration;
+using AdvertisingPlatforms.Middlewares;
 using AdvertisingPlatforms.ServiceCollection;
 
 namespace AdvertisingPlatforms
@@ -28,7 +28,7 @@ namespace AdvertisingPlatforms
                 app.UseSwaggerUI();
             }
 
-            Config.Initialize(app.Configuration);
+            DbConfig.Initialize(app.Configuration);
 
             app.UseMiddleware<ExeptionHanglerMiddleware>();
 

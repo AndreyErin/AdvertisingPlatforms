@@ -162,4 +162,7 @@
   <data name="FileHaveShortData" xml:space="preserve">
     <value>Файл содержит меньше 5-ти символов.</value>
   </data>
+  <data name="ServerError" xml:space="preserve">
+    <value>Ошибка сервера</value>
+  </data>
 </root>

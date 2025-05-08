@@ -1,6 +1,6 @@
-﻿using AdvertisingPlatforms.DAL.FileAccess;
+﻿using AdvertisingPlatforms.DAL.Configuration;
+using AdvertisingPlatforms.DAL.FileAccess;
 using AdvertisingPlatforms.DAL.Interfaces;
-using AdvertisingPlatforms.Domain.Configuration;
 using AdvertisingPlatforms.Domain.Models.BaseModels;
 
 namespace AdvertisingPlatforms.DAL.Repositories.Base
@@ -21,10 +21,10 @@ namespace AdvertisingPlatforms.DAL.Repositories.Base
             switch (typeof(TResource).Name)
             {
                 case "Location":
-                    filePath = Config.LocationsDbPath;
+                    filePath = DbConfig.LocationsDbPath;
                     break;
                 case "AdvertisingPlatform":
-                    filePath = Config.AdvertisingPlatformsDbPath;
+                    filePath = DbConfig.AdvertisingPlatformsDbPath;
                     break;
             }
 

@@ -1,8 +1,7 @@
 ﻿using AdvertisingPlatforms.Domain.Exeptions;
 using AdvertisingPlatforms.DAL.Resources;
-using Microsoft.AspNetCore.Http;
 
-namespace AdvertisingPlatforms.Business.Middlewares
+namespace AdvertisingPlatforms.Middlewares
 {
     /// <summary>
     /// Middleware for exception handling.
@@ -49,7 +48,7 @@ namespace AdvertisingPlatforms.Business.Middlewares
                     break;
                 default:
                     statusCode = 500;
-                    message = "Ошибка сервера";
+                    message = Messages.Error.ServerError;
                     break;
             }
 
