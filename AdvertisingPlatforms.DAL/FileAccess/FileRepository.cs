@@ -26,9 +26,9 @@ namespace AdvertisingPlatforms.DAL.FileAccess
         /// <param name="repositoryWriter">Writer for repository.</param>
         public void AddToRepository(TResource entity, IRepositoryReader repositoryReader, IRepositoryWriter repositoryWriter)
         {
-            var db = repositoryReader.GetAllFromFile<TResource>(_filePath);
-            db.Add(entity);
-            repositoryWriter.SaveChangesToFile( _filePath,db);
+            var entities = repositoryReader.GetAllFromFile<TResource>(_filePath);
+            entities.Add(entity);
+            repositoryWriter.SaveChangesToFile( _filePath,entities);
         }
 
         /// <summary>
@@ -39,14 +39,14 @@ namespace AdvertisingPlatforms.DAL.FileAccess
         /// <param name="repositoryWriter">Writer for repository.</param>
         public void DeleteFromRepository(int id, IRepositoryReader repositoryReader, IRepositoryWriter repositoryWriter)
         {
-            var db = repositoryReader.GetAllFromFile<TResource>(_filePath);
+            var entities = repositoryReader.GetAllFromFile<TResource>(_filePath);
 
-            var advertising = db.Find(x => x.Id == id);
+            var entityForDelete = entities.Find(x => x.Id == id);
 
-            if (advertising == null) return;
+            if (entityForDelete == null) return;
             
-            db.Remove(advertising);
-            repositoryWriter.SaveChangesToFile(_filePath, db);
+            entities.Remove(entityForDelete);
+            repositoryWriter.SaveChangesToFile(_filePath, entities);
         }
 
         /// <summary>
@@ -101,15 +101,15 @@ namespace AdvertisingPlatforms.DAL.FileAccess
         /// <exception cref="EntityNotFoundExeption"></exception>
         public void UpdateInRepository(TResource entity, IRepositoryReader repositoryReader, IRepositoryWriter repositoryWriter)
         {
-            var db = repositoryReader.GetAllFromFile<TResource>(_filePath);
+            var entities = repositoryReader.GetAllFromFile<TResource>(_filePath);
 
-            var advertising = db.Find(x => x.Id == entity.Id);
+            var entityForUpdate = entities.Find(x => x.Id == entity.Id);
 
-            if (advertising == null)
+            if (entityForUpdate == null)
                 throw new EntityNotFoundExeption(Messages.Error.EntityNotFound);
 
-            advertising = entity;
-            repositoryWriter.SaveChangesToFile(_filePath, db);
+            entityForUpdate = entity;
+            repositoryWriter.SaveChangesToFile(_filePath, entities);
         }
     }
 }

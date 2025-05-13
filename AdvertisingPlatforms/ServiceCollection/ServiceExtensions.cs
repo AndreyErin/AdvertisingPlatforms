@@ -13,41 +13,35 @@ namespace AdvertisingPlatforms.ServiceCollection
         /// <summary>
         /// Method for registration advertising services
         /// </summary>
-        public static IServiceCollection AddAdvertisingServices(this IServiceCollection services)
+        public static void AddAdvertisingServices(this IServiceCollection services)
         {
             services.AddScoped<IAdvertisingPlatformsService, AdvertisingPlatformsService>();
             services.AddScoped<ILocationsService, LocationsService>();
-
-            return services;
         }
 
         /// <summary>
         /// Method for registration repository services
         /// </summary>
-        public static IServiceCollection AddRepositoryServices(this IServiceCollection services)
+        public static void AddRepositoryServices(this IServiceCollection services)
         {
             services.AddScoped<Repository<Location>, LocationsFileRepository>();
             services.AddScoped<Repository<AdvertisingPlatform>, AdvertisingPlatformsFileRepository>();
-
-            return services;
         }
 
         /// <summary>
         /// Method for registration file services
         /// </summary>
-        public static IServiceCollection AddFileServices(this IServiceCollection services)
+        public static void AddFileServices(this IServiceCollection services)
         {
             services.AddScoped<IFileReader, FileReader>();
             services.AddScoped<IFileParser, FileParser>();
             services.AddScoped<IFileValidator, FileValidator>();
-
-            return services;
         }
 
         /// <summary>
         /// Method for registration file services
         /// </summary>
-        public static IServiceCollection AddSwaggerServices(this IServiceCollection services)
+        public static void AddSwaggerServices(this IServiceCollection services)
         {
             services.AddEndpointsApiExplorer();
 
@@ -61,8 +55,6 @@ namespace AdvertisingPlatforms.ServiceCollection
                 var xmlPathDomain = Path.Combine(AppContext.BaseDirectory, xmlFileDomain);
                 options.IncludeXmlComments(xmlPathDomain);
             });
-
-            return services;
         }
     }
 }
