@@ -28,24 +28,23 @@ namespace AdvertisingPlatforms.Business.Services.AdvertisingServices
         /// <param name="locationName">Name of location.</param>
         /// <returns>Advertising platform names.</returns>
         /// <exception cref="AdvertisingPlatformsServiceExeption"></exception>
-        public List<string> GetAdvertisingPlatformsForLocation(string locationName)
+        public IReadOnlyList<string>? GetAdvertisingPlatformsForLocation(string locationName)
         {
             try
             {
-                List<string> result = new();
-
                 var location = _locationsService.GetByName(locationName);
 
                 if (location?.AdvertisingPlatformIds.Count > 0)
                 {
-                    var advertisingNames = _advertisingPlatformPlatformsRepository.GetByIdFromRepository(location.AdvertisingPlatformIds)
+                    return _advertisingPlatformPlatformsRepository.GetByIdFromRepository(location.AdvertisingPlatformIds)
                         .Select(x => x.Name)
                         .ToList();
-
-                    result = advertisingNames;
+                }
+                else
+                {
+                    return null;
                 }
 
-                return result;
             }
             catch (Exception ex)
             {

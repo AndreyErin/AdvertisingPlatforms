@@ -25,7 +25,7 @@ namespace AdvertisingPlatforms.Business.Services.FileHandlingServices
                 .Where(x => x.Length == 2)
                 .Select((x, Index) => new
                 {
-                    advertisingPlatforms = new AdvertisingPlatform { Id = Index + 1, Name = x[0].Trim() },
+                    advertisingPlatforms = new AdvertisingPlatform(Index + 1) { Name = x[0].Trim() },
                     locationsRaw = GetLocationsRaw(x[0].Trim(), x[1].Split(",").ToList())
                 });
 
@@ -54,9 +54,8 @@ namespace AdvertisingPlatforms.Business.Services.FileHandlingServices
             List<AdvertisingPlatform> advertisingPlatforms)
         {
             var locations = locationsRaw
-                .Select((x, Index) => new Location
+                .Select((x, Index) => new Location(Index + 1)
                 {
-                    Id = Index + 1,
                     Name = x.Key,
                     AdvertisingPlatformIds = GetDirectId(advertisingPlatforms, x.Value) > 0
                         ? [GetDirectId(advertisingPlatforms, x.Value)]

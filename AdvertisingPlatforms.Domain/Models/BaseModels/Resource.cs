@@ -8,7 +8,7 @@
         /// <summary>
         /// ID of resource.
         /// </summary>
-        public int Id { get; set; }
+        public abstract int Id { get; set; }
 
 
         /// <summary>

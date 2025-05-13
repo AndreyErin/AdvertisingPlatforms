@@ -11,5 +11,19 @@ namespace AdvertisingPlatforms.Domain.Models
         /// Advertising IDs for locations.
         /// </summary>
         public List<int> AdvertisingPlatformIds { get; set; } = new();
+
+        /// <summary>
+        /// ID for location.
+        /// </summary>
+        public sealed override int Id { get; set; }
+
+        /// <summary>
+        /// Create location.
+        /// </summary>
+        /// <param name="id">ID for location.</param>
+        public Location(int id)
+        {
+            Id = id;
+        }
     }
 }

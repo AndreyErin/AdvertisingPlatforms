@@ -34,7 +34,7 @@ namespace AdvertisingPlatforms.Controllers
             string locationName = PrefLocationName + location;
             var advertisingPlatformsForLocation = _advertisitngPlatformsService.GetAdvertisingPlatformsForLocation(locationName);
 
-            if (advertisingPlatformsForLocation.Count > 0)
+            if (advertisingPlatformsForLocation is { Count: > 0 })
             {
                 var okResult = new AdvertisingsResult(advertisingPlatformsForLocation);
                 return Ok(okResult);
