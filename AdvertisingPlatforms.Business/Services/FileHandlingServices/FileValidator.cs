@@ -9,8 +9,6 @@ namespace AdvertisingPlatforms.Business.Services.FileHandlingServices
     /// </summary>
     public class FileValidator : IFileValidator
     {
-        const string Splitter = ":";
-
         /// <summary>
         /// Validation check.
         /// </summary>
@@ -21,14 +19,14 @@ namespace AdvertisingPlatforms.Business.Services.FileHandlingServices
             if(string.IsNullOrEmpty(data))
                 return (false, Messages.Error.NoDataFile);
 
-            if (!data.Contains(Splitter))
+            if (!data.Contains(Messages.FileConstants.Spliter))
                 return (false, Messages.Error.FileNoHaveSplitter);
 
             if(data.Length < 5)
                 return (false, Messages.Error.FileHaveShortData);
 
-            if(Regex.Matches(data, @"\r\n").Count == 0 &&
-               !Regex.IsMatch(data, @"^[А-Яа-я.\- ]+:[A-Za-z,\/]+$"))
+            if(Regex.Matches(data, Messages.FileConstants.RowsSpliter).Count == 0 &&
+               !Regex.IsMatch(data, Messages.FileConstants.RowPattern))
                 return (false, Messages.Error.NoCorrectFileData);
 
             return (true, null);
