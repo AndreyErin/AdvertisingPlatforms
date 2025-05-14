@@ -1,4 +1,4 @@
-﻿using AdvertisingPlatforms.DAL.Resources;
+﻿using AdvertisingPlatforms.DAL.Const;
 using AdvertisingPlatforms.Domain.Exeptions;
 using AdvertisingPlatforms.Domain.Interfaces.Services.FileHandling;
 using AdvertisingPlatforms.Domain.Models;
@@ -44,7 +44,7 @@ namespace AdvertisingPlatforms.Business.Services.FileHandlingServices
             if (result.AdvertisingPlatforms.Count == 0 ||
                 result.Locations.Count == 0) 
             {
-                throw new InvalidFileDataExeption(Messages.Error.NoCorrectFileData);
+                throw new InvalidFileDataExeption(ErrorConstants.NoCorrectFileData);
             }
 
             return result;

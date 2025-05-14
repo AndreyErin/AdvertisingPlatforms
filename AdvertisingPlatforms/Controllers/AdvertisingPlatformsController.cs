@@ -1,9 +1,9 @@
-﻿using AdvertisingPlatforms.DAL.Resources;
+﻿using AdvertisingPlatforms.DAL.Const;
 using AdvertisingPlatforms.Domain.Exeptions;
 using AdvertisingPlatforms.Domain.Interfaces.Services;
 using AdvertisingPlatforms.Domain.Interfaces.Services.FileHandling;
-using Microsoft.AspNetCore.Mvc;
 using AdvertisingPlatforms.Domain.Models.ResponseApi;
+using Microsoft.AspNetCore.Mvc;
 
 namespace AdvertisingPlatforms.Controllers
 {
@@ -41,7 +41,7 @@ namespace AdvertisingPlatforms.Controllers
             }
             else
             {
-                throw new AdvertisingPlatformsControllerExeption(Messages.Error.NotFound);
+                throw new AdvertisingPlatformsControllerExeption(ErrorConstants.NotFound);
             }               
         }
 
@@ -65,7 +65,7 @@ namespace AdvertisingPlatforms.Controllers
             }
             else
             {
-                throw new AdvertisingPlatformsControllerExeption(Messages.Error.NoCorrectFileData);
+                throw new AdvertisingPlatformsControllerExeption(ErrorConstants.NoCorrectFileData);
             }
         }
     }

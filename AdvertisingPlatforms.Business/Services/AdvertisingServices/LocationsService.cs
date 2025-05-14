@@ -1,5 +1,5 @@
-﻿using AdvertisingPlatforms.DAL.Repositories.Base;
-using AdvertisingPlatforms.DAL.Resources;
+﻿using AdvertisingPlatforms.DAL.Const;
+using AdvertisingPlatforms.DAL.Repositories.Base;
 using AdvertisingPlatforms.Domain.Exeptions;
 using AdvertisingPlatforms.Domain.Interfaces.Services;
 using AdvertisingPlatforms.Domain.Models;
@@ -32,7 +32,7 @@ namespace AdvertisingPlatforms.Business.Services.AdvertisingServices
             }
             catch (Exception ex)
             {
-                throw new LocationsServiceExeption(Messages.Error.LocationsServiceGetData, ex);
+                throw new LocationsServiceExeption(ErrorConstants.LocationsServiceGetData, ex);
             }
         }
 
@@ -52,7 +52,7 @@ namespace AdvertisingPlatforms.Business.Services.AdvertisingServices
             }
             catch (Exception ex)
             {
-                throw new LocationsServiceExeption(Messages.Error.LocationsServiceReplaceRepository, ex);
+                throw new LocationsServiceExeption(ErrorConstants.LocationsServiceReplaceRepository, ex);
             }
         }
     }

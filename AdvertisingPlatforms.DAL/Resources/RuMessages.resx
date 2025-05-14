@@ -117,10 +117,46 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Fail" xml:space="preserve">
-    <value>Что-то пошло не так.</value>
+  <data name="Couldn't get data from the service." xml:space="preserve">
+    <value>Не удалось получить данные из сервиса.</value>
   </data>
-  <data name="UpdateDatabase" xml:space="preserve">
-    <value>База успешно обновлена!</value>
+  <data name="The repository data could not be overwritten." xml:space="preserve">
+    <value>Не удалось перезаписать данные репозитория.</value>
+  </data>
+  <data name="Invalid data received." xml:space="preserve">
+    <value>Получено некорректное значение.</value>
+  </data>
+  <data name="ConfigRead" xml:space="preserve">
+    <value>Не удалось получить пути к json-базам данных из файла конфигурации.</value>
+  </data>
+  <data name="Entity not found." xml:space="preserve">
+    <value>Объек не найден в базе данных.</value>
+  </data>
+  <data name="Error." xml:space="preserve">
+    <value>Ошибка.</value>
+  </data>
+  <data name="File does not contain data." xml:space="preserve">
+    <value>Файл не содержит данных.</value>
+  </data>
+  <data name="File does not contain correct data." xml:space="preserve">
+    <value>Файл прочитан. В файле нет корректных данных.</value>
+  </data>
+  <data name="Data not found." xml:space="preserve">
+    <value>Данные не найдены.</value>
+  </data>
+  <data name="Couldn't read repository data." xml:space="preserve">
+    <value>Не удалось прочитать данные из репозитория.</value>
+  </data>
+  <data name="Couldn't write data in repository." xml:space="preserve">
+    <value>Ошибка при записи в репозиторий.</value>
+  </data>
+  <data name="File does not contain the necessary delimiters." xml:space="preserve">
+    <value>Файл не содержит необходимых разделителей.</value>
+  </data>
+  <data name="File contains less than 5 characters." xml:space="preserve">
+    <value>Файл содержит меньше 5-ти символов.</value>
+  </data>
+  <data name="Server error." xml:space="preserve">
+    <value>Ошибка сервера.</value>
   </data>
 </root>

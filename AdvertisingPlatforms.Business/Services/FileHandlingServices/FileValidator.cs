@@ -1,5 +1,5 @@
 ﻿using System.Text.RegularExpressions;
-using AdvertisingPlatforms.DAL.Resources;
+using AdvertisingPlatforms.DAL.Const;
 using AdvertisingPlatforms.Domain.Interfaces.Services.FileHandling;
 
 namespace AdvertisingPlatforms.Business.Services.FileHandlingServices
@@ -17,17 +17,17 @@ namespace AdvertisingPlatforms.Business.Services.FileHandlingServices
         public (bool result, string? error) IsValidAdvertisingData(string? data)
         {
             if(string.IsNullOrEmpty(data))
-                return (false, Messages.Error.NoDataFile);
+                return (false, ErrorConstants.NoDataFile);
 
-            if (!data.Contains(Messages.FileConstants.Spliter))
-                return (false, Messages.Error.FileNoHaveSplitter);
+            if (!data.Contains(FileConstants.Spliter))
+                return (false, ErrorConstants.FileNoHaveSplitter);
 
             if(data.Length < 5)
-                return (false, Messages.Error.FileHaveShortData);
+                return (false, ErrorConstants.FileHaveShortData);
 
-            if(Regex.Matches(data, Messages.FileConstants.RowsSpliter).Count == 0 &&
-               !Regex.IsMatch(data, Messages.FileConstants.RowPattern))
-                return (false, Messages.Error.NoCorrectFileData);
+            if(Regex.Matches(data, FileConstants.RowsSpliter).Count == 0 &&
+               !Regex.IsMatch(data, FileConstants.RowPattern))
+                return (false, ErrorConstants.NoCorrectFileData);
 
             return (true, null);
         }

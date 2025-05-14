@@ -1,5 +1,5 @@
-﻿using AdvertisingPlatforms.DAL.Interfaces;
-using AdvertisingPlatforms.DAL.Resources;
+﻿using AdvertisingPlatforms.DAL.Const;
+using AdvertisingPlatforms.DAL.Interfaces;
 using AdvertisingPlatforms.Domain.Exeptions;
 using AdvertisingPlatforms.Domain.Models.BaseModels;
 
@@ -106,7 +106,7 @@ namespace AdvertisingPlatforms.DAL.FileAccess
             var entityForUpdate = entities.Find(x => x.Id == entity.Id);
 
             if (entityForUpdate == null)
-                throw new EntityNotFoundExeption(Messages.Error.EntityNotFound);
+                throw new EntityNotFoundExeption(ErrorConstants.EntityNotFound);
 
             entityForUpdate = entity;
             repositoryWriter.SaveChangesToFile(_filePath, entities);

@@ -1,7 +1,7 @@
-﻿using AdvertisingPlatforms.Domain.Models.BaseModels;
+﻿using AdvertisingPlatforms.DAL.Const;
+using AdvertisingPlatforms.Domain.Models.BaseModels;
 using AdvertisingPlatforms.DAL.FileAccess.Extensions;
 using AdvertisingPlatforms.DAL.Interfaces;
-using AdvertisingPlatforms.DAL.Resources;
 using AdvertisingPlatforms.Domain.Exeptions;
 
 namespace AdvertisingPlatforms.DAL.FileAccess
@@ -23,7 +23,7 @@ namespace AdvertisingPlatforms.DAL.FileAccess
             }
             else
             {
-                throw new ReadRepositoryExeption(Messages.Error.ReadRepository);
+                throw new ReadRepositoryExeption(ErrorConstants.ReadRepository);
             }
         }
     }

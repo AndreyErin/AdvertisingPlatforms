@@ -1,7 +1,7 @@
 ﻿using AdvertisingPlatforms.Domain.Interfaces.Services.FileHandling;
 using AdvertisingPlatforms.Domain.Models;
 using System.Text.RegularExpressions;
-using AdvertisingPlatforms.DAL.Resources;
+using AdvertisingPlatforms.DAL.Const;
 
 namespace AdvertisingPlatforms.Business.Services.FileHandlingServices
 {
@@ -10,7 +10,7 @@ namespace AdvertisingPlatforms.Business.Services.FileHandlingServices
     /// </summary>
     public class FileParser : IFileParser
     {
-        private readonly Regex _regex = new(Messages.FileConstants.RowPattern);
+        private readonly Regex _regex = new(FileConstants.RowPattern);
 
         /// <summary>
         /// Parsing data from file.
@@ -20,14 +20,14 @@ namespace AdvertisingPlatforms.Business.Services.FileHandlingServices
         public AdvertisingInformation GetParseData(string fileContent)
         {
             var advertisingPlatformsAndLocationRaw = fileContent
-                .Split(Messages.FileConstants.RowsSpliter)
+                .Split(FileConstants.RowsSpliter)
                 .Where(x=> _regex.IsMatch(x))
-                .Select(x => x.Split(Messages.FileConstants.Spliter))
+                .Select(x => x.Split(FileConstants.Spliter))
                 .Where(x => x.Length == 2)
                 .Select((x, Index) => new
                 {
                     advertisingPlatforms = new AdvertisingPlatform(Index + 1) { Name = x[0].Trim() },
-                    locationsRaw = GetLocationsRaw(x[0].Trim(), x[1].Split(Messages.FileConstants.EntitiesSpliter).ToList())
+                    locationsRaw = GetLocationsRaw(x[0].Trim(), x[1].Split(FileConstants.EntitiesSpliter).ToList())
                 });
 
             var advertisingPlatforms = advertisingPlatformsAndLocationRaw

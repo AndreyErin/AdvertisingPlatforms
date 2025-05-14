@@ -1,5 +1,6 @@
-﻿using AdvertisingPlatforms.Domain.Exeptions;
+﻿using AdvertisingPlatforms.DAL.Const;
 using AdvertisingPlatforms.DAL.Resources;
+using AdvertisingPlatforms.Domain.Exeptions;
 
 namespace AdvertisingPlatforms.Middlewares
 {
@@ -35,9 +36,9 @@ namespace AdvertisingPlatforms.Middlewares
             switch (exception)
             {
                 case AdvertisingPlatformsControllerExeption:
-                    if (exception.Message == Messages.Error.NotFound)
+                    if (exception.Message == ErrorConstants.NotFound)
                         statusCode = 404;
-                    if (exception.Message == Messages.Error.NoCorrectFileData)
+                    if (exception.Message == ErrorConstants.NoCorrectFileData)
                         statusCode = 422;
                     break;
                 case EntityNotFoundExeption:
@@ -48,13 +49,13 @@ namespace AdvertisingPlatforms.Middlewares
                     break;
                 default:
                     statusCode = 500;
-                    message = Messages.Error.ServerError;
+                    message = ErrorConstants.ServerError;
                     break;
             }
 
             httpContext.Response.ContentType = "application/json";
             httpContext.Response.StatusCode = statusCode;
-            await httpContext.Response.WriteAsync($"{Messages.Information.Fail} {message}");
+            await httpContext.Response.WriteAsync($"{RuLocalization.GetLocalizedMessage(ErrorConstants.Error)} {RuLocalization.GetLocalizedMessage(message)}");
         }
     }
 }

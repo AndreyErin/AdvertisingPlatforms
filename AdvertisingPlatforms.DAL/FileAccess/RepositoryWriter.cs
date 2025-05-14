@@ -1,8 +1,8 @@
-﻿using AdvertisingPlatforms.Domain.Models.BaseModels;
-using System.Text.Json;
+﻿using AdvertisingPlatforms.DAL.Const;
 using AdvertisingPlatforms.DAL.Interfaces;
-using AdvertisingPlatforms.DAL.Resources;
 using AdvertisingPlatforms.Domain.Exeptions;
+using AdvertisingPlatforms.Domain.Models.BaseModels;
+using System.Text.Json;
 
 namespace AdvertisingPlatforms.DAL.FileAccess
 {
@@ -20,9 +20,9 @@ namespace AdvertisingPlatforms.DAL.FileAccess
             try
             {
                 if (string.IsNullOrEmpty(filePath))
-                    throw new ArgumentException(Messages.Error.Argument + " - " + nameof(filePath));
+                    throw new ArgumentException(ErrorConstants.Argument + " - " + nameof(filePath));
                 if (newDataForDb.Count == 0) 
-                    throw new ArgumentException(Messages.Error.Argument + " - " + nameof(newDataForDb));
+                    throw new ArgumentException(ErrorConstants.Argument + " - " + nameof(newDataForDb));
 
                 var newDbJson = JsonSerializer.Serialize(newDataForDb, new JsonSerializerOptions() { WriteIndented = true });
 
@@ -33,7 +33,7 @@ namespace AdvertisingPlatforms.DAL.FileAccess
             }
             catch (Exception ex)
             {
-                throw new WriteRepositoryExeption(Messages.Error.WriteRepository, ex);
+                throw new WriteRepositoryExeption(ErrorConstants.WriteRepository, ex);
             }
         }
     }
