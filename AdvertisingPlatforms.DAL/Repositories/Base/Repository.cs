@@ -1,4 +1,5 @@
-﻿using AdvertisingPlatforms.DAL.Configuration;
+﻿using System.Diagnostics;
+using AdvertisingPlatforms.DAL.Configuration;
 using AdvertisingPlatforms.DAL.FileAccess;
 using AdvertisingPlatforms.DAL.Interfaces;
 using AdvertisingPlatforms.Domain.Models.BaseModels;
@@ -14,23 +15,23 @@ namespace AdvertisingPlatforms.DAL.Repositories.Base
         private readonly FileRepository<TResource> _repository;
         private readonly IRepositoryReader _repositoryReader;
         private readonly IRepositoryWriter _repositoryWriter;
-        public Repository()
+        public Repository(IRepositoryReader repositoryReader, IRepositoryWriter repositoryWriter)
         {
-            var filePath = String.Empty;
+            _repositoryReader = repositoryReader;
+            _repositoryWriter = repositoryWriter;
 
-            switch (typeof(TResource).Name)
-            {
-                case "Location":
-                    filePath = DbConfig.LocationsDbPath;
-                    break;
-                case "AdvertisingPlatform":
-                    filePath = DbConfig.AdvertisingPlatformsDbPath;
-                    break;
-            }
-
+            var filePath = GetFilePath();
             _repository = new FileRepository<TResource>(filePath);
-            _repositoryReader = new RepositoryReader();
-            _repositoryWriter = new RepositoryWriter();
+        }
+
+        private static string GetFilePath()
+        {
+            return typeof(TResource).Name switch
+            {
+                "Location" => DbConfig.LocationsDbPath,
+                "AdvertisingPlatform" => DbConfig.AdvertisingPlatformsDbPath,
+                _ => throw new ArgumentOutOfRangeException()
+            };
         }
 
         /// <summary>

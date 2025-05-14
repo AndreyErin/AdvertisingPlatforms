@@ -4,6 +4,8 @@ using AdvertisingPlatforms.Domain.Interfaces.Services.FileHandling;
 using AdvertisingPlatforms.Domain.Models;
 using AdvertisingPlatforms.Business.Services.AdvertisingServices;
 using AdvertisingPlatforms.Business.Services.FileHandlingServices;
+using AdvertisingPlatforms.DAL.FileAccess;
+using AdvertisingPlatforms.DAL.Interfaces;
 using AdvertisingPlatforms.DAL.Repositories.Base;
 
 namespace AdvertisingPlatforms.ServiceCollection
@@ -24,6 +26,8 @@ namespace AdvertisingPlatforms.ServiceCollection
         /// </summary>
         public static void AddRepositoryServices(this IServiceCollection services)
         {
+            services.AddScoped<IRepositoryReader, RepositoryReader>();
+            services.AddScoped<IRepositoryWriter, RepositoryWriter>();
             services.AddScoped<Repository<Location>, LocationsFileRepository>();
             services.AddScoped<Repository<AdvertisingPlatform>, AdvertisingPlatformsFileRepository>();
         }
