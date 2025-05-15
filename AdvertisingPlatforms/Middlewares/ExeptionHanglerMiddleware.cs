@@ -38,9 +38,13 @@ namespace AdvertisingPlatforms.Middlewares
 
         private async Task HandleExeptionAsync(HttpContext httpContext, Exception exception, HttpStatusCode httpStatusCode)
         {
+            string title = exception is BusinessException
+                ? RuLocalization.GetLocalizedMessage(exception.Message)
+                : exception.Message;
+
             ExceptionInfo exceptionInfo = new (
                 exception.GetType().Name,
-                RuLocalization.GetLocalizedMessage(exception.Message),
+                title,
                 httpContext.Request.Path,
                 GetDetails(exception)
                 );
