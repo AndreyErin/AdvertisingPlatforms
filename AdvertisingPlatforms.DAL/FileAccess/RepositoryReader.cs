@@ -14,7 +14,7 @@ namespace AdvertisingPlatforms.DAL.FileAccess
         /// <typeparam name="TResource">notnull, Resource</typeparam>
         /// <param name="filePath">Path for file with data.</param>
         /// <returns>List of entities.</returns>
-        /// <exception cref="ReadRepositoryExeption"></exception>
+        /// <exception cref="BusinessException"></exception>
         public List<TResource> GetAllFromFile<TResource>(string filePath) where TResource : Resource
         {
             if (this.TryReadData(filePath, out List<TResource>? data))
@@ -23,7 +23,7 @@ namespace AdvertisingPlatforms.DAL.FileAccess
             }
             else
             {
-                throw new ReadRepositoryExeption(ErrorConstants.ReadRepository);
+                throw new BusinessException(ErrorConstants.ReadRepository);
             }
         }
     }

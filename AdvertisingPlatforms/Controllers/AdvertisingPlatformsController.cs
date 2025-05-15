@@ -41,7 +41,7 @@ namespace AdvertisingPlatforms.Controllers
             }
             else
             {
-                throw new AdvertisingPlatformsControllerExeption(ErrorConstants.NotFound);
+                throw new BusinessException(ErrorConstants.NotFound);
             }               
         }
 
@@ -65,7 +65,7 @@ namespace AdvertisingPlatforms.Controllers
             }
             else
             {
-                throw new AdvertisingPlatformsControllerExeption(ErrorConstants.NoCorrectFileData);
+                throw new BusinessException(ErrorConstants.NoCorrectFileData);
             }
         }
     }

@@ -23,7 +23,7 @@ namespace AdvertisingPlatforms.Business.Services.AdvertisingServices
         /// </summary>
         /// <param name="name">Name of location.</param>
         /// <returns>Location.</returns>
-        /// <exception cref="LocationsServiceExeption"></exception>
+        /// <exception cref="BusinessException"></exception>
         public Location? GetByName(string name)
         {
             try
@@ -32,7 +32,7 @@ namespace AdvertisingPlatforms.Business.Services.AdvertisingServices
             }
             catch (Exception ex)
             {
-                throw new LocationsServiceExeption(ErrorConstants.LocationsServiceGetData, ex);
+                throw new BusinessException(ErrorConstants.ServiceGetData, ex);
             }
         }
 
@@ -41,7 +41,7 @@ namespace AdvertisingPlatforms.Business.Services.AdvertisingServices
         /// </summary>
         /// <param name="newEntitiesList">New data for repository.</param>
         /// <returns>Count new entities.</returns>
-        /// <exception cref="LocationsServiceExeption"></exception>
+        /// <exception cref="BusinessException"></exception>
         public int ReplaceRepository(IReadOnlyList<Location> newEntitiesList)
         {
             try
@@ -52,7 +52,7 @@ namespace AdvertisingPlatforms.Business.Services.AdvertisingServices
             }
             catch (Exception ex)
             {
-                throw new LocationsServiceExeption(ErrorConstants.LocationsServiceReplaceRepository, ex);
+                throw new BusinessException(ErrorConstants.ServiceReplaceRepository, ex);
             }
         }
     }

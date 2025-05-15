@@ -98,7 +98,7 @@ namespace AdvertisingPlatforms.DAL.FileAccess
         /// <param name="entity">Entity for update.</param>
         /// <param name="repositoryReader">Reader for repository.</param>
         /// <param name="repositoryWriter">Writer for repository.</param>
-        /// <exception cref="EntityNotFoundExeption"></exception>
+        /// <exception cref="BusinessException"></exception>
         public void UpdateInRepository(TResource entity, IRepositoryReader repositoryReader, IRepositoryWriter repositoryWriter)
         {
             var entities = repositoryReader.GetAllFromFile<TResource>(_filePath);
@@ -106,7 +106,7 @@ namespace AdvertisingPlatforms.DAL.FileAccess
             var entityForUpdate = entities.Find(x => x.Id == entity.Id);
 
             if (entityForUpdate == null)
-                throw new EntityNotFoundExeption(ErrorConstants.EntityNotFound);
+                throw new BusinessException(ErrorConstants.EntityNotFound);
 
             entityForUpdate = entity;
             repositoryWriter.SaveChangesToFile(_filePath, entities);

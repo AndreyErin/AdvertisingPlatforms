@@ -25,7 +25,7 @@ namespace AdvertisingPlatforms.Business.Services.FileHandlingServices
         /// </summary>
         /// <param name="file">File with data.</param>
         /// <returns>Data or null.</returns>
-        /// <exception cref="InvalidFileDataExeption"></exception>
+        /// <exception cref="BusinessException"></exception>
         public async Task<AdvertisingInformation?> GetDataFromFileAsync(Microsoft.AspNetCore.Http.IFormFile file)
         {
             using StreamReader streamReader = new(file.OpenReadStream());
@@ -36,7 +36,7 @@ namespace AdvertisingPlatforms.Business.Services.FileHandlingServices
 
             if (!isValid.result)
             {
-                throw new InvalidFileDataExeption(isValid.error!);                
+                throw new BusinessException(isValid.error!);                
             }
 
             AdvertisingInformation result = _parser.GetParseData(fileContent);
@@ -44,7 +44,7 @@ namespace AdvertisingPlatforms.Business.Services.FileHandlingServices
             if (result.AdvertisingPlatforms.Count == 0 ||
                 result.Locations.Count == 0) 
             {
-                throw new InvalidFileDataExeption(ErrorConstants.NoCorrectFileData);
+                throw new BusinessException(ErrorConstants.NoCorrectFileData);
             }
 
             return result;
