@@ -5,9 +5,9 @@
     /// </summary>
     public static class FileConstants
     {
-        public const string Spliter = ":";
-        public const string RowsSpliter = "\r\n";
+        public const string Splitter = ":";
+        public const string RowsSplitter = "\r\n";
         public const string RowPattern = @"^[А-Яа-я.\- ]+:[A-Za-z,\/]+$";
-        public const string EntitiesSpliter = ",";
+        public const string EntitiesSplitter = ",";
     }
 }

@@ -3,18 +3,19 @@ using AdvertisingPlatforms.Domain.Exeptions;
 using AdvertisingPlatforms.Domain.Models;
 using System.Net;
 using System.Text;
+using System.Text.Json;
 
 namespace AdvertisingPlatforms.Middlewares
 {
     /// <summary>
     /// Middleware for exception handling.
     /// </summary>
-    public class ExeptionHanglerMiddleware
+    public class ExceptionHandlerMiddleware
     {
         private readonly RequestDelegate _next;
         private readonly IWebHostEnvironment _environment;
 
-        public ExeptionHanglerMiddleware(RequestDelegate next, IWebHostEnvironment environment)
+        public ExceptionHandlerMiddleware(RequestDelegate next, IWebHostEnvironment environment)
         {
             _next = next;
             _environment = environment;
@@ -28,15 +29,15 @@ namespace AdvertisingPlatforms.Middlewares
             }
             catch (BusinessException ex)
             {
-                await HandleExeptionAsync(httpContext, ex, HttpStatusCode.BadRequest);
+                await HandleExceptionAsync(httpContext, ex, HttpStatusCode.BadRequest);
             }
             catch (Exception ex)
             {
-                await HandleExeptionAsync(httpContext, ex, HttpStatusCode.InternalServerError);
+                await HandleExceptionAsync(httpContext, ex, HttpStatusCode.InternalServerError);
             }
         }
 
-        private async Task HandleExeptionAsync(HttpContext httpContext, Exception exception, HttpStatusCode httpStatusCode)
+        private async Task HandleExceptionAsync(HttpContext httpContext, Exception exception, HttpStatusCode httpStatusCode)
         {
             string title = exception is BusinessException
                 ? RuLocalization.GetLocalizedMessage(exception.Message)
@@ -51,7 +52,9 @@ namespace AdvertisingPlatforms.Middlewares
 
             httpContext.Response.ContentType = "application/json";
             httpContext.Response.StatusCode = (int)httpStatusCode;
-            await httpContext.Response.WriteAsync(exceptionInfo.ToString());
+            await httpContext.Response.WriteAsync(JsonSerializer.Serialize(
+                    exceptionInfo,
+                    new JsonSerializerOptions { WriteIndented = true }));
         }
 
         private string? GetDetails(Exception exception)

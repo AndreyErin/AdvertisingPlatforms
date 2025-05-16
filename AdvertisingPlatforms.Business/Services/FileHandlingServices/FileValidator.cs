@@ -19,13 +19,13 @@ namespace AdvertisingPlatforms.Business.Services.FileHandlingServices
             if(string.IsNullOrEmpty(data))
                 return (false, ErrorConstants.NoDataFile);
 
-            if (!data.Contains(FileConstants.Spliter))
+            if (!data.Contains(FileConstants.Splitter))
                 return (false, ErrorConstants.FileNoHaveSplitter);
 
             if(data.Length < 5)
                 return (false, ErrorConstants.FileHaveShortData);
 
-            if(Regex.Matches(data, FileConstants.RowsSpliter).Count == 0 &&
+            if(Regex.Matches(data, FileConstants.RowsSplitter).Count == 0 &&
                !Regex.IsMatch(data, FileConstants.RowPattern))
                 return (false, ErrorConstants.NoCorrectFileData);
 

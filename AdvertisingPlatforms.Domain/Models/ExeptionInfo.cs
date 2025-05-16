@@ -36,13 +36,5 @@
             Type = type;
             Details = details;
         }
-
-        /// <summary>
-        /// ToString().
-        /// </summary>
-        public override string ToString()
-        {
-            return $"{Type}\n{Title}\n{EndPoint}\n{Details ?? string.Empty}";
-        }
     }
 }

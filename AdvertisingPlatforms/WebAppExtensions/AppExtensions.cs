@@ -19,7 +19,7 @@ namespace AdvertisingPlatforms.WebAppExtensions
                 app.UseSwaggerUI();
             }
 
-            app.UseMiddleware<ExeptionHanglerMiddleware>();
+            app.UseMiddleware<ExceptionHandlerMiddleware>();
 
             app.UseRouting();
             app.MapControllers();
