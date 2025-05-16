@@ -47,7 +47,7 @@ namespace AdvertisingPlatforms.Middlewares
                 exception.GetType().Name,
                 title,
                 httpContext.Request.Path,
-                GetDetails(exception)
+                GetDetails(exception, httpContext)
                 );
 
             httpContext.Response.ContentType = "application/json";
@@ -57,23 +57,24 @@ namespace AdvertisingPlatforms.Middlewares
                     new JsonSerializerOptions { WriteIndented = true }));
         }
 
-        private string? GetDetails(Exception exception)
+        private List<string?>? GetDetails(Exception exception, HttpContext httpContext)
         {
             if (_environment.IsDevelopment())
             {
-                StringBuilder details = new();
+                List<string?> details = new();
 
-                details.AppendLine(exception.StackTrace);
+                details.Add(exception.StackTrace);
 
                 while (exception.InnerException != null)
                 {
                     exception = exception.InnerException;
-                    details.AppendLine(exception.Message);
-                    details.AppendLine(exception.GetType().Name);
-                    details.AppendLine(exception.StackTrace);
+
+                    var innerExceptionInfo = $"{exception.Message}\n{exception.GetType().Name}\n{exception.StackTrace}";
+
+                    details.Add(innerExceptionInfo);
                 }
 
-                return details.ToString();
+                return details;
             }
             else
             {

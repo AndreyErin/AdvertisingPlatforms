@@ -1,4 +1,3 @@
-using AdvertisingPlatforms.DAL.Configuration;
 using AdvertisingPlatforms.WebAppExtensions;
 
 namespace AdvertisingPlatforms
@@ -12,8 +11,6 @@ namespace AdvertisingPlatforms
 
             var app = builder.Build();
             app.ConfigureApp();
-
-            DbConfig.Initialize(app.Configuration);
 
             app.Run();
         }

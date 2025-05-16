@@ -1,4 +1,5 @@
-﻿using AdvertisingPlatforms.DAL.Repositories;
+﻿using AdvertisingPlatforms.DAL.Configuration;
+using AdvertisingPlatforms.DAL.Repositories;
 using AdvertisingPlatforms.Domain.Models;
 using AdvertisingPlatforms.DAL.FileAccess;
 using AdvertisingPlatforms.DAL.Interfaces;
@@ -17,6 +18,7 @@ namespace AdvertisingPlatforms.DAL.ServiceCollection
         /// </summary>
         public static void AddRepositoryServices(this IServiceCollection services)
         {
+            services.AddHostedService<ConfigInitializer>();
             services.AddScoped<IRepositoryReader, RepositoryReader>();
             services.AddScoped<IRepositoryWriter, RepositoryWriter>();
             services.AddScoped<Repository<Location>, LocationsFileRepository>();

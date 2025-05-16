@@ -20,7 +20,7 @@
         /// <summary>
         /// Details exception.
         /// </summary>
-        public string? Details { get; }
+        public List<string?>? Details { get; }
 
         /// <summary>
         /// Create information about exception.
@@ -29,7 +29,7 @@
         /// <param name="title"></param>
         /// <param name="endPoint"></param>
         /// <param name="details"></param>
-        public ExceptionInfo(string type, string title, string endPoint,  string? details = null)
+        public ExceptionInfo(string type, string title, string endPoint,  List<string?>? details = null)
         {
             Title = title;
             EndPoint = endPoint;

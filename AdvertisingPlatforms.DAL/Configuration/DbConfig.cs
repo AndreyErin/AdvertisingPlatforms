@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using AdvertisingPlatforms.DAL.Const;
+using AdvertisingPlatforms.Domain.Exeptions;
+using Microsoft.Extensions.Configuration;
 
 namespace AdvertisingPlatforms.DAL.Configuration
 {
@@ -7,18 +9,18 @@ namespace AdvertisingPlatforms.DAL.Configuration
     /// </summary>
     public static class DbConfig
     {
-        private static string _advertisingPlatformsDbPath = String.Empty;
-        private static string _locationsDbPath = String.Empty;
+        private static Lazy<string> _advertisingPlatformsDbPath;
+        private static Lazy<string> _locationsDbPath;
 
         /// <summary>
         /// Path for database AdvertisingPlatforms.
         /// </summary>
-        public static string AdvertisingPlatformsDbPath => _advertisingPlatformsDbPath;
+        public static string AdvertisingPlatformsDbPath => _advertisingPlatformsDbPath.Value;
 
         /// <summary>
         /// Path for database Locations.
         /// </summary>
-        public static string LocationsDbPath => _locationsDbPath;
+        public static string LocationsDbPath => _locationsDbPath.Value;
 
         /// <summary>
         /// Initialize configuration.
@@ -26,15 +28,13 @@ namespace AdvertisingPlatforms.DAL.Configuration
         /// <param name="configuration">Configuration.</param>
         public static void Initialize(IConfiguration configuration)
         {
-            string? apDbPath = configuration.GetSection("DataBases:AdvertisingPlatforms").Value;
+            _advertisingPlatformsDbPath = new Lazy<string>(()=> 
+                configuration.GetSection("DataBases:AdvertisingPlatforms").Value ??
+                throw new BusinessException(ErrorConstants.ConfigurationRead));
 
-            string? lDbPath = configuration.GetSection("DataBases:Locations").Value;
-
-            if (apDbPath != null && lDbPath != null)
-            {
-                _advertisingPlatformsDbPath = apDbPath;
-                _locationsDbPath = lDbPath;
-            }
+            _locationsDbPath = new Lazy<string>(()=> 
+                configuration.GetSection("DataBases:Locations").Value ??
+                throw new BusinessException(ErrorConstants.ConfigurationRead));
         }
     }
 }

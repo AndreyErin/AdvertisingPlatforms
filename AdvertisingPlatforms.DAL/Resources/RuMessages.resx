@@ -159,4 +159,7 @@
   <data name="Server error." xml:space="preserve">
     <value>Ошибка сервера.</value>
   </data>
+  <data name="Сouldn't read data from configuration file." xml:space="preserve">
+    <value>Не удалось прочитать данные из файла конфигурации.</value>
+  </data>
 </root>
