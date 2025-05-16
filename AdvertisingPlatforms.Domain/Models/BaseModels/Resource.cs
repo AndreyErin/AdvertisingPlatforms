@@ -5,7 +5,15 @@
     /// </summary>
     public abstract class Resource
     {
-        public int Id { get; set; }
+        /// <summary>
+        /// ID of resource.
+        /// </summary>
+        public abstract int Id { get; set; }
+
+
+        /// <summary>
+        /// Name of resource.
+        /// </summary>
         public string Name { get; set; } = "";
     }
 }
