@@ -8,49 +8,32 @@ namespace AdvertisingPlatforms.Business.Services.AdvertisingServices
 {
 
     /// <summary>
-    /// Service for searching advertising platforms for a specific location.
+    /// Service for advertising platforms.
     /// </summary>
     public class AdvertisingPlatformsService : IAdvertisingPlatformsService
     {
         private readonly Repository<AdvertisingPlatform> _advertisingPlatformPlatformsRepository;
-        private readonly ILocationsService _locationsService;
 
-        public AdvertisingPlatformsService(Repository<AdvertisingPlatform> advertisingPlatformsRepository,
-                                           ILocationsService locationsService)
+        public AdvertisingPlatformsService(Repository<AdvertisingPlatform> advertisingPlatformsRepository)
         {
-            _locationsService = locationsService;
             _advertisingPlatformPlatformsRepository = advertisingPlatformsRepository;
         }
 
         /// <summary>
-        /// Get advertising platform names for location.
+        /// Get advertising platform by ID.
         /// </summary>
-        /// <param name="locationName">Name of location.</param>
-        /// <returns>Advertising platform names.</returns>
+        /// <param name="id">ID of advertising platform.</param>
+        /// <returns>Advertising platform or null.</returns>
         /// <exception cref="BusinessException"></exception>
-        public IReadOnlyList<string>? GetAdvertisingPlatformsForLocation(string locationName)
+        public AdvertisingPlatform? GetById(int id)
         {
             try
             {
-                var location = _locationsService.GetByName(locationName);
-
-                if (location?.AdvertisingPlatformIds.Count > 0)
-                {
-                    return _advertisingPlatformPlatformsRepository.GetByIdFromRepository(location.AdvertisingPlatformIds)
-                        .Select(x => x.Name)
-                        .ToList();
-                }
-                else
-                {
-                    return null;
-                }
-
+                return _advertisingPlatformPlatformsRepository.GetByIdFromRepository(id);
             }
             catch (Exception ex)
             {
-                throw new BusinessException(
-                    ErrorConstants.ServiceGetData,
-                    ex);
+                throw new BusinessException(ErrorConstants.ServiceGetData, ex);
             }
         }
 

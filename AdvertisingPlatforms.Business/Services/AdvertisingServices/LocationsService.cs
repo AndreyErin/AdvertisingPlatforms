@@ -37,6 +37,24 @@ namespace AdvertisingPlatforms.Business.Services.AdvertisingServices
         }
 
         /// <summary>
+        /// Get location by ID.
+        /// </summary>
+        /// <param name="id">ID of location.</param>
+        /// <returns>Location.</returns>
+        /// <exception cref="BusinessException"></exception>
+        public Location? GetById(int id)
+        {
+            try
+            {
+                return _locationRepository.GetByIdFromRepository(id);
+            }
+            catch (Exception ex)
+            {
+                throw new BusinessException(ErrorConstants.ServiceGetData, ex);
+            }
+        }
+
+        /// <summary>
         /// Replace data of repository.
         /// </summary>
         /// <param name="newEntitiesList">New data for repository.</param>

@@ -11,13 +11,19 @@ namespace AdvertisingPlatforms.Controllers
     [Route("/api/v1/[controller]")]
     public class AdvertisingPlatformsController : Controller
     {
+        private readonly IAdvertisingsInLocationService _advertisingsInLocationService;
         private readonly IAdvertisingPlatformsService _advertisitngPlatformsService;
         private readonly ILocationsService _locationsService;
         private readonly IFileReader _reader;
         private const string PrefLocationName = @"/";
 
-        public AdvertisingPlatformsController(IAdvertisingPlatformsService platformsService, ILocationsService locationsService, IFileReader reader)
+        public AdvertisingPlatformsController(
+            IAdvertisingsInLocationService advertisingsInLocationService,
+            IAdvertisingPlatformsService platformsService,
+            ILocationsService locationsService,
+            IFileReader reader)
         {
+            _advertisingsInLocationService = advertisingsInLocationService;
             _advertisitngPlatformsService = platformsService;
             _locationsService = locationsService;
             _reader = reader;
@@ -32,7 +38,7 @@ namespace AdvertisingPlatforms.Controllers
         public IActionResult GetAdvertisingPlatforms(string location)
         {
             string locationName = PrefLocationName + location;
-            var advertisingPlatformsForLocation = _advertisitngPlatformsService.GetAdvertisingPlatformsForLocation(locationName);
+            var advertisingPlatformsForLocation = _advertisingsInLocationService.GetAdvertisingPlatformsForLocation(locationName);
 
             if (advertisingPlatformsForLocation is { Count: > 0 })
             {
@@ -57,6 +63,7 @@ namespace AdvertisingPlatforms.Controllers
 
             if (data?.AdvertisingPlatforms.Count > 0)
             {
+                _advertisingsInLocationService.ReplaceRepository(data.AdvertisingsInLocations);
                 var countAdvertisingPlatforms = _advertisitngPlatformsService.ReplaceRepository(data.AdvertisingPlatforms);
                 var countLocations = _locationsService.ReplaceRepository(data.Locations);
 

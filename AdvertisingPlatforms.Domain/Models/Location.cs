@@ -8,11 +8,6 @@ namespace AdvertisingPlatforms.Domain.Models
     public class Location: Resource
     {
         /// <summary>
-        /// Advertising IDs for locations.
-        /// </summary>
-        public List<int> AdvertisingPlatformIds { get; set; } = new();
-
-        /// <summary>
         /// ID for location.
         /// </summary>
         public sealed override int Id { get; set; }

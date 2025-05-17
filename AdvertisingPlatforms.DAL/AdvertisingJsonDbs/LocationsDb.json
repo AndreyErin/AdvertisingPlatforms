@@ -1,58 +1,29 @@
 [
   {
-    "AdvertisingPlatformIds": [
-      1
-    ],
     "Id": 1,
     "Name": "/ru"
   },
   {
-    "AdvertisingPlatformIds": [
-      2,
-      1,
-      4
-    ],
     "Id": 2,
     "Name": "/ru/svrd/revda"
   },
   {
-    "AdvertisingPlatformIds": [
-      2,
-      1,
-      4
-    ],
     "Id": 3,
     "Name": "/ru/svrd/pervik"
   },
   {
-    "AdvertisingPlatformIds": [
-      3,
-      1
-    ],
     "Id": 4,
     "Name": "/ru/msk"
   },
   {
-    "AdvertisingPlatformIds": [
-      3,
-      1
-    ],
     "Id": 5,
     "Name": "/ru/permobl"
   },
   {
-    "AdvertisingPlatformIds": [
-      3,
-      1
-    ],
     "Id": 6,
     "Name": "/ru/chelobl"
   },
   {
-    "AdvertisingPlatformIds": [
-      4,
-      1
-    ],
     "Id": 7,
     "Name": "/ru/svrd"
   }

@@ -1,4 +1,5 @@
-﻿using AdvertisingPlatforms.Domain.Models;
+﻿using AdvertisingPlatforms.Domain.Exeptions;
+using AdvertisingPlatforms.Domain.Models;
 
 namespace AdvertisingPlatforms.Domain.Interfaces.Services
 {
@@ -8,11 +9,11 @@ namespace AdvertisingPlatforms.Domain.Interfaces.Services
     public interface IAdvertisingPlatformsService: IReplaceData<AdvertisingPlatform>
     {
         /// <summary>
-        /// Get advertising platforms for location.
+        /// Get advertising platform by ID.
         /// </summary>
-        /// <param name="locationName">Location for Advertising platforms.</param>
-        /// <returns>Return count advertising platforms for location.</returns>
-        public IReadOnlyList<string>? GetAdvertisingPlatformsForLocation(string locationName);
-
+        /// <param name="id">ID of advertising platform.</param>
+        /// <returns>Advertising platform or null.</returns>
+        /// <exception cref="BusinessException"></exception>
+        public AdvertisingPlatform? GetById(int id);
     }
 }
