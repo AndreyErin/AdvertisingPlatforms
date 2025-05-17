@@ -11,16 +11,22 @@ namespace AdvertisingPlatforms.DAL.Configuration
     {
         private static Lazy<string> _advertisingPlatformsDbPath;
         private static Lazy<string> _locationsDbPath;
+        private static bool _initialized = false;
 
         /// <summary>
         /// Path for database AdvertisingPlatforms.
         /// </summary>
-        public static string AdvertisingPlatformsDbPath => _advertisingPlatformsDbPath.Value;
+        public static string AdvertisingPlatformsDbPath =>  _initialized
+            ? _advertisingPlatformsDbPath.Value 
+            : Error(ErrorConstants.ConfigNotInitialized);
 
         /// <summary>
         /// Path for database Locations.
         /// </summary>
-        public static string LocationsDbPath => _locationsDbPath.Value;
+        public static string LocationsDbPath => _initialized 
+            ? _locationsDbPath.Value 
+            : Error(ErrorConstants.ConfigNotInitialized);
+
 
         /// <summary>
         /// Initialize configuration.
@@ -28,13 +34,20 @@ namespace AdvertisingPlatforms.DAL.Configuration
         /// <param name="configuration">Configuration.</param>
         public static void Initialize(IConfiguration configuration)
         {
-            _advertisingPlatformsDbPath = new Lazy<string>(()=> 
-                configuration.GetSection("DataBases:AdvertisingPlatforms").Value ??
-                throw new BusinessException(ErrorConstants.ConfigurationRead));
+            if (_initialized) return;
 
-            _locationsDbPath = new Lazy<string>(()=> 
+            _advertisingPlatformsDbPath = new Lazy<string>(() =>
+                configuration.GetSection("DataBases:AdvertisingPlatforms").Value ??
+                Error(ErrorConstants.ConfigurationRead));
+
+            _locationsDbPath = new Lazy<string>(() =>
                 configuration.GetSection("DataBases:Locations").Value ??
-                throw new BusinessException(ErrorConstants.ConfigurationRead));
+                Error(ErrorConstants.ConfigurationRead));
+
+            _initialized = true;
         }
+
+        private static string Error(string message) => throw new BusinessException(message);
+
     }
 }

@@ -18,6 +18,7 @@
         public const string FileNoHaveSplitter = "File does not contain the necessary delimiters.";
         public const string FileHaveShortData = "File contains less than 5 characters.";
         public const string ServerError = "Server error.";
-        public const string ConfigurationRead = "Сouldn't read data from configuration file.";
+        public const string ConfigurationRead = "Couldn't read data from configuration file.";
+        public const string ConfigNotInitialized = "Configuration service has not been initialized.";
     }
 }

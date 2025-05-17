@@ -162,4 +162,7 @@
   <data name="Сouldn't read data from configuration file." xml:space="preserve">
     <value>Не удалось прочитать данные из файла конфигурации.</value>
   </data>
+  <data name="Сonfiguration service has not been initialized." xml:space="preserve">
+    <value>Сервис конфигурации не был инициализирован.</value>
+  </data>
 </root>

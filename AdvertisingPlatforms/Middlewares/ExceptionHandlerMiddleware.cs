@@ -1,9 +1,8 @@
-﻿using AdvertisingPlatforms.DAL.Resources;
-using AdvertisingPlatforms.Domain.Exeptions;
+﻿using AdvertisingPlatforms.Domain.Exeptions;
 using AdvertisingPlatforms.Domain.Models;
 using System.Net;
-using System.Text;
 using System.Text.Json;
+using AdvertisingPlatforms.DAL.Const;
 
 namespace AdvertisingPlatforms.Middlewares
 {
@@ -39,13 +38,9 @@ namespace AdvertisingPlatforms.Middlewares
 
         private async Task HandleExceptionAsync(HttpContext httpContext, Exception exception, HttpStatusCode httpStatusCode)
         {
-            string title = exception is BusinessException
-                ? RuLocalization.GetLocalizedMessage(exception.Message)
-                : exception.Message;
-
             ExceptionInfo exceptionInfo = new (
                 exception.GetType().Name,
-                title,
+                exception.Message,
                 httpContext.Request.Path,
                 GetDetails(exception, httpContext)
                 );
@@ -69,7 +64,10 @@ namespace AdvertisingPlatforms.Middlewares
                 {
                     exception = exception.InnerException;
 
-                    var innerExceptionInfo = $"{exception.Message}\n{exception.GetType().Name}\n{exception.StackTrace}";
+                    var innerExceptionInfo = 
+                                             $"{exception.Message}{FileConstants.RowsSplitter}" +
+                                             $"{exception.GetType().Name}{FileConstants.RowsSplitter}" +
+                                             $"{exception.StackTrace}";
 
                     details.Add(innerExceptionInfo);
                 }
