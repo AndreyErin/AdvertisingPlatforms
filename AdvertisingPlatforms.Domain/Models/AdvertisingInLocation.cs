@@ -5,7 +5,7 @@ namespace AdvertisingPlatforms.Domain.Models
     /// <summary>
     /// Model that displays the availability of advertising platforms for a location.
     /// </summary>
-    public class AdvertisingsInLocation: Resource
+    public class AdvertisingInLocation: Resource
     {
         /// <summary>
         /// ID of model.
@@ -26,7 +26,7 @@ namespace AdvertisingPlatforms.Domain.Models
         /// <param name="id">ID of model.</param>
         /// <param name="locationId">ID of location.</param>
         /// <param name="advertisingIds">IDs of advertising platforms  available for the location.</param>
-        public AdvertisingsInLocation(int id, int locationId, List<int> advertisingIds)
+        public AdvertisingInLocation(int id, int locationId, List<int> advertisingIds)
         {
             Id = id;
             LocationId = locationId;

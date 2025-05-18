@@ -29,19 +29,19 @@ namespace AdvertisingPlatforms.Business.Services.FileHandlingServices
             var locations = dictionaryFileContent
                 .Select((x, Index) => new Location(Index + 1) { Name = x.Key });
 
-            var advertisingsInLocation =
-                GetAdvertisingsInLocations(dictionaryFileContent, advertisingPlatforms, locations);
+            var advertisingInLocations =
+                GetAdvertisingInLocations(dictionaryFileContent, advertisingPlatforms, locations);
 
-            return new(advertisingsInLocation.ToList(),advertisingPlatforms.ToList(), locations.ToList());
+            return new(advertisingInLocations.ToList(),advertisingPlatforms.ToList(), locations.ToList());
         }
 
-        private IEnumerable<AdvertisingsInLocation> GetAdvertisingsInLocations(
+        private IEnumerable<AdvertisingInLocation> GetAdvertisingInLocations(
               IEnumerable<KeyValuePair<string,
               IEnumerable<string>>> dictionaryFileContent, 
               IEnumerable<AdvertisingPlatform> advertisingPlatforms, IEnumerable<Location> locations)
         {
             return dictionaryFileContent
-                .Select((x, Index) => new AdvertisingsInLocation(
+                .Select((x, Index) => new AdvertisingInLocation(
                     Index + 1,
                     locations.First(y=>y.Name == x.Key).Id,
                     advertisingPlatforms
@@ -74,10 +74,10 @@ namespace AdvertisingPlatforms.Business.Services.FileHandlingServices
         private IEnumerable<KeyValuePair<string, IEnumerable<string>>> AddAdditionalAdvertising(IEnumerable<KeyValuePair<string, IEnumerable<string>>> dictionaryData)
         {
             return dictionaryData
-                .Select(x => new KeyValuePair<string, IEnumerable<string>>(x.Key, GetAllAdvertisingsForLocation(x.Key, dictionaryData)));
+                .Select(x => new KeyValuePair<string, IEnumerable<string>>(x.Key, GetAllAdvertisingForLocation(x.Key, dictionaryData)));
         }
 
-        private IEnumerable<string> GetAllAdvertisingsForLocation(string locationName, IEnumerable<KeyValuePair<string, IEnumerable<string>>> dictionaryData)
+        private IEnumerable<string> GetAllAdvertisingForLocation(string locationName, IEnumerable<KeyValuePair<string, IEnumerable<string>>> dictionaryData)
         {
             return dictionaryData
                 .Where(x => locationName.Contains(x.Key))

@@ -9,9 +9,17 @@ namespace AdvertisingPlatforms.DAL.Configuration
     /// </summary>
     public static class DbConfig
     {
+        private static Lazy<string> _advertisingInLocationDbPath;
         private static Lazy<string> _advertisingPlatformsDbPath;
         private static Lazy<string> _locationsDbPath;
         private static bool _initialized = false;
+
+        /// <summary>
+        /// Path for database AdvertisingInLocation.
+        /// </summary>
+        public static string AdvertisingInLocationDbPath => _initialized
+            ? _advertisingInLocationDbPath.Value
+            : Error(ErrorConstants.ConfigNotInitialized);
 
         /// <summary>
         /// Path for database AdvertisingPlatforms.
@@ -27,6 +35,7 @@ namespace AdvertisingPlatforms.DAL.Configuration
             ? _locationsDbPath.Value 
             : Error(ErrorConstants.ConfigNotInitialized);
 
+        
 
         /// <summary>
         /// Initialize configuration.
@@ -35,6 +44,10 @@ namespace AdvertisingPlatforms.DAL.Configuration
         public static void Initialize(IConfiguration configuration)
         {
             if (_initialized) return;
+
+            _advertisingInLocationDbPath = new Lazy<string>(() =>
+                configuration.GetSection("DataBases:AdvertisingInLocation").Value ??
+                Error(ErrorConstants.ConfigurationRead));
 
             _advertisingPlatformsDbPath = new Lazy<string>(() =>
                 configuration.GetSection("DataBases:AdvertisingPlatforms").Value ??

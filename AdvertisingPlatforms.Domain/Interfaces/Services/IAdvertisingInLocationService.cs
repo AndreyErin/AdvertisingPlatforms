@@ -6,7 +6,7 @@ namespace AdvertisingPlatforms.Domain.Interfaces.Services
     /// <summary>
     /// 
     /// </summary>
-    public interface IAdvertisingsInLocationService: IReplaceData<AdvertisingsInLocation>
+    public interface IAdvertisingInLocationService: IReplaceData<AdvertisingInLocation>
     {
         /// <summary>
         /// Get advertising platform names for location.

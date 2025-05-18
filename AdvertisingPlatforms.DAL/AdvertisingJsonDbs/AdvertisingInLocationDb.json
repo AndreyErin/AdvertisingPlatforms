@@ -1,0 +1,59 @@
+[
+  {
+    "Id": 1,
+    "LocationId": 1,
+    "AdvertisingIds": [
+      1
+    ]
+  },
+  {
+    "Id": 2,
+    "LocationId": 2,
+    "AdvertisingIds": [
+      1,
+      2,
+      3
+    ]
+  },
+  {
+    "Id": 3,
+    "LocationId": 3,
+    "AdvertisingIds": [
+      1,
+      2,
+      3
+    ]
+  },
+  {
+    "Id": 4,
+    "LocationId": 4,
+    "AdvertisingIds": [
+      1,
+      4
+    ]
+  },
+  {
+    "Id": 5,
+    "LocationId": 5,
+    "AdvertisingIds": [
+      1,
+      4
+    ]
+  },
+  {
+    "Id": 6,
+    "LocationId": 6,
+    "AdvertisingIds": [
+      1,
+      4
+    ]
+  },
+  {
+    "Id": 7,
+    "LocationId": 7,
+    "AdvertisingIds": [
+      1,
+      3
+    ]
+  }
+]

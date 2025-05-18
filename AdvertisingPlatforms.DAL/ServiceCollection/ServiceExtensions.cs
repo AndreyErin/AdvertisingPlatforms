@@ -21,8 +21,9 @@ namespace AdvertisingPlatforms.DAL.ServiceCollection
             services.AddHostedService<ConfigInitializer>();
             services.AddScoped<IRepositoryReader, RepositoryReader>();
             services.AddScoped<IRepositoryWriter, RepositoryWriter>();
-            services.AddScoped<Repository<Location>, LocationsFileRepository>();
+            services.AddScoped<LocationsFileRepository>();
             services.AddScoped<Repository<AdvertisingPlatform>, AdvertisingPlatformsFileRepository>();
+            services.AddScoped<Repository<AdvertisingInLocation>, AdvertisingInLocationFileRepository>();
         }
     }
 }

@@ -7,17 +7,25 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="AdvertisingJsonDbs\AdvertisingInLocationDb.json" />
     <None Remove="AdvertisingJsonDbs\AdvertisingPlatformsDb.json" />
     <None Remove="AdvertisingJsonDbs\LocationsDb.json" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="AdvertisingJsonDbs\AdvertisingInLocationDb.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="AdvertisingJsonDbs\AdvertisingPlatformsDb.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="AdvertisingJsonDbs\LocationsDb.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Repositories\AdvertisingInLocationFileRepository.cs" />
   </ItemGroup>
 
   <ItemGroup>

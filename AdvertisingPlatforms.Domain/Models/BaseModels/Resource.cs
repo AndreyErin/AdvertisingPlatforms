@@ -9,11 +9,5 @@
         /// ID of resource.
         /// </summary>
         public abstract int Id { get; set; }
-
-
-        /// <summary>
-        /// Name of resource.
-        /// </summary>
-        public string Name { get; set; } = "";
     }
 }

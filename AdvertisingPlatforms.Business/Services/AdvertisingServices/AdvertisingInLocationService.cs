@@ -1,4 +1,5 @@
 ﻿using AdvertisingPlatforms.DAL.Const;
+using AdvertisingPlatforms.DAL.Repositories.Base;
 using AdvertisingPlatforms.Domain.Exeptions;
 using AdvertisingPlatforms.Domain.Interfaces.Services;
 using AdvertisingPlatforms.Domain.Models;
@@ -8,22 +9,18 @@ namespace AdvertisingPlatforms.Business.Services.AdvertisingServices
     /// <summary>
     /// Service for searching advertising platforms for a specific location.
     /// </summary>
-    public class AdvertisingsInLocationService : IAdvertisingsInLocationService
+    public class AdvertisingInLocationService : IAdvertisingInLocationService
     {
+        private readonly Repository<AdvertisingInLocation> _advertisingInLocationRepository;
         private readonly IAdvertisingPlatformsService _advertisingPlatformsService;
         private readonly ILocationsService _locationsService;
-        private static List<AdvertisingsInLocation> _thisRepo = new List<AdvertisingsInLocation>()
+
+        public AdvertisingInLocationService(
+            Repository<AdvertisingInLocation> advertisingInLocationRepository,
+            IAdvertisingPlatformsService advertisingPlatformsService, 
+            ILocationsService locationsService)
         {
-            new AdvertisingsInLocation(1, 1, [1]),
-            new AdvertisingsInLocation(2, 2, [1, 2, 3]),
-            new AdvertisingsInLocation(3, 3, [1, 2, 3]),
-            new AdvertisingsInLocation(4, 4, [1, 4]),
-            new AdvertisingsInLocation(5, 5, [1, 4]),
-            new AdvertisingsInLocation(6, 6, [1, 4]),
-            new AdvertisingsInLocation(7, 7, [1, 3]),
-        };
-        public AdvertisingsInLocationService(IAdvertisingPlatformsService advertisingPlatformsService, ILocationsService locationsService)
-        {
+            _advertisingInLocationRepository = advertisingInLocationRepository;
             _advertisingPlatformsService = advertisingPlatformsService;
             _locationsService = locationsService;
         }
@@ -38,11 +35,11 @@ namespace AdvertisingPlatforms.Business.Services.AdvertisingServices
         {
             try
             {
-                var locationId = _locationsService.GetByName(locationName)?.Id;
+                var locationId = (int)_locationsService.GetByName(locationName)?.Id;
 
-                var advertisingsInLocation = _thisRepo.Find(x => x.LocationId == locationId);
+                var advertisingInLocation = _advertisingInLocationRepository.GetByIdFromRepository(locationId);
 
-                return advertisingsInLocation?.AdvertisingIds
+                return advertisingInLocation?.AdvertisingIds
                     .Select(x=> _advertisingPlatformsService.GetById(x).Name)
                     .ToList();
             }
@@ -54,10 +51,10 @@ namespace AdvertisingPlatforms.Business.Services.AdvertisingServices
             }
         }
 
-        public int ReplaceRepository(IReadOnlyList<AdvertisingsInLocation> newEntitiesList)
+        public int ReplaceRepository(IReadOnlyList<AdvertisingInLocation> newEntitiesList)
         {
-            _thisRepo = (List<AdvertisingsInLocation>)newEntitiesList;
-            return _thisRepo.Count;
+            _advertisingInLocationRepository.ReplaceRepository(newEntitiesList);
+            return newEntitiesList.Count;
         }
     }
 }

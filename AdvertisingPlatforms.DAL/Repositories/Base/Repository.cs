@@ -12,9 +12,9 @@ namespace AdvertisingPlatforms.DAL.Repositories.Base
     /// <typeparam name="TResource">Resource.</typeparam>
     public class Repository<TResource> where TResource: Resource
     {
-        private readonly FileRepository<TResource> _repository;
-        private readonly IRepositoryReader _repositoryReader;
-        private readonly IRepositoryWriter _repositoryWriter;
+        protected readonly FileRepository<TResource> _repository;
+        protected readonly IRepositoryReader _repositoryReader;
+        protected readonly IRepositoryWriter _repositoryWriter;
         public Repository(IRepositoryReader repositoryReader, IRepositoryWriter repositoryWriter)
         {
             _repositoryReader = repositoryReader;
@@ -30,6 +30,7 @@ namespace AdvertisingPlatforms.DAL.Repositories.Base
             {
                 "Location" => DbConfig.LocationsDbPath,
                 "AdvertisingPlatform" => DbConfig.AdvertisingPlatformsDbPath,
+                "AdvertisingInLocation" => DbConfig.AdvertisingInLocationDbPath,
                 _ => throw new ArgumentOutOfRangeException()
             };
         }
@@ -70,16 +71,6 @@ namespace AdvertisingPlatforms.DAL.Repositories.Base
         public List<TResource> GetByIdFromRepository(List<int> ids)
         {
             return _repository.GetByIdFromRepository(ids, _repositoryReader);
-        }
-
-        /// <summary>
-        /// Get entity by name form repository.
-        /// </summary>
-        /// <param name="name">name of entity.</param>
-        /// <returns>Entity for success, null for fail</returns>
-        public TResource? GetByNameFromRepository(string name)
-        {
-            return _repository.GetByNameFromRepository(name, _repositoryReader);
         }
 
         /// <summary>

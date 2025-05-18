@@ -6,12 +6,12 @@
     public class AdvertisingInformation
     {
         /// <summary>
-        /// Collection advertisingsInLocations.
+        /// Collection advertisingInLocations.
         /// </summary>
-        public IReadOnlyList<AdvertisingsInLocation> AdvertisingsInLocations { get; }
+        public IReadOnlyList<AdvertisingInLocation> AdvertisingInLocations { get; }
 
         /// <summary>
-        /// Collection advertisings.
+        /// Collection advertising.
         /// </summary>
         public IReadOnlyList<AdvertisingPlatform> AdvertisingPlatforms { get; }
 
@@ -23,15 +23,15 @@
         /// <summary>
         /// Create new model.
         /// </summary>
-        /// <param name="advertisingsInLocations">Collection AdvertisinsInLocation</param>
-        /// <param name="advertisingPlatforms">Collection advertisings.</param>
+        /// <param name="advertisingInLocations">Collection AdvertisingInLocation</param>
+        /// <param name="advertisingPlatforms">Collection advertising.</param>
         /// <param name="locations">Collection locations.</param>
         public AdvertisingInformation( 
-            IReadOnlyList<AdvertisingsInLocation> advertisingsInLocations, 
+            IReadOnlyList<AdvertisingInLocation> advertisingInLocations, 
             IReadOnlyList<AdvertisingPlatform> advertisingPlatforms, 
             IReadOnlyList<Location> locations)
         {
-            AdvertisingsInLocations = advertisingsInLocations;
+            AdvertisingInLocations = advertisingInLocations;
             AdvertisingPlatforms = advertisingPlatforms;
             Locations = locations;
         }

@@ -11,7 +11,7 @@ namespace AdvertisingPlatforms.DAL.FileAccess
     /// <typeparam name="TResource">Resource</typeparam>
     public class FileRepository<TResource> where TResource : Resource
     {
-        private readonly string _filePath;
+        public readonly string _filePath;
 
         public FileRepository(string filePath)
         {
@@ -69,17 +69,6 @@ namespace AdvertisingPlatforms.DAL.FileAccess
         public List<TResource> GetByIdFromRepository(List<int> ids, IRepositoryReader repositoryReader)
         {
             return repositoryReader.GetAllFromFile<TResource>(_filePath).Where(x => ids.Contains(x.Id)).ToList();
-        }
-
-        /// <summary>
-        /// Get entity by name form repository.
-        /// </summary>
-        /// <param name="name">name of entity.</param>
-        /// <param name="repositoryReader">Reader for repository.</param>
-        /// <returns>Entity for success, null for fail</returns>
-        public TResource? GetByNameFromRepository(string name, IRepositoryReader repositoryReader)
-        {
-            return repositoryReader.GetAllFromFile<TResource>(_filePath).Find(x => x.Name == name);
         }
 
         /// <summary>

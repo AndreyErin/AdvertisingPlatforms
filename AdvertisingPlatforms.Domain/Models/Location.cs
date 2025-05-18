@@ -12,6 +12,12 @@ namespace AdvertisingPlatforms.Domain.Models
         /// </summary>
         public sealed override int Id { get; set; }
 
+
+        /// <summary>
+        /// Name of location.
+        /// </summary>
+        public string Name { get; set; } = "";
+
         /// <summary>
         /// Create location.
         /// </summary>

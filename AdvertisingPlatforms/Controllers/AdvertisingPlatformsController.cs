@@ -11,14 +11,14 @@ namespace AdvertisingPlatforms.Controllers
     [Route("/api/v1/[controller]")]
     public class AdvertisingPlatformsController : Controller
     {
-        private readonly IAdvertisingsInLocationService _advertisingsInLocationService;
+        private readonly IAdvertisingInLocationService _advertisingsInLocationService;
         private readonly IAdvertisingPlatformsService _advertisitngPlatformsService;
         private readonly ILocationsService _locationsService;
         private readonly IFileReader _reader;
         private const string PrefLocationName = @"/";
 
         public AdvertisingPlatformsController(
-            IAdvertisingsInLocationService advertisingsInLocationService,
+            IAdvertisingInLocationService advertisingsInLocationService,
             IAdvertisingPlatformsService platformsService,
             ILocationsService locationsService,
             IFileReader reader)
@@ -63,7 +63,7 @@ namespace AdvertisingPlatforms.Controllers
 
             if (data?.AdvertisingPlatforms.Count > 0)
             {
-                _advertisingsInLocationService.ReplaceRepository(data.AdvertisingsInLocations);
+                _advertisingsInLocationService.ReplaceRepository(data.AdvertisingInLocations);
                 var countAdvertisingPlatforms = _advertisitngPlatformsService.ReplaceRepository(data.AdvertisingPlatforms);
                 var countLocations = _locationsService.ReplaceRepository(data.Locations);
 
