@@ -2,7 +2,6 @@
 using AdvertisingPlatforms.Domain.Models;
 using System.Net;
 using System.Text.Json;
-using AdvertisingPlatforms.DAL.Const;
 
 namespace AdvertisingPlatforms.Middlewares
 {
@@ -41,9 +40,10 @@ namespace AdvertisingPlatforms.Middlewares
             ExceptionInfo exceptionInfo = new (
                 exception.GetType().Name,
                 exception.Message,
-                httpContext.Request.Path,
-                GetDetails(exception, httpContext)
+                httpContext.Request.Path
                 );
+
+            AddDetailsForDevelopment(exception, exceptionInfo);
 
             httpContext.Response.ContentType = "application/json";
             httpContext.Response.StatusCode = (int)httpStatusCode;
@@ -52,31 +52,23 @@ namespace AdvertisingPlatforms.Middlewares
                     new JsonSerializerOptions { WriteIndented = true }));
         }
 
-        private List<string?>? GetDetails(Exception exception, HttpContext httpContext)
+        private void AddDetailsForDevelopment(Exception exception, ExceptionInfo exceptionInfo)
         {
             if (_environment.IsDevelopment())
             {
-                List<string?> details = new();
-
-                details.Add(exception.StackTrace);
+                exceptionInfo.StackTrace = exception.StackTrace;
 
                 while (exception.InnerException != null)
                 {
                     exception = exception.InnerException;
+                    exceptionInfo.InnerExceptionInfo = new(
+                        exception.GetType().Name,
+                        exception.Message,
+                        stackTrace: exception.StackTrace
+                        );
 
-                    var innerExceptionInfo = 
-                                             $"{exception.Message}{FileConstants.RowsSplitter}" +
-                                             $"{exception.GetType().Name}{FileConstants.RowsSplitter}" +
-                                             $"{exception.StackTrace}";
-
-                    details.Add(innerExceptionInfo);
+                    exceptionInfo = exceptionInfo.InnerExceptionInfo;
                 }
-
-                return details;
-            }
-            else
-            {
-                return null;
             }
         }
     }

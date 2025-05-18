@@ -12,15 +12,21 @@
         /// <summary>
         /// EndPoint exception.
         /// </summary>
-        public string EndPoint { get; }
+        public string? EndPoint { get; }
         /// <summary>
         /// Type exception.
         /// </summary>
         public string Type { get; }
         /// <summary>
-        /// Details exception.
+        /// StackTrace exception.
         /// </summary>
-        public List<string?>? Details { get; }
+        public string? StackTrace { get; set; }
+
+        /// <summary>
+        /// Inner exception.
+        /// </summary>
+        public ExceptionInfo? InnerExceptionInfo { get; set; }
+
 
         /// <summary>
         /// Create information about exception.
@@ -28,13 +34,14 @@
         /// <param name="type"></param>
         /// <param name="title"></param>
         /// <param name="endPoint"></param>
-        /// <param name="details"></param>
-        public ExceptionInfo(string type, string title, string endPoint,  List<string?>? details = null)
+        /// <param name="stackTrace"></param>
+        public ExceptionInfo(string type, string title, string? endPoint = null,  string? stackTrace = null)
         {
             Title = title;
             EndPoint = endPoint;
             Type = type;
-            Details = details;
+            StackTrace = stackTrace;
+            InnerExceptionInfo = null;
         }
     }
 }
