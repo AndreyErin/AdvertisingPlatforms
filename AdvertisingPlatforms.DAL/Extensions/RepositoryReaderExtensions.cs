@@ -1,8 +1,9 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using AdvertisingPlatforms.Domain.Models.BaseModels;
 using System.Text.Json;
+using AdvertisingPlatforms.DAL.FileAccess;
 
-namespace AdvertisingPlatforms.DAL.FileAccess.Extensions
+namespace AdvertisingPlatforms.DAL.Extensions
 {
     public static class RepositoryReaderExtensions
     {

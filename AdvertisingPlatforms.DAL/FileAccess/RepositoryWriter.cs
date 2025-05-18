@@ -19,11 +19,6 @@ namespace AdvertisingPlatforms.DAL.FileAccess
         {
             try
             {
-                if (string.IsNullOrEmpty(filePath))
-                    throw new ArgumentException(ErrorConstants.Argument + " - " + nameof(filePath));
-                if (newDataForDb.Count == 0) 
-                    throw new ArgumentException(ErrorConstants.Argument + " - " + nameof(newDataForDb));
-
                 var newDbJson = JsonSerializer.Serialize(newDataForDb, new JsonSerializerOptions() { WriteIndented = true });
 
                 using StreamWriter sw = new StreamWriter(Path.Combine(AppContext.BaseDirectory, filePath), false);

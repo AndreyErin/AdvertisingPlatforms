@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using AdvertisingPlatforms.DAL.Configuration;
+﻿using AdvertisingPlatforms.DAL.Configuration;
 using AdvertisingPlatforms.DAL.FileAccess;
 using AdvertisingPlatforms.DAL.Interfaces;
 using AdvertisingPlatforms.Domain.Models.BaseModels;
@@ -12,16 +11,16 @@ namespace AdvertisingPlatforms.DAL.Repositories.Base
     /// <typeparam name="TResource">Resource.</typeparam>
     public class Repository<TResource> where TResource: Resource
     {
-        protected readonly FileRepository<TResource> _repository;
-        protected readonly IRepositoryReader _repositoryReader;
+        public readonly FileRepository<TResource> FileRepository;
+        public readonly IRepositoryReader RepositoryReader;
         protected readonly IRepositoryWriter _repositoryWriter;
         public Repository(IRepositoryReader repositoryReader, IRepositoryWriter repositoryWriter)
         {
-            _repositoryReader = repositoryReader;
+            RepositoryReader = repositoryReader;
             _repositoryWriter = repositoryWriter;
 
             var filePath = GetFilePath();
-            _repository = new FileRepository<TResource>(filePath);
+            FileRepository = new FileRepository<TResource>(filePath);
         }
 
         private static string GetFilePath()
@@ -41,7 +40,7 @@ namespace AdvertisingPlatforms.DAL.Repositories.Base
         /// <param name="entity"></param>
         public void AddToRepository(TResource entity)
         {
-            _repository.AddToRepository(entity, _repositoryReader, _repositoryWriter);
+            FileRepository.AddToRepository(entity, RepositoryReader, _repositoryWriter);
         }
 
         /// <summary>
@@ -50,7 +49,7 @@ namespace AdvertisingPlatforms.DAL.Repositories.Base
         /// <param name="id">id of entity.</param>
         public void DeleteFromRepository(int id)
         {
-            _repository.DeleteFromRepository(id, _repositoryReader, _repositoryWriter);
+            FileRepository.DeleteFromRepository(id, RepositoryReader, _repositoryWriter);
         }
 
         /// <summary>
@@ -60,7 +59,7 @@ namespace AdvertisingPlatforms.DAL.Repositories.Base
         /// <returns>Entity for success, null for fail.</returns>
         public TResource? GetByIdFromRepository(int id)
         {
-            return _repository.GetByIdFromRepository(id, _repositoryReader);
+            return FileRepository.GetByIdFromRepository(id, RepositoryReader);
         }
 
         /// <summary>
@@ -70,7 +69,7 @@ namespace AdvertisingPlatforms.DAL.Repositories.Base
         /// <returns>List of entities for success, null for fail.</returns>
         public List<TResource> GetByIdFromRepository(List<int> ids)
         {
-            return _repository.GetByIdFromRepository(ids, _repositoryReader);
+            return FileRepository.GetByIdFromRepository(ids, RepositoryReader);
         }
 
         /// <summary>
@@ -79,7 +78,7 @@ namespace AdvertisingPlatforms.DAL.Repositories.Base
         /// <param name="entities">New entities for overwrite repository.</param>
         public void ReplaceRepository(IReadOnlyList<TResource> entities)
         {
-            _repository.ReplaceRepository(entities, _repositoryWriter);
+            FileRepository.ReplaceRepository(entities, _repositoryWriter);
         }
 
         /// <summary>
@@ -88,7 +87,7 @@ namespace AdvertisingPlatforms.DAL.Repositories.Base
         /// <param name="entity">Entity for update.</param>
         public void UpdateInRepository(TResource entity)
         {
-            _repository.UpdateInRepository(entity, _repositoryReader, _repositoryWriter);
+            FileRepository.UpdateInRepository(entity, RepositoryReader, _repositoryWriter);
         }
     }
 }

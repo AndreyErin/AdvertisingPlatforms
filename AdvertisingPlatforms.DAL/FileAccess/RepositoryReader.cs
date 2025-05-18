@@ -1,6 +1,6 @@
 ﻿using AdvertisingPlatforms.DAL.Const;
+using AdvertisingPlatforms.DAL.Extensions;
 using AdvertisingPlatforms.Domain.Models.BaseModels;
-using AdvertisingPlatforms.DAL.FileAccess.Extensions;
 using AdvertisingPlatforms.DAL.Interfaces;
 using AdvertisingPlatforms.Domain.Exeptions;
 

@@ -1,5 +1,7 @@
 ﻿using AdvertisingPlatforms.DAL.Const;
+using AdvertisingPlatforms.DAL.Extensions;
 using AdvertisingPlatforms.DAL.Repositories;
+using AdvertisingPlatforms.DAL.Repositories.Base;
 using AdvertisingPlatforms.Domain.Exeptions;
 using AdvertisingPlatforms.Domain.Interfaces.Services;
 using AdvertisingPlatforms.Domain.Models;
@@ -11,9 +13,9 @@ namespace AdvertisingPlatforms.Business.Services.AdvertisingServices
     /// </summary>
     public class LocationsService : ILocationsService
     {
-        private readonly LocationsFileRepository _locationRepository;
+        private readonly Repository<Location> _locationRepository;
 
-        public LocationsService(LocationsFileRepository locationRepository)
+        public LocationsService(Repository<Location> locationRepository)
         {
             _locationRepository = locationRepository;
         }
