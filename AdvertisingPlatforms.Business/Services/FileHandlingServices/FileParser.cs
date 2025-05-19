@@ -19,28 +19,28 @@ namespace AdvertisingPlatforms.Business.Services.FileHandlingServices
         /// <returns>Data.</returns>
         public AdvertisingInformation GetParseData(string fileContent)
         {
-            var dictionaryFileContent = GetDictionaryFileContent(fileContent);
+            var sortFileContent = GetSortFileContent(fileContent);
 
-            var advertisingPlatforms = dictionaryFileContent
+            var advertisingPlatforms = sortFileContent
                 .SelectMany(x => x.Value)
                 .Distinct()
                 .Select((x, Index) => new AdvertisingPlatform(Index + 1) { Name = x });
 
-            var locations = dictionaryFileContent
+            var locations = sortFileContent
                 .Select((x, Index) => new Location(Index + 1) { Name = x.Key });
 
             var advertisingInLocations =
-                GetAdvertisingInLocations(dictionaryFileContent, advertisingPlatforms, locations);
+                GetAdvertisingInLocations(sortFileContent, advertisingPlatforms, locations);
 
             return new(advertisingInLocations.ToList(),advertisingPlatforms.ToList(), locations.ToList());
         }
 
         private IEnumerable<AdvertisingInLocation> GetAdvertisingInLocations(
               IEnumerable<KeyValuePair<string,
-              IEnumerable<string>>> dictionaryFileContent, 
+              IEnumerable<string>>> sortFileContent, 
               IEnumerable<AdvertisingPlatform> advertisingPlatforms, IEnumerable<Location> locations)
         {
-            return dictionaryFileContent
+            return sortFileContent
                 .Select((x, Index) => new AdvertisingInLocation(
                     Index + 1,
                     locations.First(y=>y.Name == x.Key).Id,
@@ -50,9 +50,9 @@ namespace AdvertisingPlatforms.Business.Services.FileHandlingServices
                 ));
         }
 
-        private IEnumerable<KeyValuePair<string, IEnumerable<string>>> GetDictionaryFileContent(string fileContent)
+        private IEnumerable<KeyValuePair<string, IEnumerable<string>>> GetSortFileContent(string fileContent)
         {
-            var dictionaryFileContent = fileContent
+            var sortFileContent = fileContent
                 .Split(FileConstants.RowsSplitter)
                 .Where(x => _regex.IsMatch(x))
                 .Select(x => x.Split(FileConstants.Splitter))
@@ -62,7 +62,7 @@ namespace AdvertisingPlatforms.Business.Services.FileHandlingServices
                 )
                 .SelectMany(x => x);
 
-            return AddAdditionalAdvertising(dictionaryFileContent);
+            return AddAdditionalAdvertising(sortFileContent);
         }
 
         private IEnumerable<KeyValuePair<string, IEnumerable<string>>> AddDirectAdvertising(string advertisingPlatformName, IEnumerable<string> locationNames)
@@ -71,15 +71,15 @@ namespace AdvertisingPlatforms.Business.Services.FileHandlingServices
                 .Select(x => new KeyValuePair<string,IEnumerable<string>>(x, [advertisingPlatformName]));
         }
 
-        private IEnumerable<KeyValuePair<string, IEnumerable<string>>> AddAdditionalAdvertising(IEnumerable<KeyValuePair<string, IEnumerable<string>>> dictionaryData)
+        private IEnumerable<KeyValuePair<string, IEnumerable<string>>> AddAdditionalAdvertising(IEnumerable<KeyValuePair<string, IEnumerable<string>>> sortFileContent)
         {
-            return dictionaryData
-                .Select(x => new KeyValuePair<string, IEnumerable<string>>(x.Key, GetAllAdvertisingForLocation(x.Key, dictionaryData)));
+            return sortFileContent
+                .Select(x => new KeyValuePair<string, IEnumerable<string>>(x.Key, GetAllAdvertisingForLocation(x.Key, sortFileContent)));
         }
 
-        private IEnumerable<string> GetAllAdvertisingForLocation(string locationName, IEnumerable<KeyValuePair<string, IEnumerable<string>>> dictionaryData)
+        private IEnumerable<string> GetAllAdvertisingForLocation(string locationName, IEnumerable<KeyValuePair<string, IEnumerable<string>>> sortFileContent)
         {
-            return dictionaryData
+            return sortFileContent
                 .Where(x => locationName.Contains(x.Key))
                 .Select(x => x.Value.First())
                 .Distinct();
