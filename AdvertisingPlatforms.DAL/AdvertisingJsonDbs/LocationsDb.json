@@ -1,0 +1,30 @@
+[
+  {
+    "Id": 1,
+    "Name": "/ru"
+  },
+  {
+    "Id": 2,
+    "Name": "/ru/svrd/revda"
+  },
+  {
+    "Id": 3,
+    "Name": "/ru/svrd/pervik"
+  },
+  {
+    "Id": 4,
+    "Name": "/ru/msk"
+  },
+  {
+    "Id": 5,
+    "Name": "/ru/permobl"
+  },
+  {
+    "Id": 6,
+    "Name": "/ru/chelobl"
+  },
+  {
+    "Id": 7,
+    "Name": "/ru/svrd"
+  }
+]

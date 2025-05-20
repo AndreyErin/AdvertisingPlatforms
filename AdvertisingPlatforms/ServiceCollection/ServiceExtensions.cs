@@ -1,23 +1,27 @@
-﻿using AdvertisingPlatforms.DAL.Repositories;
-using AdvertisingPlatforms.Domain.Interfaces;
-using AdvertisingPlatforms.Domain.Models;
-using AdvertisingPlatforms.Domain.Services;
-
-namespace AdvertisingPlatforms.ServiceCollection
+﻿namespace AdvertisingPlatforms.ServiceCollection
 {
+    /// <summary>
+    /// Extensions for service collection.
+    /// </summary>
     public static class ServiceExtensions
     {
         /// <summary>
-        /// Method for registration collection of service
+        /// Method for registration file services
         /// </summary>
-        public static IServiceCollection AddServices(this IServiceCollection services)
+        public static void AddSwaggerServices(this IServiceCollection services)
         {
-            services.AddScoped<IAdvertisingPlatformsService, AdvertisingPlatformsService>();
-            services.AddScoped<IReader, FileReader>();
-            services.AddScoped<FileRepository<Location>, LocationsFileRepository>();
-            services.AddScoped<FileRepository<AdvertisingPlatform>, AdvertisingPlatformsFileRepository>();
+            services.AddEndpointsApiExplorer();
 
-            return services;
+            services.AddSwaggerGen(options =>
+            {
+                var xmlFile = @"AdvertisingPlatforms.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                options.IncludeXmlComments(xmlPath);
+
+                var xmlFileDomain = @"AdvertisingPlatforms.Domain.xml";
+                var xmlPathDomain = Path.Combine(AppContext.BaseDirectory, xmlFileDomain);
+                options.IncludeXmlComments(xmlPathDomain);
+            });
         }
     }
 }
